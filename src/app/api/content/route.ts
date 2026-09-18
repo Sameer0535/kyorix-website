@@ -4,9 +4,20 @@ import path from "path";
 import defaultContent from "@/data/default-content.json";
 
 const CONTENT_FILE_PATH = path.join(process.cwd(), "src", "data", "site-content.json");
+const TMP_CONTENT_PATH = path.join("/tmp", "site-content.json");
 
 export async function GET() {
   try {
+    // 1. Check /tmp if running in serverless / Vercel
+    if (fs.existsSync(TMP_CONTENT_PATH)) {
+      try {
+        const raw = fs.readFileSync(TMP_CONTENT_PATH, "utf-8");
+        const data = JSON.parse(raw);
+        return NextResponse.json({ success: true, data, source: "tmp_persisted" });
+      } catch (_) {}
+    }
+
+    // 2. Check source tree file
     if (fs.existsSync(CONTENT_FILE_PATH)) {
       const raw = fs.readFileSync(CONTENT_FILE_PATH, "utf-8");
       const data = JSON.parse(raw);
@@ -26,29 +37,33 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: false, error: "Invalid payload" }, { status: 400 });
     }
 
-    // In serverless environments like Vercel, the source tree is read-only.
-    // Try writing to primary path, with /tmp fallback for ephemeral serverless state.
+    const payload = {
+      ...body,
+      _lastSaved: body._lastSaved || Date.now(),
+    };
+
+    let savedLocally = false;
+    // Attempt writing to primary path
     try {
       const dir = path.dirname(CONTENT_FILE_PATH);
       if (!fs.existsSync(dir)) {
         fs.mkdirSync(dir, { recursive: true });
       }
-      fs.writeFileSync(CONTENT_FILE_PATH, JSON.stringify(body, null, 2), "utf-8");
-    } catch (fsError: any) {
-      if (fsError?.code === "EROFS" || process.env.VERCEL) {
-        const tmpPath = path.join("/tmp", "site-content.json");
-        try {
-          fs.writeFileSync(tmpPath, JSON.stringify(body, null, 2), "utf-8");
-        } catch (_) {}
-        return NextResponse.json({
-          success: true,
-          message: "Content synchronized (saved to client session & serverless memory)",
-          readOnlyEnv: true,
-        });
-      }
-      throw fsError;
-    }
-    return NextResponse.json({ success: true, message: "Content updated successfully" });
+      fs.writeFileSync(CONTENT_FILE_PATH, JSON.stringify(payload, null, 2), "utf-8");
+      savedLocally = true;
+    } catch (_) {}
+
+    // Always attempt writing to /tmp as well for serverless runtime
+    try {
+      fs.writeFileSync(TMP_CONTENT_PATH, JSON.stringify(payload, null, 2), "utf-8");
+    } catch (_) {}
+
+    return NextResponse.json({
+      success: true,
+      message: "Content updated successfully",
+      savedLocally,
+      lastSaved: payload._lastSaved,
+    });
   } catch (error: any) {
     console.error("Error writing content file:", error);
     return NextResponse.json(
@@ -63,6 +78,9 @@ export async function DELETE() {
     if (fs.existsSync(CONTENT_FILE_PATH)) {
       fs.unlinkSync(CONTENT_FILE_PATH);
     }
+    if (fs.existsSync(TMP_CONTENT_PATH)) {
+      fs.unlinkSync(TMP_CONTENT_PATH);
+    }
     return NextResponse.json({ success: true, message: "Reset to default content successfully" });
   } catch (error: any) {
     console.error("Error deleting content file:", error);
@@ -72,3 +90,4 @@ export async function DELETE() {
     );
   }
 }
+

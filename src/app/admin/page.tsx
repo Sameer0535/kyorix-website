@@ -251,7 +251,7 @@ export default function AdminPortalPage() {
   };
 
   const handleSaveAll = async () => {
-    const success = await saveContent();
+    const success = await saveContent(content);
     if (success) {
       showToast("All changes saved and synchronized successfully!");
     } else {

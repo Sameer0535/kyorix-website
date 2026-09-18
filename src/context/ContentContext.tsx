@@ -24,8 +24,14 @@ const ADMIN_SESSION_KEY = "kyorix_admin_auth_token";
 
 const ContentContext = createContext<ContentContextType | null>(null);
 
-export function SiteContentProvider({ children }: { children: React.ReactNode }) {
-  const [content, setContent] = useState<SiteContent>(defaultContentData);
+export function SiteContentProvider({
+  children,
+  initialData,
+}: {
+  children: React.ReactNode;
+  initialData?: SiteContent;
+}) {
+  const [content, setContent] = useState<SiteContent>(initialData || defaultContentData);
   const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
   const [isSaving, setIsSaving] = useState<boolean>(false);
   const [lastSaved, setLastSaved] = useState<Date | null>(null);
@@ -42,34 +48,53 @@ export function SiteContentProvider({ children }: { children: React.ReactNode })
         }
       }
 
+      // 1. Immediately hydrate from localStorage if available
+      let localData: any = null;
+      if (typeof window !== "undefined") {
+        try {
+          const cached = localStorage.getItem(LOCAL_STORAGE_KEY);
+          if (cached) {
+            localData = JSON.parse(cached);
+            if (localData) {
+              setContent(localData);
+            }
+          }
+        } catch (e) {
+          console.error("Failed to parse cached content", e);
+        }
+      }
+
+      // 2. Fetch server content and reconcile by timestamp
       try {
-        const res = await fetch("/api/content", { cache: "no-store" });
+        const res = await fetch("/api/content?t=" + Date.now(), { cache: "no-store" });
         if (res.ok) {
           const json = await res.json();
           if (json?.data) {
-            setContent(json.data);
-            if (typeof window !== "undefined") {
-              localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(json.data));
+            const serverData = json.data;
+            const serverTime = Number(serverData?._lastSaved) || 0;
+            const localTime = Number(localData?._lastSaved) || 0;
+
+            if (serverTime >= localTime || !localData) {
+              setContent(serverData);
+              if (typeof window !== "undefined") {
+                localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(serverData));
+              }
+            } else if (localTime > serverTime) {
+              // Local edits are newer; push to server API so server catches up
+              fetch("/api/content", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(localData),
+              }).catch(() => {});
             }
             setHasHydrated(true);
             return;
           }
         }
       } catch (err) {
-        console.warn("Could not fetch server content, falling back to client cache", err);
+        console.warn("Could not fetch server content, using local cache", err);
       }
 
-      // Client storage fallback
-      if (typeof window !== "undefined") {
-        const cached = localStorage.getItem(LOCAL_STORAGE_KEY);
-        if (cached) {
-          try {
-            setContent(JSON.parse(cached));
-          } catch (e) {
-            console.error("Failed to parse cached content", e);
-          }
-        }
-      }
       setHasHydrated(true);
     }
 
@@ -97,6 +122,7 @@ export function SiteContentProvider({ children }: { children: React.ReactNode })
             ...prev[section],
             ...data,
           },
+          _lastSaved: Date.now(),
         };
         if (typeof window !== "undefined") {
           localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(updated));
@@ -108,16 +134,31 @@ export function SiteContentProvider({ children }: { children: React.ReactNode })
   );
 
   const updateWholeContent = useCallback((newContent: SiteContent) => {
-    setContent(newContent);
+    const withTimestamp = {
+      ...newContent,
+      _lastSaved: Date.now(),
+    };
+    setContent(withTimestamp as SiteContent);
     if (typeof window !== "undefined") {
-      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(newContent));
+      localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(withTimestamp));
     }
   }, []);
 
   const saveContent = useCallback(
     async (customContent?: SiteContent) => {
       setIsSaving(true);
-      const dataToSave = customContent || content;
+      const timestamp = Date.now();
+      const rawData = customContent || content;
+      const dataToSave = {
+        ...rawData,
+        _lastSaved: timestamp,
+      };
+
+      setContent(dataToSave as SiteContent);
+      if (typeof window !== "undefined") {
+        localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataToSave));
+      }
+
       try {
         const res = await fetch("/api/content", {
           method: "POST",
@@ -126,9 +167,6 @@ export function SiteContentProvider({ children }: { children: React.ReactNode })
         });
 
         if (res.ok) {
-          if (typeof window !== "undefined") {
-            localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(dataToSave));
-          }
           setLastSaved(new Date());
           setIsSaving(false);
           return true;
@@ -141,6 +179,7 @@ export function SiteContentProvider({ children }: { children: React.ReactNode })
     },
     [content]
   );
+
 
   const resetSection = useCallback(
     async (section: keyof SiteContent) => {

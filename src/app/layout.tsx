@@ -3,6 +3,9 @@ import { Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { SiteContentProvider } from "@/context/ContentContext";
 import { AppShell } from "@/components/layout/AppShell";
+import fs from "fs";
+import path from "path";
+import defaultContent from "@/data/default-content.json";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,18 +69,36 @@ export const metadata: Metadata = {
   },
 };
 
+function getInitialContent() {
+  try {
+    const tmpPath = path.join("/tmp", "site-content.json");
+    if (fs.existsSync(tmpPath)) {
+      const raw = fs.readFileSync(tmpPath, "utf-8");
+      return JSON.parse(raw);
+    }
+    const filePath = path.join(process.cwd(), "src", "data", "site-content.json");
+    if (fs.existsSync(filePath)) {
+      const raw = fs.readFileSync(filePath, "utf-8");
+      return JSON.parse(raw);
+    }
+  } catch (_) {}
+  return defaultContent;
+}
+
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const initialContent = getInitialContent();
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
       <body className="bg-[#08090C] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-kyorix-blue selection:text-white">
-        <SiteContentProvider>
+        <SiteContentProvider initialData={initialContent}>
           <AppShell>{children}</AppShell>
         </SiteContentProvider>
       </body>
     </html>
   );
 }
+

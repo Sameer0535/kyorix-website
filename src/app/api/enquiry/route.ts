@@ -171,6 +171,34 @@ Inquiry ID: ${newEnquiry.id}
       }
     }
 
+    // Optional Web3Forms instant email dispatch
+    const web3formsKey = process.env.WEB3FORMS_KEY;
+    if (web3formsKey) {
+      try {
+        await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          headers: { "Content-Type": "application/json", Accept: "application/json" },
+          body: JSON.stringify({
+            access_key: web3formsKey,
+            subject: `⚡ [New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`,
+            from_name: "Kyorix Competition Website",
+            name: newEnquiry.fullName,
+            email: newEnquiry.email,
+            phone: newEnquiry.phone,
+            organization: newEnquiry.organization,
+            designation: newEnquiry.designation,
+            sport: newEnquiry.sport,
+            interest: newEnquiry.interest,
+            category: newEnquiry.category,
+            message: newEnquiry.message,
+            ticket_id: newEnquiry.id,
+          }),
+        });
+      } catch (wErr) {
+        console.error("Failed to dispatch via Web3Forms:", wErr);
+      }
+    }
+
     return NextResponse.json({
       success: true,
       message: "Inquiry logged successfully",

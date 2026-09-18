@@ -646,6 +646,60 @@ export default function AdminPortalPage() {
                 </div>
               </div>
 
+              {/* Notification Email Routing Settings Box */}
+              <div className="p-4 bg-[#0D1117] border border-[#1E2638] rounded-xl space-y-3">
+                <div className="flex flex-wrap items-center justify-between gap-2">
+                  <div className="flex items-center gap-2 text-xs font-mono font-bold text-white uppercase">
+                    <Mail className="w-4 h-4 text-kyorix-blue" />
+                    <span>Inquiry Notification Dispatch Email Routing</span>
+                  </div>
+                  <span className="text-[10px] font-mono text-emerald-400 bg-emerald-500/10 border border-emerald-500/30 px-2 py-0.5 rounded uppercase">
+                    Direct Delivery Active
+                  </span>
+                </div>
+                <p className="text-[11px] text-gray-400 font-mono">
+                  Every inquiry submitted through the website is automatically dispatched to these destination mailboxes. You can modify these at any time:
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-gray-400 uppercase font-bold">
+                      Primary Alert Destination (To)
+                    </label>
+                    <input
+                      type="email"
+                      value={content.companyInfo.inquiryRecipientEmail || "kyorixofficial@gmail.com"}
+                      onChange={(e) => updateSection("companyInfo", { inquiryRecipientEmail: e.target.value })}
+                      placeholder="kyorixofficial@gmail.com"
+                      className="w-full bg-[#08090C] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-xs font-mono text-cyan-300 focus:outline-none"
+                    />
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-gray-400 uppercase font-bold">
+                      CC Alert Destination (Copy)
+                    </label>
+                    <input
+                      type="email"
+                      value={content.companyInfo.inquiryCcEmail || "supportkyorix@gmail.com"}
+                      onChange={(e) => updateSection("companyInfo", { inquiryCcEmail: e.target.value })}
+                      placeholder="supportkyorix@gmail.com"
+                      className="w-full bg-[#08090C] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-xs font-mono text-cyan-300 focus:outline-none"
+                    />
+                  </div>
+                </div>
+                <div className="flex justify-end pt-1">
+                  <button
+                    onClick={async () => {
+                      const ok = await saveContent(content);
+                      if (ok) showToast("Inquiry notification emails updated successfully!");
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded text-xs font-mono font-bold uppercase transition-colors"
+                  >
+                    <Save className="w-3.5 h-3.5" />
+                    <span>SAVE EMAIL ROUTING</span>
+                  </button>
+                </div>
+              </div>
+
               {/* Filter Tabs */}
               <div className="flex items-center gap-2 border-b border-[#1E2638] pb-3">
                 {(["ALL", "NEW", "READ", "RESPONDED"] as const).map((filter) => {
@@ -2870,6 +2924,37 @@ export default function AdminPortalPage() {
                     onChange={(e) => updateSection("companyInfo", { supportEmail: e.target.value })}
                     className="w-full bg-[#0D1117] border border-[#1E2638] rounded p-3 text-xs font-mono text-white"
                   />
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-[#08090C] border border-[#1E2638] rounded-lg">
+                <div className="space-y-2">
+                  <label className="text-xs font-mono font-bold text-kyorix-blue uppercase">
+                    Inquiry Alert Destination (To)
+                  </label>
+                  <input
+                    type="text"
+                    value={content.companyInfo.inquiryRecipientEmail || "kyorixofficial@gmail.com"}
+                    onChange={(e) => updateSection("companyInfo", { inquiryRecipientEmail: e.target.value })}
+                    className="w-full bg-[#0D1117] border border-[#1E2638] focus:border-kyorix-blue rounded p-3 text-xs font-mono text-cyan-300 focus:outline-none"
+                  />
+                  <p className="text-[10px] text-gray-500 font-mono">
+                    Direct mailbox where website inquiries and demo requests are delivered.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-mono font-bold text-kyorix-blue uppercase">
+                    Inquiry Alert CC Email
+                  </label>
+                  <input
+                    type="text"
+                    value={content.companyInfo.inquiryCcEmail || "supportkyorix@gmail.com"}
+                    onChange={(e) => updateSection("companyInfo", { inquiryCcEmail: e.target.value })}
+                    className="w-full bg-[#0D1117] border border-[#1E2638] focus:border-kyorix-blue rounded p-3 text-xs font-mono text-cyan-300 focus:outline-none"
+                  />
+                  <p className="text-[10px] text-gray-500 font-mono">
+                    Secondary mailbox CC'd on every inquiry alert.
+                  </p>
                 </div>
               </div>
 

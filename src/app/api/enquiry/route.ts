@@ -47,6 +47,37 @@ function saveEnquiries(data: any[]) {
   return saved;
 }
 
+function getNotificationRecipients(): { recipient: string; cc: string } {
+  try {
+    const tmpContent = path.join("/tmp", "site-content.json");
+    if (fs.existsSync(tmpContent)) {
+      const parsed = JSON.parse(fs.readFileSync(tmpContent, "utf-8"));
+      const r = parsed?.companyInfo?.inquiryRecipientEmail?.trim();
+      const c = parsed?.companyInfo?.inquiryCcEmail?.trim();
+      if (r) {
+        return { recipient: r, cc: c || "supportkyorix@gmail.com" };
+      }
+    }
+  } catch (_) {}
+
+  try {
+    const contentFile = path.join(process.cwd(), "src", "data", "site-content.json");
+    if (fs.existsSync(contentFile)) {
+      const parsed = JSON.parse(fs.readFileSync(contentFile, "utf-8"));
+      const r = parsed?.companyInfo?.inquiryRecipientEmail?.trim();
+      const c = parsed?.companyInfo?.inquiryCcEmail?.trim();
+      if (r) {
+        return { recipient: r, cc: c || "supportkyorix@gmail.com" };
+      }
+    }
+  } catch (_) {}
+
+  return {
+    recipient: process.env.NOTIFICATION_EMAIL || "kyorixofficial@gmail.com",
+    cc: "supportkyorix@gmail.com",
+  };
+}
+
 export async function GET() {
   try {
     const enquiries = getEnquiries();
@@ -172,9 +203,9 @@ Inquiry ID: ${newEnquiry.id}
     }
 
     // Direct zero-config email dispatch via FormSubmit to admin email
-    const targetEmail = process.env.NOTIFICATION_EMAIL || "sameerr1205@gmail.com";
+    const { recipient: targetEmail, cc: ccEmail } = getNotificationRecipients();
     try {
-      await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -186,7 +217,7 @@ Inquiry ID: ${newEnquiry.id}
         body: JSON.stringify({
           _subject: `⚡ [New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`,
           _replyto: newEnquiry.email,
-          _cc: "contact@kyorixsport.in",
+          _cc: ccEmail,
           Inquiry_ID: newEnquiry.id,
           Full_Name: newEnquiry.fullName,
           Organization: newEnquiry.organization,

@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef } from "react";
+import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import {
@@ -35,10 +35,13 @@ import {
   ChevronDown,
   GripVertical,
   ArrowUpDown,
+  Mail,
+  MessageSquare,
 } from "lucide-react";
 import { useSiteContent, SiteContent } from "@/context/ContentContext";
 
 type AdminTab =
+  | "enquiries"
   | "hero"
   | "companyMission"
   | "productEcosystem"
@@ -125,6 +128,116 @@ export default function AdminPortalPage() {
     setToastMessage(msg);
     setTimeout(() => setToastMessage(null), 3500);
   };
+
+  // Enquiries management states and handlers
+  const [enquiries, setEnquiries] = useState<any[]>([]);
+  const [isLoadingEnquiries, setIsLoadingEnquiries] = useState(false);
+  const [enquiryFilter, setEnquiryFilter] = useState<"ALL" | "NEW" | "READ" | "RESPONDED">("ALL");
+
+  const fetchEnquiries = async () => {
+    setIsLoadingEnquiries(true);
+    try {
+      const res = await fetch("/api/enquiry");
+      const json = await res.json();
+      if (json.success && Array.isArray(json.data)) {
+        setEnquiries(json.data);
+      }
+    } catch (err) {
+      console.error("Failed to fetch enquiries:", err);
+    } finally {
+      setIsLoadingEnquiries(false);
+    }
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      fetchEnquiries();
+    }
+  }, [isAuthenticated, activeTab]);
+
+  const handleUpdateEnquiryStatus = async (id: string, status: "NEW" | "READ" | "RESPONDED") => {
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "PATCH",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id, status }),
+      });
+      const json = await res.json();
+      if (json.success) {
+        setEnquiries((prev) =>
+          prev.map((item) => (item.id === id ? { ...item, status } : item))
+        );
+        showToast(`Inquiry marked as ${status}.`);
+      }
+    } catch (err) {
+      console.error("Error updating status:", err);
+    }
+  };
+
+  const handleDeleteEnquiry = async (id: string) => {
+    if (!confirm("Are you sure you want to delete this customer inquiry?")) return;
+    try {
+      const res = await fetch(`/api/enquiry?id=${id}`, { method: "DELETE" });
+      const json = await res.json();
+      if (json.success) {
+        setEnquiries((prev) => prev.filter((item) => item.id !== id));
+        showToast("Inquiry deleted successfully.");
+      }
+    } catch (err) {
+      console.error("Error deleting enquiry:", err);
+    }
+  };
+
+  const handleExportEnquiriesCSV = () => {
+    if (enquiries.length === 0) {
+      alert("No inquiries to export.");
+      return;
+    }
+    const headers = [
+      "Inquiry ID",
+      "Date",
+      "Status",
+      "Full Name",
+      "Organization",
+      "Designation",
+      "Email",
+      "Phone",
+      "Country",
+      "Sport",
+      "Interest",
+      "Category Desk",
+      "Message",
+    ];
+    const rows = enquiries.map((e) => [
+      e.id,
+      new Date(e.createdAt).toLocaleString(),
+      e.status,
+      `"${(e.fullName || "").replace(/"/g, '""')}"`,
+      `"${(e.organization || "").replace(/"/g, '""')}"`,
+      `"${(e.designation || "").replace(/"/g, '""')}"`,
+      e.email,
+      e.phone,
+      e.country,
+      e.sport,
+      `"${(e.interest || "").replace(/"/g, '""')}"`,
+      `"${(e.category || "").replace(/"/g, '""')}"`,
+      `"${(e.message || "").replace(/"/g, '""')}"`,
+    ]);
+    const csvContent = "data:text/csv;charset=utf-8," + [headers.join(","), ...rows.map((r) => r.join(","))].join("\n");
+    const encodedUri = encodeURI(csvContent);
+    const link = document.createElement("a");
+    link.setAttribute("href", encodedUri);
+    link.setAttribute("download", `kyorix_enquiries_${new Date().toISOString().slice(0, 10)}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    showToast("Exported inquiries to CSV.");
+  };
+
+  const filteredEnquiries = enquiries.filter((e) => {
+    if (enquiryFilter === "ALL") return true;
+    return e.status === enquiryFilter;
+  });
 
   const handleLoginSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -367,6 +480,7 @@ export default function AdminPortalPage() {
   // VIEW 2: AUTHENTICATED ADMIN EDITING PORTAL
   // ==========================================
   const navTabs: { id: AdminTab; label: string; icon: any; sectionNumber: string }[] = [
+    { id: "enquiries", sectionNumber: "★", label: "CUSTOMER ENQUIRIES", icon: Mail },
     { id: "hero", sectionNumber: "01", label: "HERO SECTION", icon: Sparkles },
     { id: "companyMission", sectionNumber: "02", label: "COMPANY MISSION", icon: FileText },
     { id: "productEcosystem", sectionNumber: "03", label: "PRODUCT ARCHITECTURE", icon: Layers },
@@ -458,6 +572,8 @@ export default function AdminPortalPage() {
           {navTabs.map((item) => {
             const Icon = item.icon;
             const active = activeTab === item.id;
+            const isEnquiries = item.id === "enquiries";
+            const unreadCount = enquiries.filter((e) => e.status === "NEW").length;
             return (
               <button
                 key={item.id}
@@ -465,6 +581,8 @@ export default function AdminPortalPage() {
                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono font-bold uppercase transition-colors text-left ${
                   active
                     ? "bg-kyorix-blue text-white shadow-md shadow-kyorix-blue/20"
+                    : isEnquiries && unreadCount > 0
+                    ? "text-cyan-300 bg-cyan-950/30 border border-cyan-500/30 hover:bg-cyan-900/40"
                     : "text-gray-400 hover:text-white hover:bg-[#151C2A]"
                 }`}
               >
@@ -472,9 +590,16 @@ export default function AdminPortalPage() {
                   <Icon className="w-4 h-4 shrink-0" />
                   <span className="truncate">{item.label}</span>
                 </div>
-                <span className={`text-[10px] shrink-0 font-mono ml-2 ${active ? "text-white/80" : "text-gray-600"}`}>
-                  {item.sectionNumber}
-                </span>
+                <div className="flex items-center gap-1.5 ml-2 shrink-0">
+                  {isEnquiries && unreadCount > 0 && (
+                    <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold bg-cyan-400 text-black rounded-full">
+                      {unreadCount} NEW
+                    </span>
+                  )}
+                  <span className={`text-[10px] font-mono ${active ? "text-white/80" : "text-gray-600"}`}>
+                    {item.sectionNumber}
+                  </span>
+                </div>
               </button>
             );
           })}
@@ -482,6 +607,204 @@ export default function AdminPortalPage() {
 
         {/* Right Content Editor Area */}
         <main className="flex-grow p-6 sm:p-8 max-w-5xl mx-auto w-full space-y-8">
+          {/* TAB: CUSTOMER ENQUIRIES */}
+          {activeTab === "enquiries" && (
+            <div className="space-y-6">
+              <div className="flex flex-wrap items-center justify-between gap-4 border-b border-[#1E2638] pb-4">
+                <div>
+                  <div className="text-[11px] font-mono text-kyorix-blue font-bold uppercase">
+                    INBOX & LEADS DESK
+                  </div>
+                  <h2 className="text-xl font-mono font-bold text-white uppercase flex items-center gap-2">
+                    <span>CUSTOMER INQUIRIES & DEMO REQUESTS</span>
+                    <span className="px-2 py-0.5 text-xs bg-kyorix-blue/10 text-kyorix-blue border border-kyorix-blue/30 rounded">
+                      {enquiries.length} Total
+                    </span>
+                  </h2>
+                  <p className="text-xs text-gray-400 mt-0.5">
+                    Live stream of competition inquiries, partnership requests, and demo leads submitted via the website.
+                  </p>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={fetchEnquiries}
+                    disabled={isLoadingEnquiries}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#111622] hover:bg-[#1E2638] text-gray-300 hover:text-white border border-[#1E2638] rounded text-xs font-mono font-bold uppercase transition-colors"
+                  >
+                    <RefreshCw className={`w-3.5 h-3.5 ${isLoadingEnquiries ? "animate-spin text-kyorix-blue" : ""}`} />
+                    <span>REFRESH</span>
+                  </button>
+
+                  <button
+                    onClick={handleExportEnquiriesCSV}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#111622] hover:bg-[#1E2638] text-gray-300 hover:text-white border border-[#1E2638] rounded text-xs font-mono font-bold uppercase transition-colors"
+                  >
+                    <Download className="w-3.5 h-3.5" />
+                    <span>EXPORT CSV</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Filter Tabs */}
+              <div className="flex items-center gap-2 border-b border-[#1E2638] pb-3">
+                {(["ALL", "NEW", "READ", "RESPONDED"] as const).map((filter) => {
+                  const count =
+                    filter === "ALL"
+                      ? enquiries.length
+                      : enquiries.filter((e) => e.status === filter).length;
+                  return (
+                    <button
+                      key={filter}
+                      onClick={() => setEnquiryFilter(filter)}
+                      className={`px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-colors flex items-center gap-1.5 ${
+                        enquiryFilter === filter
+                          ? "bg-kyorix-blue text-white"
+                          : "text-gray-400 hover:text-white bg-[#0D1117] border border-[#1E2638]"
+                      }`}
+                    >
+                      <span>{filter}</span>
+                      <span className="text-[10px] px-1.5 py-0.2 bg-black/40 rounded">
+                        {count}
+                      </span>
+                    </button>
+                  );
+                })}
+              </div>
+
+              {/* Inquiry List */}
+              {enquiries.length === 0 ? (
+                <div className="p-12 text-center bg-[#0D1117] border border-[#1E2638] rounded-xl space-y-4">
+                  <div className="w-12 h-12 rounded-full bg-kyorix-blue/10 border border-kyorix-blue/30 flex items-center justify-center mx-auto text-kyorix-blue">
+                    <Mail className="w-6 h-6" />
+                  </div>
+                  <div className="space-y-1">
+                    <h3 className="text-base font-mono font-bold text-white uppercase">
+                      No Inquiries Logged Yet
+                    </h3>
+                    <p className="text-xs text-gray-400 max-w-md mx-auto">
+                      Inquiries submitted through the website&apos;s contact form will instantly appear here with full contact details, WhatsApp routing, and messaging.
+                    </p>
+                  </div>
+                </div>
+              ) : filteredEnquiries.length === 0 ? (
+                <div className="p-8 text-center bg-[#0D1117] border border-[#1E2638] rounded-xl text-gray-400 text-xs font-mono">
+                  No inquiries match the filter &quot;{enquiryFilter}&quot;.
+                </div>
+              ) : (
+                <div className="space-y-4">
+                  {filteredEnquiries.map((enq) => (
+                    <div
+                      key={enq.id}
+                      className={`p-5 bg-[#0D1117] border rounded-xl space-y-4 transition-all ${
+                        enq.status === "NEW"
+                          ? "border-kyorix-blue/50 shadow-lg shadow-kyorix-blue/5"
+                          : "border-[#1E2638]"
+                      }`}
+                    >
+                      <div className="flex flex-wrap items-start justify-between gap-2">
+                        <div>
+                          <div className="flex items-center gap-2">
+                            <span className="text-base font-mono font-bold text-white">
+                              {enq.fullName}
+                            </span>
+                            <span className="text-xs font-mono text-gray-400">
+                              • {enq.organization} {enq.designation && enq.designation !== "N/A" ? `(${enq.designation})` : ""}
+                            </span>
+                          </div>
+                          <div className="text-[11px] font-mono text-gray-500 mt-0.5">
+                            Ticket: <span className="text-gray-400 font-bold">{enq.id}</span> • Received:{" "}
+                            {new Date(enq.createdAt).toLocaleString()}
+                          </div>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                          <span
+                            className={`px-2.5 py-1 text-[10px] font-mono font-bold rounded uppercase ${
+                              enq.status === "NEW"
+                                ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/30"
+                                : enq.status === "RESPONDED"
+                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
+                                : "bg-gray-500/10 text-gray-400 border border-gray-500/30"
+                            }`}
+                          >
+                            {enq.status}
+                          </span>
+
+                          <select
+                            value={enq.status}
+                            onChange={(e) => handleUpdateEnquiryStatus(enq.id, e.target.value as any)}
+                            className="bg-[#111622] border border-[#1E2638] text-[11px] font-mono text-gray-300 rounded px-2 py-1 focus:outline-none"
+                          >
+                            <option value="NEW">Status: NEW</option>
+                            <option value="READ">Status: READ</option>
+                            <option value="RESPONDED">Status: RESPONDED</option>
+                          </select>
+
+                          <button
+                            onClick={() => handleDeleteEnquiry(enq.id)}
+                            className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
+                            title="Delete Inquiry"
+                          >
+                            <Trash2 className="w-3.5 h-3.5" />
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Details Pills */}
+                      <div className="flex flex-wrap gap-2 text-xs font-mono">
+                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-kyorix-blue">
+                          Product: <strong>{enq.interest}</strong>
+                        </span>
+                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-gray-300">
+                          Discipline: <strong>{enq.sport}</strong>
+                        </span>
+                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-gray-300">
+                          Country: <strong>{enq.country}</strong>
+                        </span>
+                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-gray-400">
+                          Desk: {enq.category}
+                        </span>
+                      </div>
+
+                      {/* Message Box */}
+                      <div className="p-3.5 bg-[#111622] border border-[#1E2638] rounded-lg text-xs font-mono text-gray-200 leading-relaxed whitespace-pre-wrap">
+                        {enq.message}
+                      </div>
+
+                      {/* Quick Action Buttons */}
+                      <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-[#1E2638]/50">
+                        <a
+                          href={`mailto:${enq.email}?subject=Kyorix%20Sport%20Inquiry%20Response%20[${enq.id}]&body=Dear%20${encodeURIComponent(enq.fullName)},%0D%0A%0D%0AThank%20you%20for%20contacting%20Kyorix%20Sport%20regarding%20${encodeURIComponent(enq.interest)}.%0D%0A%0D%0A`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded text-xs font-mono font-bold uppercase transition-colors"
+                        >
+                          <Mail className="w-3.5 h-3.5" />
+                          <span>Reply via Email ({enq.email})</span>
+                        </a>
+
+                        {enq.phone && enq.phone !== "N/A" && (
+                          <a
+                            href={`https://wa.me/${enq.phone.replace(/[^0-9]/g, "")}`}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono font-bold uppercase transition-colors"
+                          >
+                            <MessageSquare className="w-3.5 h-3.5" />
+                            <span>WhatsApp ({enq.phone})</span>
+                          </a>
+                        )}
+
+                        <span className="text-[11px] font-mono text-gray-500 ml-auto">
+                          Direct Contact: <span className="text-gray-300">{enq.email}</span> {enq.phone !== "N/A" ? `• ${enq.phone}` : ""}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
           {/* TAB 01: HERO SECTION */}
           {activeTab === "hero" && (
             <div className="space-y-6">

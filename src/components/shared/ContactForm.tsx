@@ -24,8 +24,9 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
+  const [submittedId, setSubmittedId] = useState<string | null>(null);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.fullName || !formData.organization || !formData.email || !formData.message) {
       setErrorMessage("Please complete all required fields (*).");
@@ -34,10 +35,25 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
     setErrorMessage(null);
     setStatus("submitting");
 
-    // Simulate enterprise inquiry submission
-    setTimeout(() => {
+    try {
+      const res = await fetch("/api/enquiry", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(formData),
+      });
+
+      const json = await res.json();
+      if (!res.ok || !json.success) {
+        throw new Error(json.error || "Failed to submit inquiry. Please try again.");
+      }
+
+      setSubmittedId(json.enquiryId || null);
       setStatus("success");
-    }, 800);
+    } catch (err: any) {
+      console.error("Submission error:", err);
+      setErrorMessage(err.message || "Network error. Please try again or email us directly at contact@kyorixsport.in.");
+      setStatus("idle");
+    }
   };
 
   return (
@@ -125,8 +141,13 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
               </h3>
               <p className="text-sm text-gray-300 max-w-md mx-auto leading-relaxed">
                 Thank you for contacting Kyorix Sport Technology. Your inquiry for{" "}
-                <span className="text-kyorix-blue font-bold">{formData.interest}</span> has been routed to our competition team.
+                <span className="text-kyorix-blue font-bold">{formData.interest}</span> has been saved and routed to our competition operations desk.
               </p>
+              {submittedId && (
+                <div className="inline-block px-3 py-1.5 bg-[#111622] border border-kyorix-blue/30 rounded text-xs font-mono text-kyorix-blue">
+                  Inquiry Ticket: <span className="text-white font-bold">{submittedId}</span>
+                </div>
+              )}
               <div className="pt-4">
                 <button
                   type="button"

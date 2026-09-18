@@ -1,0 +1,456 @@
+{
+  "admin": {
+    "pin": "kyorix2026"
+  },
+  "hero": {
+    "badge": "SPORT TECHNOLOGY",
+    "headlinePrefix": "TECHNOLOGY FOR",
+    "headlineMiddle": "COMPETITIVE",
+    "headlineAccent": "SPORT.",
+    "subheadline": "Kyorix builds intelligent technology for sports scoring, competition management and live sporting events. Engineered to deliver sub-millisecond precision, unified bracket progression, and robust tournament infrastructure.",
+    "ctaPrimaryText": "EXPLORE PRODUCTS",
+    "ctaPrimaryLink": "/products",
+    "ctaSecondaryText": "REQUEST A DEMO",
+    "ctaSecondaryLink": "/contact?intent=demo",
+    "logoImageSrc": "/brand/kyorix-logo.png",
+    "logoAlt": "Kyorix Sport Technology Private Limited"
+  },
+  "companyMission": {
+    "label": "COMPANY MISSION",
+    "title": "BUILDING THE INFRASTRUCTURE BEHIND COMPETITION.",
+    "description": "Kyorix Sport Technology Private Limited develops technology designed to simplify, connect and modernize competitive sporting events.",
+    "block1Number": "01",
+    "block1Title": "SCORING",
+    "block1Desc": "Real-time competition technology. Engineered for sub-millisecond point registration, referee decision panels, penalty rule tracking, and arena display feeds.",
+    "block2Number": "02",
+    "block2Title": "COMPETITION",
+    "block2Desc": "Intelligent tournament management. Automated draw generation, seed distribution, BYE calculations, match queuing, and knockout tree synchronization.",
+    "block3Number": "03",
+    "block3Title": "EVENTS",
+    "block3Desc": "Connected sporting infrastructure. Unifying participant registration, weigh-in verification, multi-court operations, and certified final results under one architecture.",
+    "bannerImageSrc": "/images/arena-competition.jpg",
+    "bannerTag": "COMPETITIVE INTEGRITY",
+    "bannerCaption": "Built to deliver absolute fairness, speed, and precision in sanctioned tournament environments.",
+    "bannerSubtext": "Official Arena Deployment Context"
+  },
+  "productEcosystem": {
+    "label": "PRODUCT ARCHITECTURE",
+    "title": "ONE ECOSYSTEM. THREE CORE PLATFORMS.",
+    "description": "Kyorix has engineered three focused software platforms that work seamlessly as independent modules or as an interconnected tournament ecosystem.",
+    "products": [
+      {
+        "id": "score",
+        "number": "01",
+        "name": "KYORIX SCORE",
+        "subtitle": "Electronic Competition Scoring",
+        "description": "A digital scoring platform designed for fast, reliable and connected sporting competitions.",
+        "href": "/products/score",
+        "features": [
+          "Real-time scoring",
+          "Match control",
+          "Referee operations",
+          "Judge inputs",
+          "Match history",
+          "Live display",
+          "Hardware integration"
+        ]
+      },
+      {
+        "id": "bracket",
+        "number": "02",
+        "name": "KYORIX BRACKET",
+        "subtitle": "Competition Draw & Bracket Management",
+        "description": "Generate, manage and operate tournament brackets with an integrated competition workflow.",
+        "href": "/products/bracket",
+        "features": [
+          "Category management",
+          "Seeding",
+          "Draw generation",
+          "BYE calculation",
+          "Knockout brackets",
+          "Match assignment",
+          "Bracket locking",
+          "Live updates"
+        ]
+      },
+      {
+        "id": "tems",
+        "number": "03",
+        "name": "KYORIX TEMS",
+        "subtitle": "Complete Event Management System",
+        "description": "Manage the competition lifecycle from athlete registration and verification to match operations and final results.",
+        "href": "/products/tems",
+        "features": [
+          "Organizations & Clubs",
+          "Athletes & Coaches",
+          "Officials & Documents",
+          "Events & Categories",
+          "Registrations & Weigh-In",
+          "Eligibility & Seeding",
+          "Scheduling & Court Assignment",
+          "Match Operations & Results"
+        ]
+      }
+    ]
+  },
+  "competitionLifecycle": {
+    "label": "END-TO-END COMPETITION WORKFLOW",
+    "title": "FROM REGISTRATION TO THE PODIUM.",
+    "description": "Every sanctioned tournament follows an exacting operational progression. Kyorix digitizes and synchronizes each stage with uninterrupted data lineage.",
+    "stages": [
+      {
+        "step": "01",
+        "name": "REGISTRATION",
+        "desc": "Athlete, coach & team entries"
+      },
+      {
+        "step": "02",
+        "name": "VERIFICATION",
+        "desc": "Documents, licenses & waivers"
+      },
+      {
+        "step": "03",
+        "name": "CATEGORIES",
+        "desc": "Age, belt & division mapping"
+      },
+      {
+        "step": "04",
+        "name": "WEIGH-IN",
+        "desc": "Digital scale verification"
+      },
+      {
+        "step": "05",
+        "name": "SEEDING",
+        "desc": "Rankings & separation rules"
+      },
+      {
+        "step": "06",
+        "name": "DRAWS",
+        "desc": "Bracket generation & scheduling"
+      },
+      {
+        "step": "07",
+        "name": "COURTS",
+        "desc": "Mat scheduling & bout calls"
+      },
+      {
+        "step": "08",
+        "name": "SCORING",
+        "desc": "Live referee consensus"
+      },
+      {
+        "step": "09",
+        "name": "PROGRESSION",
+        "desc": "Real-time winner advancement"
+      },
+      {
+        "step": "10",
+        "name": "STANDINGS",
+        "desc": "Certified podium allocation"
+      },
+      {
+        "step": "11",
+        "name": "ARCHIVE",
+        "desc": "Master records & certificates"
+      }
+    ]
+  },
+  "scoreProduct": {
+    "label": "01 • ELECTRONIC SCORING PLATFORM",
+    "title": "COMPETITION. IN REAL TIME.",
+    "subtitle": "Live match control, referee point validation, and synchronized arena display",
+    "description": "Kyorix Score coordinates referee and judge inputs, automatic penalty calculations, and live arena scoreboards with deterministic, sub-millisecond precision.",
+    "ctaText": "DEEP DIVE: KYORIX SCORE",
+    "ctaLink": "/products/score",
+    "badge": "ELECTRONIC SCORING",
+    "imageSrc": "/images/products/score.png",
+    "imageTitle": "KYORIX SCORE — REAL-TIME ARENA SCORING SOFTWARE",
+    "imageSubtitle": "Live match control, referee point validation, and synchronized arena display",
+    "features": [
+      {
+        "title": "Multi-Device Referee Sync",
+        "description": "Instantaneous point consensus capture across ring controllers and judge keypads."
+      },
+      {
+        "title": "Live Round Clock & Gam-Jeom",
+        "description": "Synchronized countdown timers, penalty accumulations, and round winner logic."
+      },
+      {
+        "title": "Direct Mat Controller Interface",
+        "description": "Bi-directional court terminal dispatch with offline local survivability."
+      },
+      {
+        "title": "Arena Display Graphics",
+        "description": "Broadcast-ready scoreboard telemetry for spectators, streaming, and giant screens."
+      }
+    ]
+  },
+  "bracketProduct": {
+    "label": "02 • TOURNAMENT DRAW & PROGRESSION",
+    "title": "EVERY MATCH. EVERY PATH. CONNECTED.",
+    "subtitle": "Automated category draws, single/double elimination progression, and court assignment",
+    "description": "Kyorix Bracket automatically builds, balances, and progresses tournament brackets. From randomized draw ceremonies to gold medal finals, every path is transparent and auditable.",
+    "ctaText": "VIEW KYORIX BRACKET",
+    "ctaLink": "/products/bracket",
+    "badge": "BRACKET ENGINE",
+    "imageSrc": "/images/products/bracket.png",
+    "imageTitle": "KYORIX BRACKET — TOURNAMENT DRAW & PROGRESSION SOFTWARE",
+    "imageSubtitle": "Automated category draws, single/double elimination progression, and court assignment",
+    "features": [
+      {
+        "title": "Deterministic Draw Engine",
+        "description": "Mathematical seeding and club/state separation eliminating bias and clerical draw errors."
+      },
+      {
+        "title": "Live Multi-Mat Progression",
+        "description": "Instant advancement of victorious athletes to subsequent rounds in real time."
+      },
+      {
+        "title": "Cryptographic Bracket Lock",
+        "description": "Immutable draw integrity ensuring zero tampering once tournament brackets are published."
+      },
+      {
+        "title": "Official Podium Standings",
+        "description": "Automated computation of Gold, Silver, and Joint Bronze medal allocations."
+      }
+    ]
+  },
+  "temsProduct": {
+    "label": "03 • EVENT MANAGEMENT PLATFORM",
+    "title": "ONE PLATFORM. THE ENTIRE EVENT.",
+    "subtitle": "Kyorix TEMS (Taekwondo Event Management System) centralizes the entire competition lifecycle—unifying tournament operations, registration, weigh-in, and results into one operational workspace.",
+    "ctaText": "EXPLORE FULL TEMS SPECIFICATIONS",
+    "ctaLink": "/products/tems",
+    "modules": [
+      {
+        "id": "tournaments",
+        "number": "01",
+        "title": "Tournament Management",
+        "tag": "Core Governance",
+        "desc": "End-to-end configuration for regional, national, and international championships. Manages age categories, weight divisions, mat allocations, and sanctioning body rule sets.",
+        "capabilities": [
+          "Multi-court scheduling & timeline planning",
+          "Sanctioning federation rule templates",
+          "Category hierarchy & age division matrix",
+          "Disqualification & protest protocol logs"
+        ]
+      },
+      {
+        "id": "registration",
+        "number": "02",
+        "title": "Athlete & Coach Registration",
+        "tag": "Participant Portal",
+        "desc": "Digital entry system for federations, clubs, and individual competitors. Centralizes athlete profiles, coach credentials, and mandatory medical waiver submissions.",
+        "capabilities": [
+          "Club & team roster bulk onboarding",
+          "Direct document & waiver verification",
+          "Sanctioned belt & category eligibility validation",
+          "Automated entry fee tracking & ledger"
+        ]
+      },
+      {
+        "id": "idcard",
+        "number": "03",
+        "title": "ID Card & Accreditation Generation",
+        "tag": "On-Site Credentials",
+        "desc": "Automated badge and PVC ID card generation engine. Produces scannable credential badges with high-resolution athlete photos, QR codes, and role-based access tiers.",
+        "capabilities": [
+          "Instant batch PDF & PVC printer formatting",
+          "Cryptographic QR code for mat-side scanning",
+          "Zone access control (Mat, Warm-up, Official, VIP)",
+          "Real-time accreditation status verification"
+        ]
+      },
+      {
+        "id": "weighin",
+        "number": "04",
+        "title": "Digital Weigh-In Certification",
+        "tag": "Official Validation",
+        "desc": "Integrated weigh-in terminal system. Connects directly to digital scales to certify athlete weight divisions against sanctioned official tolerances.",
+        "capabilities": [
+          "Sub-second digital scale calibration & capture",
+          "Automatic division pass / fail threshold alerts",
+          "Immediate weight category reassignment queue",
+          "Signed official weigh-in sheet generation"
+        ]
+      },
+      {
+        "id": "draws",
+        "number": "05",
+        "title": "Draw Generation & Seeding Engine",
+        "tag": "Deterministic Logic",
+        "desc": "Mathematical draw generator enforcing official seeding rules. Automatically isolates competitors from the same club or state to ensure balanced competition trees.",
+        "capabilities": [
+          "Algorithmic country, state & club separation",
+          "Deterministic BYE allocation to top seeds",
+          "Live draw ceremony presentation display",
+          "Cryptographic bracket lock prior to match start"
+        ]
+      },
+      {
+        "id": "scoring",
+        "number": "06",
+        "title": "Integrated Scoring System Interfacing",
+        "tag": "Live Mat Sync",
+        "desc": "Duplex hardware and socket integration with Kyorix Score. Pushes scheduled matches to mat controller terminals and receives verified point tallies in real time.",
+        "capabilities": [
+          "Zero-latency mat court assignment push",
+          "Referee & corner judge consensus ingestion",
+          "Automatic point gap & Gam-jeom accumulation",
+          "Instant winner advancement to next bracket tier"
+        ]
+      },
+      {
+        "id": "results",
+        "number": "07",
+        "title": "Live Results & Arena Feeds",
+        "tag": "Real-Time Telemetry",
+        "desc": "Synchronous public results distribution. Feeds court displays, spectator web links, livestream graphics overlays, and central tournament command monitors.",
+        "capabilities": [
+          "Real-time bracket progression updates",
+          "Spectator mobile live score tracker",
+          "Broadcast graphics & TV overlay API feeds",
+          "Multi-mat court status overview for directors"
+        ]
+      },
+      {
+        "id": "certificates",
+        "number": "08",
+        "title": "Live Certificates & Podium Records",
+        "tag": "Official Records",
+        "desc": "Automated generation of official podium certificates and tournament awards immediately upon category finalization. Permanent digital record archive for federations.",
+        "capabilities": [
+          "Instant printable certificate generation with QR audit",
+          "Podium rankings (1st, 2nd, Joint 3rd medals)",
+          "Sanctioned tournament master record export",
+          "Permanent athlete competition history archive"
+        ]
+      }
+    ]
+  },
+  "technologyPreview": {
+    "label": "ENGINEERING ARCHITECTURE",
+    "title": "ENGINEERED FOR COMPETITION.",
+    "description": "Our architecture is built specifically for the demanding environment of sanctioned sporting tournaments, where data delay or scoring desynchronization is unacceptable.",
+    "ctaText": "FULL TECHNICAL ARCHITECTURE",
+    "ctaLink": "/technology",
+    "pillars": [
+      {
+        "tag": "LATENCY",
+        "title": "Sub-Millisecond Telemetry",
+        "desc": "Engineered for instantaneous point capture, referee consensus validation and arena scoreboard synchronization with zero perceptual delay."
+      },
+      {
+        "tag": "AVAILABILITY",
+        "title": "Distributed Mat Architecture",
+        "desc": "Independent court execution engine that continues full scoring operations even during intermittent arena network connectivity."
+      },
+      {
+        "tag": "INTEGRITY",
+        "title": "Audit-Logged Match State",
+        "desc": "Every strike registration, penalty award, and referee input is cryptographically timestamped and fully auditable by head officials."
+      },
+      {
+        "tag": "STANDARDS",
+        "title": "WT Competition Compliance",
+        "desc": "Built in strict alignment with World Taekwondo competition rules, scoring gap thresholds, and sanctioned tournament governance."
+      }
+    ]
+  },
+  "sportingEcosystem": {
+    "label": "STAKEHOLDER CONNECTIVITY",
+    "title": "BUILT FOR THE SPORTING ECOSYSTEM.",
+    "description": "Competitive sport requires the harmonious coordination of diverse roles. Kyorix connects every participant through unified, role-governed data interfaces.",
+    "hubTag": "Central Infrastructure",
+    "hubTitle": "KYORIX PLATFORM CORE",
+    "hubDescription": "Sub-millisecond data fabric linking all competitive stakeholders during tournament execution.",
+    "stakeholders": [
+      {
+        "role": "ATHLETES",
+        "description": "Instant match queue alerts, verified career bout history, and real-time live score visibility from warm-up areas."
+      },
+      {
+        "role": "COACHES",
+        "description": "Live mat scheduling, dynamic bracket progress telemetry, official protest tracking, and competitor analytics."
+      },
+      {
+        "role": "CLUBS",
+        "description": "Unified team rosters, bulk entry fee ledger, athlete accreditation badges, and certified medal standings."
+      },
+      {
+        "role": "REFEREES & JUDGES",
+        "description": "Ultra-low-latency consensus keypads, automated Gam-jeom accumulation, and instant video replay review logging."
+      },
+      {
+        "role": "ORGANIZERS",
+        "description": "Multi-court mat management, automated weigh-in certification, scale integration, and live arena display feeds."
+      },
+      {
+        "role": "FEDERATIONS",
+        "description": "Centralized sanctioned rule sets, national athlete rating points, anti-tampering draw verification, and audit logs."
+      },
+      {
+        "role": "SPECTATORS",
+        "description": "Live online brackets, high-visibility arena display boards, broadcast graphic overlays, and live score telemetry."
+      }
+    ]
+  },
+  "futureRoadmap": {
+    "label": "TECHNOLOGY EVOLUTION",
+    "title": "BUILT FOR WHAT COMES NEXT.",
+    "description": "Kyorix begins with Taekwondo competition technology, with a long-term vision of building an integrated sports technology ecosystem across competitive sports.",
+    "stages": [
+      {
+        "status": "CURRENT RELEASE",
+        "title": "Taekwondo Core Software",
+        "badge": "01 • SCORING, BRACKETS & TEMS",
+        "desc": "Software ecosystem for Taekwondo competition management, digital scoring, deterministic bracket progression, and full event lifecycle operations.",
+        "active": true
+      },
+      {
+        "status": "DEVELOPMENT",
+        "title": "Hardware & Sensor Integration",
+        "badge": "02 • WIRELESS ARENA INFRASTRUCTURE",
+        "desc": "Proprietary referee keypads, impact-sensing protection system receivers, and ruggedized mat-side court controller displays.",
+        "active": false
+      },
+      {
+        "status": "ROADMAP",
+        "title": "Multi-Sport Competition Engine",
+        "badge": "03 • COMBAT & TIMED SPORTS",
+        "desc": "Expanding the core progression and match-management architecture to Karate, Judo, Fencing, and other structured competitive disciplines.",
+        "active": false
+      },
+      {
+        "status": "LONG-TERM VISION",
+        "title": "Federation Intelligence & Analytics",
+        "badge": "04 • ECOSYSTEM ANALYTICS",
+        "desc": "Federation-wide athlete rankings, national competition circuit management, automated talent scouting metrics, and broadcast media APIs.",
+        "active": false
+      }
+    ]
+  },
+  "finalCTA": {
+    "badge": "COMPETE. CONNECT. ELEVATE.",
+    "title": "READY TO ELEVATE COMPETITION?",
+    "description": "Talk to Kyorix about your competition technology requirements. Whether you are running a regional championship or managing national circuit events, our platforms deliver uncompromised precision.",
+    "primaryButtonText": "REQUEST A DEMO",
+    "primaryButtonLink": "/contact?intent=demo",
+    "secondaryButtonText": "CONTACT KYORIX",
+    "secondaryButtonLink": "/contact",
+    "footerNote": "KYORIX SPORT TECHNOLOGY PRIVATE LIMITED • ESTABLISHED FOR SANCTIONED COMPETITIVE SPORTS"
+  },
+  "companyInfo": {
+    "name": "KYORIX SPORT TECHNOLOGY PRIVATE LIMITED",
+    "brand": "KYORIX",
+    "tagline": "COMPETE. CONNECT. ELEVATE.",
+    "email": "contact@kyorixsport.in",
+    "supportEmail": "support@kyorixsport.in",
+    "phone": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: +91 00000 00000]",
+    "address": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: Registered Office Address, India]",
+    "cin": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: CIN-U72900XX2026PTC000000]",
+    "gstin": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: GSTIN-00AAAAA0000A1Z5]",
+    "status": "Private Limited Company",
+    "discipline": "Competitive Sports Technology"
+  }
+}

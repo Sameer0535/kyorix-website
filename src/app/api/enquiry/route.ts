@@ -171,6 +171,40 @@ Inquiry ID: ${newEnquiry.id}
       }
     }
 
+    // Direct zero-config email dispatch via FormSubmit to admin email
+    const targetEmail = process.env.NOTIFICATION_EMAIL || "sameerr1205@gmail.com";
+    try {
+      await fetch(`https://formsubmit.co/ajax/${targetEmail}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Accept: "application/json",
+          Referer: "https://kyorixsport.in/contact",
+          Origin: "https://kyorixsport.in",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+        },
+        body: JSON.stringify({
+          _subject: `⚡ [New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`,
+          _replyto: newEnquiry.email,
+          _cc: "contact@kyorixsport.in",
+          Inquiry_ID: newEnquiry.id,
+          Full_Name: newEnquiry.fullName,
+          Organization: newEnquiry.organization,
+          Designation: newEnquiry.designation,
+          Email: newEnquiry.email,
+          Phone: newEnquiry.phone,
+          Country: newEnquiry.country,
+          Sport: newEnquiry.sport,
+          Product_Interest: newEnquiry.interest,
+          Communication_Desk: newEnquiry.category,
+          Message: newEnquiry.message,
+          Received_At: newEnquiry.createdAt,
+        }),
+      });
+    } catch (fsErr) {
+      console.error("Failed to dispatch via FormSubmit:", fsErr);
+    }
+
     // Optional Web3Forms instant email dispatch
     const web3formsKey = process.env.WEB3FORMS_KEY;
     if (web3formsKey) {

@@ -25,8 +25,8 @@ export const NAV_LINKS = [
     href: "/products",
     children: [
       {
-        name: "Kyorix Score",
-        tagline: "Electronic Competition Scoring",
+        name: "Kyorix ESS",
+        tagline: "Electronic Scoring System",
         href: "/products/score",
       },
       {
@@ -50,8 +50,8 @@ export const NAV_LINKS = [
 export const PRODUCTS = [
   {
     id: "score",
-    name: "KYORIX SCORE",
-    subtitle: "Electronic Competition Scoring",
+    name: "KYORIX ESS",
+    subtitle: "Electronic Scoring System",
     description: "A digital scoring platform designed for fast, reliable and connected sporting competitions.",
     href: "/products/score",
     features: [

@@ -17,7 +17,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
     phone: "",
     country: "",
     sport: "Taekwondo",
-    interest: defaultIntent === "demo" ? "KYORIX SCORE" : "KYORIX SCORE",
+    interest: "KYORIX ESS",
     category: "BUSINESS ENQUIRIES",
     message: "",
   });
@@ -148,7 +148,17 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                   Inquiry Ticket: <span className="text-white font-bold">{submittedId}</span>
                 </div>
               )}
-              <div className="pt-4">
+
+              <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-lg max-w-md mx-auto space-y-1">
+                <div className="text-xs font-mono font-bold text-emerald-400 flex items-center justify-center gap-1.5 uppercase">
+                  <span>Our team will get back to you soon</span>
+                </div>
+                <p className="text-[11px] font-mono text-gray-300">
+                  Our competition operations desk has received your request and will reach out to you via email/phone promptly.
+                </p>
+              </div>
+
+              <div className="pt-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -161,7 +171,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                       phone: "",
                       country: "",
                       sport: "Taekwondo",
-                      interest: "KYORIX SCORE",
+                      interest: "KYORIX ESS",
                       category: "BUSINESS ENQUIRIES",
                       message: "",
                     });
@@ -329,7 +339,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                     onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
                     className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white focus:outline-none"
                   >
-                    <option value="KYORIX SCORE">KYORIX SCORE (Electronic Scoring)</option>
+                    <option value="KYORIX ESS">KYORIX ESS (Electronic Scoring System)</option>
                     <option value="KYORIX BRACKET">KYORIX BRACKET (Draw & Progression)</option>
                     <option value="KYORIX TEMS">KYORIX TEMS (Complete Event Management)</option>
                     <option value="HARDWARE">SCORING HARDWARE & PERIPHERALS</option>

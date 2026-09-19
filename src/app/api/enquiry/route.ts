@@ -134,7 +134,7 @@ export async function POST(request: Request) {
       country: country ? String(country).trim() : "India",
       sport: sport ? String(sport).trim() : "Taekwondo",
       category: category ? String(category).trim() : "BUSINESS ENQUIRIES",
-      interest: interest ? String(interest).trim() : "KYORIX SCORE",
+      interest: interest ? String(interest).trim() : "KYORIX ESS",
       message: String(message).trim(),
       status: "NEW", // "NEW" | "READ" | "RESPONDED"
       createdAt: new Date().toISOString(),

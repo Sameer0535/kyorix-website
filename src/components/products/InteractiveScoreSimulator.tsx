@@ -12,7 +12,7 @@ export function InteractiveScoreSimulator({ isMini }: { isMini?: boolean } = {})
         <div className="flex items-center gap-3">
           <div className="flex items-center gap-1.5">
             <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse" />
-            <span className="text-white font-bold tracking-wider">KYORIX SCORE</span>
+            <span className="text-white font-bold tracking-wider">KYORIX ESS</span>
           </div>
           <span className="text-gray-600">|</span>
           <span className="text-gray-300">COURT 01</span>

@@ -1,11 +1,24 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Send, AlertCircle, Mail, Phone, MapPin, Building2, HelpCircle } from "lucide-react";
+import { CheckCircle2, Send, AlertCircle, Mail, Phone, MapPin, Building2, ShieldCheck, Clock } from "lucide-react";
 import { COMPANY_INFO } from "@/lib/constants";
 
 interface ContactFormProps {
   defaultIntent?: string;
+}
+
+interface SubmissionReceipt {
+  id: string;
+  fullName: string;
+  organization: string;
+  designation: string;
+  email: string;
+  phone: string;
+  sport: string;
+  interest: string;
+  category: string;
+  dateStr: string;
 }
 
 export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
@@ -24,7 +37,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
 
   const [status, setStatus] = useState<"idle" | "submitting" | "success">("idle");
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
-  const [submittedId, setSubmittedId] = useState<string | null>(null);
+  const [submissionReceipt, setSubmissionReceipt] = useState<SubmissionReceipt | null>(null);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -47,7 +60,26 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
         throw new Error(json.error || "Failed to submit inquiry. Please try again.");
       }
 
-      setSubmittedId(json.enquiryId || null);
+      const generatedId =
+        json.enquiryId ||
+        `KX-${new Date().getFullYear()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`;
+
+      setSubmissionReceipt({
+        id: generatedId,
+        fullName: formData.fullName,
+        organization: formData.organization,
+        designation: formData.designation || "N/A",
+        email: formData.email,
+        phone: formData.phone || "Not provided",
+        sport: formData.sport,
+        interest: formData.interest,
+        category: formData.category,
+        dateStr: new Date().toLocaleDateString("en-GB", {
+          day: "2-digit",
+          month: "short",
+          year: "numeric",
+        }),
+      });
       setStatus("success");
     } catch (err: any) {
       console.error("Submission error:", err);
@@ -131,34 +163,152 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
       {/* Main Form */}
       <div className="lg:col-span-7">
         <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 sm:p-8 shadow-2xl">
-          {status === "success" ? (
-            <div className="text-center py-12 space-y-4">
-              <div className="w-14 h-14 bg-emerald-500/10 border border-emerald-500/30 rounded-full flex items-center justify-center mx-auto text-emerald-400">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
-              <h3 className="text-xl font-mono font-bold text-white uppercase tracking-wider">
-                Inquiry Successfully Logged
-              </h3>
-              <p className="text-sm text-gray-300 max-w-md mx-auto leading-relaxed">
-                Thank you for contacting Kyorix Sport Technology. Your inquiry for{" "}
-                <span className="text-kyorix-blue font-bold">{formData.interest}</span> has been saved and routed to our competition operations desk.
-              </p>
-              {submittedId && (
-                <div className="inline-block px-3 py-1.5 bg-[#111622] border border-kyorix-blue/30 rounded text-xs font-mono text-kyorix-blue">
-                  Inquiry Ticket: <span className="text-white font-bold">{submittedId}</span>
-                </div>
-              )}
+          {status === "success" && submissionReceipt ? (
+            <div className="space-y-6 text-left">
+              {/* Corporate Letterhead / Acknowledgment Header */}
+              <div className="border-b border-[#1E2638] pb-5">
+                <div className="flex flex-col sm:flex-row sm:items-start sm:justify-between gap-4">
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      <span className="p-1 rounded bg-blue-500/15 border border-blue-500/30 text-kyorix-blue">
+                        <ShieldCheck className="w-4 h-4" />
+                      </span>
+                      <span className="text-xs font-bold text-white uppercase tracking-wider">
+                        KYORIX SPORT TECHNOLOGY PRIVATE LIMITED
+                      </span>
+                    </div>
+                    <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
+                      Official Inquiry Acknowledgment
+                    </h3>
+                    <p className="text-xs text-gray-400">
+                      Competition Technology & Demonstration Directorate • CIN: U32900PN2023PTC221590
+                    </p>
+                  </div>
 
-              <div className="p-3.5 bg-emerald-500/10 border border-emerald-500/30 rounded-lg max-w-md mx-auto space-y-1">
-                <div className="text-xs font-mono font-bold text-emerald-400 flex items-center justify-center gap-1.5 uppercase">
-                  <span>Our team will get back to you soon</span>
+                  {/* Official Reference & Timestamp Badge */}
+                  <div className="bg-[#111622] border border-[#1E2638] rounded-lg px-3.5 py-2.5 sm:text-right shrink-0">
+                    <div className="text-[10px] uppercase tracking-wider text-gray-400 font-mono">
+                      Reference Docket No.
+                    </div>
+                    <div className="text-sm font-bold text-white font-mono tracking-wider">
+                      {submissionReceipt.id}
+                    </div>
+                    <div className="text-[10px] text-gray-400 font-mono mt-0.5">
+                      Date: {submissionReceipt.dateStr}
+                    </div>
+                  </div>
                 </div>
-                <p className="text-[11px] font-mono text-gray-300">
-                  Our competition operations desk has received your request and will reach out to you via email/phone promptly.
+              </div>
+
+              {/* Formal Reassurance Notice */}
+              <div className="bg-gradient-to-r from-blue-950/40 to-[#111622] border border-blue-500/30 rounded-lg p-4 sm:p-5 space-y-2">
+                <div className="flex items-center gap-2 text-kyorix-blue font-semibold text-xs uppercase tracking-wide">
+                  <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                  <span>Inquiry Registered & Routed Successfully</span>
+                </div>
+                <p className="text-xs sm:text-sm text-gray-200 leading-relaxed">
+                  Thank you for contacting Kyorix Sport Technology. Your request for{" "}
+                  <span className="text-white font-semibold">{submissionReceipt.interest}</span> on behalf of{" "}
+                  <span className="text-white font-semibold">{submissionReceipt.organization}</span> has been logged in our competition solutions database.
                 </p>
+                <div className="flex items-start gap-2 pt-1 text-xs text-gray-300">
+                  <Clock className="w-4 h-4 text-blue-400 shrink-0 mt-0.5" />
+                  <p className="leading-normal">
+                    <strong className="text-white font-semibold">Response Timeline: </strong>
+                    Our technical operations team will review your tournament specifications and get back to you soon with scheduling options and technical documentation.
+                  </p>
+                </div>
               </div>
 
-              <div className="pt-2">
+              {/* Official Transmission Docket Summary */}
+              <div className="border border-[#1E2638] rounded-lg overflow-hidden">
+                <div className="bg-[#151C2C] px-4 py-2.5 border-b border-[#1E2638] flex items-center justify-between">
+                  <span className="text-[11px] font-bold text-gray-200 uppercase tracking-wider font-mono">
+                    Submission Docket Record
+                  </span>
+                  <span className="text-[10px] text-blue-400 bg-blue-500/10 border border-blue-500/20 px-2 py-0.5 rounded font-medium">
+                    Logged & Verified
+                  </span>
+                </div>
+
+                <div className="divide-y divide-[#1A2234] bg-[#0E131E] text-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Authorized Contact</span>
+                    <span className="sm:col-span-2 text-white font-medium">
+                      {submissionReceipt.fullName}
+                      {submissionReceipt.designation && submissionReceipt.designation !== "N/A"
+                        ? ` (${submissionReceipt.designation})`
+                        : ""}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Organization / Federation</span>
+                    <span className="sm:col-span-2 text-white font-medium">
+                      {submissionReceipt.organization}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Registered Email</span>
+                    <span className="sm:col-span-2 text-gray-200 font-mono">
+                      {submissionReceipt.email}
+                    </span>
+                  </div>
+                  {submissionReceipt.phone && submissionReceipt.phone !== "Not provided" && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                      <span className="text-gray-400">Direct Telephone</span>
+                      <span className="sm:col-span-2 text-gray-200 font-mono">
+                        {submissionReceipt.phone}
+                      </span>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Technology Platform</span>
+                    <span className="sm:col-span-2 text-blue-400 font-semibold">
+                      {submissionReceipt.interest}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Discipline / Sport</span>
+                    <span className="sm:col-span-2 text-gray-200">
+                      {submissionReceipt.sport}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Assigned Department</span>
+                    <span className="sm:col-span-2 text-gray-200">
+                      {submissionReceipt.category}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Direct Secretariat Notice for Urgent Federation Enquiries */}
+              <div className="p-3.5 bg-[#111622] border border-[#1E2638] rounded-lg text-xs space-y-1.5">
+                <div className="font-semibold text-gray-200 flex items-center gap-2 text-[11px] uppercase tracking-wider">
+                  <Building2 className="w-3.5 h-3.5 text-kyorix-blue" />
+                  <span>Urgent Federation Queries & Competition Deadlines</span>
+                </div>
+                <p className="text-[11px] text-gray-400 leading-relaxed">
+                  If you are coordinating an imminent championship with immediate setup deadlines, you may also connect directly with our operations desk:
+                </p>
+                <div className="flex flex-wrap items-center gap-x-6 gap-y-1 pt-0.5 text-xs">
+                  <div>
+                    <span className="text-gray-400">Email: </span>
+                    <a href="mailto:kyorixofficial@gmail.com" className="text-blue-400 hover:underline font-medium">
+                      kyorixofficial@gmail.com
+                    </a>
+                  </div>
+                  <div>
+                    <span className="text-gray-400">Direct Secretariat: </span>
+                    <a href="tel:+919172490518" className="text-blue-400 hover:underline font-medium font-mono">
+                      +91 91724 90518
+                    </a>
+                  </div>
+                </div>
+              </div>
+
+              {/* Navigation & Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -175,11 +325,18 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                       category: "BUSINESS ENQUIRIES",
                       message: "",
                     });
+                    setSubmissionReceipt(null);
                   }}
-                  className="px-6 py-2.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase rounded tracking-wider"
+                  className="w-full sm:w-auto px-5 py-2.5 bg-[#161D2C] hover:bg-[#1E2638] text-gray-300 hover:text-white border border-[#1E2638] text-xs font-medium uppercase tracking-wider rounded transition-colors"
                 >
                   Submit Another Inquiry
                 </button>
+                <a
+                  href="/#ecosystem"
+                  className="w-full sm:w-auto px-6 py-2.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-medium uppercase tracking-wider rounded transition-colors text-center shadow-lg shadow-kyorix-blue/20"
+                >
+                  Explore Product Ecosystem
+                </a>
               </div>
             </div>
           ) : (

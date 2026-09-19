@@ -155,12 +155,12 @@
     "label": "01 • ELECTRONIC SCORING PLATFORM",
     "title": "COMPETITION. IN REAL TIME.",
     "subtitle": "Live match control, referee point validation, and synchronized arena display",
-    "description": "Kyorix Score coordinates referee and judge inputs, automatic penalty calculations, and live arena scoreboards with deterministic, sub-millisecond precision.",
-    "ctaText": "DEEP DIVE: KYORIX SCORE",
+    "description": "Kyorix ESS coordinates referee and judge inputs, automatic penalty calculations, and live arena scoreboards with deterministic, sub-millisecond precision.",
+    "ctaText": "DEEP DIVE: KYORIX ESS",
     "ctaLink": "/products/score",
     "badge": "ELECTRONIC SCORING",
     "imageSrc": "/images/products/score.png",
-    "imageTitle": "KYORIX SCORE — REAL-TIME ARENA SCORING SOFTWARE",
+    "imageTitle": "KYORIX ESS — REAL-TIME ARENA SCORING SOFTWARE",
     "imageSubtitle": "Live match control, referee point validation, and synchronized arena display",
     "features": [
       {

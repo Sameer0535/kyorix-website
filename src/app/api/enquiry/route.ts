@@ -124,8 +124,12 @@ export async function POST(request: Request) {
       );
     }
 
+    const year = new Date().getFullYear();
+    const docketSuffix = Math.random().toString(36).substring(2, 6).toUpperCase();
+    const officialId = `KX-${year}-${docketSuffix}`;
+
     const newEnquiry = {
-      id: `ENQ-${Date.now()}-${Math.random().toString(36).substring(2, 6).toUpperCase()}`,
+      id: officialId,
       fullName: String(fullName).trim(),
       organization: String(organization).trim(),
       designation: designation ? String(designation).trim() : "N/A",

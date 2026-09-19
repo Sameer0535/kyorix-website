@@ -37,6 +37,7 @@ import {
   ArrowUpDown,
   Mail,
   MessageSquare,
+  Send,
 } from "lucide-react";
 import { useSiteContent, SiteContent } from "@/context/ContentContext";
 
@@ -3172,6 +3173,128 @@ export default function AdminPortalPage() {
                   <p className="text-[10px] text-gray-500 font-mono">
                     Direct escalation mailbox displayed to tournament organizers with pressing deadlines.
                   </p>
+                </div>
+              </div>
+
+              {/* Direct Google Gmail SMTP / App Password Setup */}
+              <div className="p-4 bg-[#08090C] border border-[#1E2638] rounded-lg space-y-4">
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2">
+                  <div>
+                    <span className="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                      <Mail className="w-4 h-4 text-kyorix-blue" />
+                      <span>Direct Gmail SMTP Delivery (Guaranteed Primary Inbox)</span>
+                    </span>
+                    <p className="text-[11px] text-gray-400 font-mono mt-0.5">
+                      Delivers incoming form submissions directly through Google's official mail server without spam drops.
+                    </p>
+                  </div>
+                  <a
+                    href="https://myaccount.google.com/apppasswords"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-xs font-mono text-cyan-400 hover:text-cyan-300 underline shrink-0 font-bold"
+                  >
+                    Get Google App Password ↗
+                  </a>
+                </div>
+
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-gray-400 uppercase font-bold">
+                      Gmail Account / SMTP Username
+                    </label>
+                    <input
+                      type="email"
+                      value={content.companyInfo.smtpUser || content.companyInfo.inquiryRecipientEmail || "kyorixofficial@gmail.com"}
+                      onChange={(e) => {
+                        updateSection("companyInfo", { smtpUser: e.target.value });
+                      }}
+                      placeholder="kyorixofficial@gmail.com"
+                      className="w-full bg-[#0D1117] border border-[#1E2638] focus:border-cyan-400 rounded p-3 text-xs font-mono text-cyan-300 focus:outline-none"
+                    />
+                  </div>
+
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-gray-400 uppercase font-bold flex items-center justify-between">
+                      <span>Google 16-Letter App Password</span>
+                      <button
+                        type="button"
+                        onClick={() => setShowSmtpPass(!showSmtpPass)}
+                        className="text-[10px] text-gray-400 hover:text-gray-200 lowercase font-mono"
+                      >
+                        {showSmtpPass ? "hide password" : "show password"}
+                      </button>
+                    </label>
+                    <input
+                      type={showSmtpPass ? "text" : "password"}
+                      value={content.companyInfo.smtpPass || ""}
+                      onChange={(e) => {
+                        updateSection("companyInfo", { smtpPass: e.target.value });
+                      }}
+                      placeholder="e.g. abcd efgh ijkl mnop"
+                      className="w-full bg-[#0D1117] border border-[#1E2638] focus:border-cyan-400 rounded p-3 text-xs font-mono text-emerald-300 focus:outline-none"
+                    />
+                  </div>
+                </div>
+
+                {emailTestResult && (
+                  <div className={`p-3 rounded text-xs font-mono border ${
+                    emailTestResult.startsWith("✅")
+                      ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+                      : "bg-red-500/10 border-red-500/30 text-red-300"
+                  }`}>
+                    {emailTestResult}
+                  </div>
+                )}
+
+                <div className="flex items-center gap-3 pt-2">
+                  <button
+                    type="button"
+                    disabled={testingEmail}
+                    onClick={async () => {
+                      setTestingEmail(true);
+                      setEmailTestResult(null);
+                      try {
+                        const target = content.companyInfo.inquiryRecipientEmail || "kyorixofficial@gmail.com";
+                        const res = await fetch("/api/enquiry/test", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            email: target,
+                            smtpUser: content.companyInfo.smtpUser || target,
+                            smtpPass: content.companyInfo.smtpPass || "",
+                            smtpHost: content.companyInfo.smtpHost || "smtp.gmail.com",
+                            smtpPort: content.companyInfo.smtpPort || 465,
+                          }),
+                        });
+                        const json = await res.json();
+                        if (json.success) {
+                          setEmailTestResult(`✅ ${json.message}`);
+                          showToast("Test email triggered successfully!");
+                        } else {
+                          setEmailTestResult(`❌ Error: ${json.error || "Failed"}`);
+                          showToast("Test failed: " + (json.error || "Failed"));
+                        }
+                      } catch (err: any) {
+                        setEmailTestResult(`❌ Network error: ${err.message}`);
+                      } finally {
+                        setTestingEmail(false);
+                      }
+                    }}
+                    className="inline-flex items-center gap-2 px-4 py-2 bg-[#161E2E] hover:bg-[#1E283D] border border-[#222E44] text-cyan-400 rounded text-xs font-mono font-bold uppercase transition-colors"
+                  >
+                    {testingEmail ? (
+                      <>
+                        <RefreshCw className="w-4 h-4 animate-spin" />
+                        <span>TESTING EMAIL PIPELINE...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-4 h-4" />
+                        <span>⚡ TEST EMAIL DISPATCH NOW</span>
+                      </>
+                    )}
+                  </button>
                 </div>
               </div>
 

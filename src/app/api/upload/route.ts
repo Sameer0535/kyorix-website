@@ -1,8 +1,7 @@
 import { NextResponse } from "next/server";
-import fs from "fs";
 import path from "path";
-
-const UPLOAD_DIR = path.join(process.cwd(), "public", "uploads");
+import fs from "fs";
+import { getDatabase } from "@/lib/mongodb";
 
 export async function POST(request: Request) {
   try {
@@ -22,31 +21,82 @@ export async function POST(request: Request) {
       );
     }
 
-    // Ensure uploads directory exists
-    if (!fs.existsSync(UPLOAD_DIR)) {
-      fs.mkdirSync(UPLOAD_DIR, { recursive: true });
+    // Max 10MB limit
+    if (file.size > 10 * 1024 * 1024) {
+      return NextResponse.json(
+        { success: false, error: "File size exceeds 10MB limit. Please upload a smaller image." },
+        { status: 400 }
+      );
     }
 
-    // Sanitize filename
-    const ext = path.extname(file.name) || ".png";
+    const ext = path.extname(file.name) || ".jpg";
     const baseName = path
       .basename(file.name, ext)
       .replace(/[^a-zA-Z0-9_-]/g, "_")
       .toLowerCase();
-    const fileName = `${baseName}_${Date.now()}${ext}`;
-    const filePath = path.join(UPLOAD_DIR, fileName);
+    const imageId = `${baseName}_${Date.now()}${ext}`;
 
     const bytes = await file.arrayBuffer();
     const buffer = Buffer.from(bytes);
-    fs.writeFileSync(filePath, buffer);
 
-    const publicUrl = `/uploads/${fileName}`;
+    // 1. Primary Strategy: Store in MongoDB (Cloud-persistent, zero filesystem dependencies)
+    try {
+      const db = await getDatabase();
+      if (db) {
+        await db.collection("media_uploads").updateOne(
+          { id: imageId },
+          {
+            $set: {
+              id: imageId,
+              filename: file.name,
+              contentType: file.type,
+              data: buffer,
+              size: file.size,
+              createdAt: new Date(),
+            },
+          },
+          { upsert: true }
+        );
+
+        const publicUrl = `/api/images/${imageId}`;
+        return NextResponse.json({
+          success: true,
+          url: publicUrl,
+          fileName: imageId,
+          size: file.size,
+          storage: "mongodb",
+        });
+      }
+    } catch (dbErr) {
+      console.warn("MongoDB image upload failed, falling back:", dbErr);
+    }
+
+    // 2. Secondary Strategy: Try local filesystem (for local dev environments)
+    try {
+      const localUploadDir = path.join(process.cwd(), "public", "uploads");
+      if (!fs.existsSync(localUploadDir)) {
+        fs.mkdirSync(localUploadDir, { recursive: true });
+      }
+      fs.writeFileSync(path.join(localUploadDir, imageId), buffer);
+      return NextResponse.json({
+        success: true,
+        url: `/uploads/${imageId}`,
+        fileName: imageId,
+        size: file.size,
+        storage: "local_disk",
+      });
+    } catch (_) {}
+
+    // 3. Guaranteed Fallback: Base64 Data URL (Never fails on read-only serverless filesystems)
+    const base64 = buffer.toString("base64");
+    const dataUrl = `data:${file.type};base64,${base64}`;
 
     return NextResponse.json({
       success: true,
-      url: publicUrl,
-      fileName,
+      url: dataUrl,
+      fileName: imageId,
       size: file.size,
+      storage: "data_url",
     });
   } catch (error: any) {
     console.error("Upload error:", error);

@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import nodemailer from "nodemailer";
+import { getDatabase } from "@/lib/mongodb";
 
 const ENQUIRIES_FILE_PATH = path.join(process.cwd(), "src", "data", "enquiries.json");
 const TMP_FILE_PATH = path.join("/tmp", "enquiries.json");
@@ -80,8 +81,18 @@ function getNotificationRecipients(): { recipient: string; cc: string } {
 
 export async function GET() {
   try {
+    const db = await getDatabase();
+    if (db) {
+      try {
+        const list = await db.collection("enquiries").find({}).sort({ createdAt: -1 }).toArray();
+        const sanitized = list.map(({ _id, ...rest }) => rest);
+        return NextResponse.json({ success: true, data: sanitized, source: "mongodb" });
+      } catch (dbErr) {
+        console.warn("MongoDB enquiries fetch failed, falling back to file:", dbErr);
+      }
+    }
     const enquiries = getEnquiries();
-    return NextResponse.json({ success: true, data: enquiries });
+    return NextResponse.json({ success: true, data: enquiries, source: "file" });
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error?.message || "Failed to fetch enquiries" },
@@ -132,6 +143,15 @@ export async function POST(request: Request) {
     const currentList = getEnquiries();
     currentList.unshift(newEnquiry); // Prepend so newest is first
     saveEnquiries(currentList);
+
+    const db = await getDatabase();
+    if (db) {
+      try {
+        await db.collection("enquiries").insertOne({ ...newEnquiry });
+      } catch (dbErr) {
+        console.error("Failed to insert enquiry to MongoDB:", dbErr);
+      }
+    }
 
     // Optional email dispatch via SMTP if environment variables are provided
     const smtpHost = process.env.SMTP_HOST;
@@ -298,6 +318,15 @@ export async function PATCH(request: Request) {
     currentList[index].status = status;
     saveEnquiries(currentList);
 
+    const db = await getDatabase();
+    if (db) {
+      try {
+        await db.collection("enquiries").updateOne({ id }, { $set: { status } });
+      } catch (dbErr) {
+        console.error("Failed to update status in MongoDB:", dbErr);
+      }
+    }
+
     return NextResponse.json({ success: true, message: "Status updated successfully", data: currentList[index] });
   } catch (error: any) {
     return NextResponse.json(
@@ -325,6 +354,15 @@ export async function DELETE(request: Request) {
     }
 
     saveEnquiries(currentList);
+
+    const db = await getDatabase();
+    if (db) {
+      try {
+        await db.collection("enquiries").deleteOne({ id });
+      } catch (dbErr) {
+        console.error("Failed to delete enquiry from MongoDB:", dbErr);
+      }
+    }
     return NextResponse.json({ success: true, message: "Enquiry deleted successfully" });
   } catch (error: any) {
     return NextResponse.json(

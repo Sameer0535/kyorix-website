@@ -2,13 +2,27 @@ import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 import defaultContent from "@/data/default-content.json";
+import { getDatabase } from "@/lib/mongodb";
 
 const CONTENT_FILE_PATH = path.join(process.cwd(), "src", "data", "site-content.json");
 const TMP_CONTENT_PATH = path.join("/tmp", "site-content.json");
 
 export async function GET() {
   try {
-    // 1. Check /tmp if running in serverless / Vercel
+    // 1. Try MongoDB if configured
+    const db = await getDatabase();
+    if (db) {
+      try {
+        const doc = await db.collection("site_content").findOne({ key: "active_content" });
+        if (doc && doc.data) {
+          return NextResponse.json({ success: true, data: doc.data, source: "mongodb" });
+        }
+      } catch (dbErr) {
+        console.warn("MongoDB read failed, falling back to file:", dbErr);
+      }
+    }
+
+    // 2. Check /tmp if running in serverless / Vercel
     if (fs.existsSync(TMP_CONTENT_PATH)) {
       try {
         const raw = fs.readFileSync(TMP_CONTENT_PATH, "utf-8");
@@ -17,7 +31,7 @@ export async function GET() {
       } catch (_) {}
     }
 
-    // 2. Check source tree file
+    // 3. Check source tree file
     if (fs.existsSync(CONTENT_FILE_PATH)) {
       const raw = fs.readFileSync(CONTENT_FILE_PATH, "utf-8");
       const data = JSON.parse(raw);
@@ -42,6 +56,21 @@ export async function POST(request: Request) {
       _lastSaved: body._lastSaved || Date.now(),
     };
 
+    let savedToMongo = false;
+    const db = await getDatabase();
+    if (db) {
+      try {
+        await db.collection("site_content").updateOne(
+          { key: "active_content" },
+          { $set: { key: "active_content", data: payload, updatedAt: new Date() } },
+          { upsert: true }
+        );
+        savedToMongo = true;
+      } catch (dbErr) {
+        console.error("Failed to write to MongoDB:", dbErr);
+      }
+    }
+
     let savedLocally = false;
     // Attempt writing to primary path
     try {
@@ -61,6 +90,7 @@ export async function POST(request: Request) {
     return NextResponse.json({
       success: true,
       message: "Content updated successfully",
+      savedToMongo,
       savedLocally,
       lastSaved: payload._lastSaved,
     });
@@ -75,6 +105,14 @@ export async function POST(request: Request) {
 
 export async function DELETE() {
   try {
+    const db = await getDatabase();
+    if (db) {
+      try {
+        await db.collection("site_content").deleteOne({ key: "active_content" });
+      } catch (dbErr) {
+        console.error("Failed to delete from MongoDB:", dbErr);
+      }
+    }
     if (fs.existsSync(CONTENT_FILE_PATH)) {
       fs.unlinkSync(CONTENT_FILE_PATH);
     }
@@ -90,4 +128,3 @@ export async function DELETE() {
     );
   }
 }
-

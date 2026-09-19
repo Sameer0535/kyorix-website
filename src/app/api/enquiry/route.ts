@@ -159,28 +159,69 @@ export async function POST(request: Request) {
 
     // User requested not to save form submission data to database - only dispatch directly via email
 
-    // Optional email dispatch via SMTP if environment variables are provided
-    const smtpHost = process.env.SMTP_HOST;
-    const smtpUser = process.env.SMTP_USER;
-    const smtpPass = process.env.SMTP_PASS;
-    const smtpPort = Number(process.env.SMTP_PORT) || 465;
-    const notifyEmail = process.env.NOTIFICATION_EMAIL || "contact@kyorixsport.in";
+    // 1. Fetch live recipient routing from database or config
+    const { recipient: targetEmail, cc: ccEmail } = await getNotificationRecipients();
+    const emailsToDispatch = Array.from(new Set([targetEmail, ccEmail].filter(Boolean)));
 
-    if (smtpHost && smtpUser && smtpPass) {
+    // 2. Check for SMTP credentials in MongoDB Atlas site_content, local file, or environment
+    let activeSmtpHost = process.env.SMTP_HOST || "smtp.gmail.com";
+    let activeSmtpUser = process.env.SMTP_USER;
+    let activeSmtpPass = process.env.SMTP_PASS;
+    let activeSmtpPort = Number(process.env.SMTP_PORT) || 465;
+
+    try {
+      const db = await getDatabase();
+      if (db) {
+        const doc = await db.collection("site_content").findOne({ _id: "current" as any });
+        const info = doc?.content?.companyInfo;
+        const smtpU = info?.smtpUser || info?.emailSettings?.smtpUser;
+        const smtpP = info?.smtpPass || info?.emailSettings?.smtpPass;
+        if (smtpU && smtpP) {
+          activeSmtpHost = info.smtpHost || "smtp.gmail.com";
+          activeSmtpUser = smtpU.trim();
+          activeSmtpPass = smtpP.trim().replace(/\s+/g, "");
+          activeSmtpPort = Number(info.smtpPort) || 465;
+        }
+      }
+    } catch (_) {}
+
+    // Also check local site-content.json if not resolved from DB
+    if (!activeSmtpUser || !activeSmtpPass) {
+      try {
+        const contentFile = path.join(process.cwd(), "src", "data", "site-content.json");
+        if (fs.existsSync(contentFile)) {
+          const parsed = JSON.parse(fs.readFileSync(contentFile, "utf-8"));
+          const info = parsed?.companyInfo;
+          const smtpU = info?.smtpUser || info?.emailSettings?.smtpUser;
+          const smtpP = info?.smtpPass || info?.emailSettings?.smtpPass;
+          if (smtpU && smtpP) {
+            activeSmtpHost = info.smtpHost || "smtp.gmail.com";
+            activeSmtpUser = smtpU.trim();
+            activeSmtpPass = smtpP.trim().replace(/\s+/g, "");
+            activeSmtpPort = Number(info.smtpPort) || 465;
+          }
+        }
+      } catch (_) {}
+    }
+
+    let emailSentViaSmtp = false;
+
+    // 3. If SMTP credentials exist, send directly via Nodemailer (Guaranteed Primary Inbox delivery)
+    if (activeSmtpUser && activeSmtpPass) {
       try {
         const transporter = nodemailer.createTransport({
-          host: smtpHost,
-          port: smtpPort,
-          secure: smtpPort === 465,
+          host: activeSmtpHost,
+          port: activeSmtpPort,
+          secure: activeSmtpPort === 465,
           auth: {
-            user: smtpUser,
-            pass: smtpPass,
+            user: activeSmtpUser,
+            pass: activeSmtpPass,
           },
         });
 
         await transporter.sendMail({
-          from: `"Kyorix Portal" <${smtpUser}>`,
-          to: notifyEmail,
+          from: `"Kyorix Sport Technology" <${activeSmtpUser}>`,
+          to: emailsToDispatch.join(", "),
           replyTo: newEnquiry.email,
           subject: `[New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`,
           text: `
@@ -223,50 +264,49 @@ Inquiry ID: ${newEnquiry.id}
             </div>
           `,
         });
+        emailSentViaSmtp = true;
+        console.log("SMTP direct email dispatched successfully to", emailsToDispatch);
       } catch (mailErr) {
         console.error("Failed to send SMTP email notification:", mailErr);
       }
     }
 
-    // Direct zero-config email dispatch via FormSubmit to admin email & backup CC
-    const { recipient: targetEmail, cc: ccEmail } = await getNotificationRecipients();
-    const emailsToDispatch = Array.from(new Set([targetEmail, ccEmail].filter(Boolean)));
-
-    for (const email of emailsToDispatch) {
-      try {
-        const fsRes = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Accept: "application/json",
-            Referer: "https://kyorixsport.in/",
-            Origin: "https://kyorixsport.in",
-            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-          },
-          body: JSON.stringify({
-            _subject: `⚡ [New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`,
-            _replyto: newEnquiry.email,
-            _captcha: "false",
-            _template: "table",
-            Inquiry_ID: newEnquiry.id,
-            Full_Name: newEnquiry.fullName,
-            Organization: newEnquiry.organization,
-            Designation: newEnquiry.designation,
-            Email: newEnquiry.email,
-            Phone: newEnquiry.phone,
-            Country: newEnquiry.country,
-            Sport: newEnquiry.sport,
-            Product_Interest: newEnquiry.interest,
-            Communication_Desk: newEnquiry.category,
-            Message: newEnquiry.message,
-            Received_At: newEnquiry.createdAt,
-          }),
-        });
-        const fsJson = await fsRes.json().catch(() => null);
-        console.log(`FormSubmit dispatch to ${email} status:`, fsJson);
-      } catch (fsErr) {
-        console.error(`Failed to dispatch via FormSubmit to ${email}:`, fsErr);
+    // 4. Dispatch via FormSubmit as robust secondary channel (or primary if SMTP not configured)
+    try {
+      const formParams = new URLSearchParams();
+      formParams.append("_captcha", "false");
+      formParams.append("_template", "table");
+      formParams.append("_subject", `⚡ [New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`);
+      formParams.append("_replyto", newEnquiry.email);
+      if (ccEmail && ccEmail !== targetEmail) {
+        formParams.append("_cc", ccEmail);
       }
+      formParams.append("Inquiry_ID", newEnquiry.id);
+      formParams.append("Full_Name", newEnquiry.fullName);
+      formParams.append("Organization", newEnquiry.organization);
+      formParams.append("Designation", newEnquiry.designation);
+      formParams.append("Email", newEnquiry.email);
+      formParams.append("Phone", newEnquiry.phone);
+      formParams.append("Country", newEnquiry.country);
+      formParams.append("Sport", newEnquiry.sport);
+      formParams.append("Interest", newEnquiry.interest);
+      formParams.append("Communication_Desk", newEnquiry.category);
+      formParams.append("Message", newEnquiry.message);
+      formParams.append("Submitted_At", new Date().toLocaleString());
+
+      await fetch(`https://formsubmit.co/${encodeURIComponent(targetEmail)}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/x-www-form-urlencoded",
+          Referer: "https://kyorixsport.in/contact",
+          Origin: "https://kyorixsport.in",
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36",
+        },
+        body: formParams.toString(),
+      });
+      console.log("FormSubmit dispatched cleanly to", targetEmail);
+    } catch (fsErr) {
+      console.error("FormSubmit dispatch error:", fsErr);
     }
 
     // Optional Web3Forms instant email dispatch

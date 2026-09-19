@@ -77,6 +77,9 @@ export default function AdminPortalPage() {
   const [activeTab, setActiveTab] = useState<AdminTab>("hero");
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [uploadingField, setUploadingField] = useState<string | null>(null);
+  const [testingEmail, setTestingEmail] = useState(false);
+  const [emailTestResult, setEmailTestResult] = useState<string | null>(null);
+  const [showSmtpPass, setShowSmtpPass] = useState(false);
 
   // Settings tab states
   const [newPin, setNewPin] = useState("");
@@ -718,16 +721,137 @@ export default function AdminPortalPage() {
                     </p>
                   </div>
                 </div>
-                <div className="flex justify-end pt-1">
+
+                {/* Direct Google Gmail SMTP / App Password Setup */}
+                <div className="pt-3 border-t border-[#1E2638]/60 space-y-2">
+                  <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-1">
+                    <div>
+                      <span className="text-xs font-mono font-bold text-white uppercase tracking-wider flex items-center gap-1.5">
+                        <Mail className="w-3.5 h-3.5 text-kyorix-blue" />
+                        <span>Direct Gmail SMTP Delivery (Guaranteed Primary Inbox)</span>
+                      </span>
+                      <p className="text-[10px] text-gray-400 font-mono mt-0.5">
+                        Delivers directly through Google's official mail server without third-party spam delays.
+                      </p>
+                    </div>
+                    <a
+                      href="https://myaccount.google.com/apppasswords"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-[10px] font-mono text-cyan-400 hover:text-cyan-300 underline shrink-0"
+                    >
+                      Get Google App Password ↗
+                    </a>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-mono text-gray-400 uppercase font-bold">
+                        Gmail Account / SMTP Username
+                      </label>
+                      <input
+                        type="email"
+                        value={content.companyInfo.smtpUser || content.companyInfo.inquiryRecipientEmail || "kyorixofficial@gmail.com"}
+                        onChange={(e) => {
+                          updateSection("companyInfo", { smtpUser: e.target.value });
+                        }}
+                        placeholder="kyorixofficial@gmail.com"
+                        className="w-full bg-[#08090C] border border-[#1E2638] focus:border-cyan-400 rounded px-3 py-2 text-xs font-mono text-cyan-300 focus:outline-none"
+                      />
+                    </div>
+
+                    <div className="space-y-1">
+                      <label className="text-[10px] font-mono text-gray-400 uppercase font-bold flex items-center justify-between">
+                        <span>Google 16-Letter App Password</span>
+                        <button
+                          type="button"
+                          onClick={() => setShowSmtpPass(!showSmtpPass)}
+                          className="text-[9px] text-gray-500 hover:text-gray-300 lowercase font-mono"
+                        >
+                          {showSmtpPass ? "hide" : "show"}
+                        </button>
+                      </label>
+                      <input
+                        type={showSmtpPass ? "text" : "password"}
+                        value={content.companyInfo.smtpPass || ""}
+                        onChange={(e) => {
+                          updateSection("companyInfo", { smtpPass: e.target.value });
+                        }}
+                        placeholder="e.g. abcd efgh ijkl mnop"
+                        className="w-full bg-[#08090C] border border-[#1E2638] focus:border-cyan-400 rounded px-3 py-2 text-xs font-mono text-emerald-300 focus:outline-none"
+                      />
+                    </div>
+                  </div>
+
+                  {emailTestResult && (
+                    <div className={`p-2.5 rounded text-xs font-mono border ${
+                      emailTestResult.startsWith("✅")
+                        ? "bg-emerald-500/10 border-emerald-500/30 text-emerald-300"
+                        : "bg-red-500/10 border-red-500/30 text-red-300"
+                    }`}>
+                      {emailTestResult}
+                    </div>
+                  )}
+                </div>
+
+                <div className="flex flex-wrap items-center justify-between gap-2 pt-2 border-t border-[#1E2638]/60">
+                  <button
+                    type="button"
+                    disabled={testingEmail}
+                    onClick={async () => {
+                      setTestingEmail(true);
+                      setEmailTestResult(null);
+                      try {
+                        const target = content.companyInfo.inquiryRecipientEmail || "kyorixofficial@gmail.com";
+                        const res = await fetch("/api/enquiry/test", {
+                          method: "POST",
+                          headers: { "Content-Type": "application/json" },
+                          body: JSON.stringify({
+                            email: target,
+                            smtpUser: content.companyInfo.smtpUser || target,
+                            smtpPass: content.companyInfo.smtpPass || "",
+                            smtpHost: content.companyInfo.smtpHost || "smtp.gmail.com",
+                            smtpPort: content.companyInfo.smtpPort || 465,
+                          }),
+                        });
+                        const json = await res.json();
+                        if (json.success) {
+                          setEmailTestResult(`✅ ${json.message}`);
+                          showToast("Test email triggered successfully!");
+                        } else {
+                          setEmailTestResult(`❌ Error: ${json.error || "Failed"}`);
+                          showToast("Test failed: " + (json.error || "Failed"));
+                        }
+                      } catch (err: any) {
+                        setEmailTestResult(`❌ Network error: ${err.message}`);
+                      } finally {
+                        setTestingEmail(false);
+                      }
+                    }}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#161E2E] hover:bg-[#1E283D] border border-[#222E44] text-cyan-400 rounded text-xs font-mono font-bold uppercase transition-colors"
+                  >
+                    {testingEmail ? (
+                      <>
+                        <RefreshCw className="w-3.5 h-3.5 animate-spin" />
+                        <span>TESTING EMAIL PIPELINE...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Mail className="w-3.5 h-3.5" />
+                        <span>TEST EMAIL DISPATCH NOW</span>
+                      </>
+                    )}
+                  </button>
+
                   <button
                     onClick={async () => {
                       const ok = await saveContent(content);
-                      if (ok) showToast("Inquiry routing and urgent contacts updated successfully!");
+                      if (ok) showToast("Inquiry routing, urgent contacts & email settings updated!");
                     }}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded text-xs font-mono font-bold uppercase transition-colors"
                   >
                     <Save className="w-3.5 h-3.5" />
-                    <span>SAVE ROUTING & CONTACTS</span>
+                    <span>SAVE ROUTING & SETTINGS</span>
                   </button>
                 </div>
               </div>

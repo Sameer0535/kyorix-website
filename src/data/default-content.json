@@ -412,6 +412,10 @@
     "cin": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: CIN-U72900XX2026PTC000000]",
     "gstin": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: GSTIN-00AAAAA0000A1Z5]",
     "status": "Private Limited Company",
-    "discipline": "Competitive Sports Technology"
+    "discipline": "Competitive Sports Technology",
+    "smtpHost": "smtp.gmail.com",
+    "smtpPort": 465,
+    "smtpUser": "kyorixofficial@gmail.com",
+    "smtpPass": ""
   }
 }

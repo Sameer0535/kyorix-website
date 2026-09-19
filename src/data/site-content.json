@@ -12,7 +12,7 @@
     "ctaPrimaryLink": "/products",
     "ctaSecondaryText": "REQUEST A DEMO",
     "ctaSecondaryLink": "/contact?intent=demo",
-    "backgroundImageSrc": "/images/arena-competition.jpg",
+    "backgroundImageSrc": "/api/images/whatsapp_image_2026-08-31_at_11_11_00_pm_1789811990750.jpeg",
     "logoImageSrc": "/brand/kyorix-logo.png",
     "logoAlt": "Kyorix Sport Technology Private Limited"
   },
@@ -155,12 +155,12 @@
     "label": "01 • ELECTRONIC SCORING PLATFORM",
     "title": "COMPETITION. IN REAL TIME.",
     "subtitle": "Live match control, referee point validation, and synchronized arena display",
-    "description": "Kyorix ESS coordinates referee and judge inputs, automatic penalty calculations, and live arena scoreboards with deterministic, sub-millisecond precision.",
-    "ctaText": "DEEP DIVE: KYORIX ESS",
+    "description": "Kyorix Score coordinates referee and judge inputs, automatic penalty calculations, and live arena scoreboards with deterministic, sub-millisecond precision.",
+    "ctaText": "DEEP DIVE: KYORIX SCORE",
     "ctaLink": "/products/score",
     "badge": "ELECTRONIC SCORING",
     "imageSrc": "/images/products/score.png",
-    "imageTitle": "KYORIX ESS — REAL-TIME ARENA SCORING SOFTWARE",
+    "imageTitle": "KYORIX SCORE — REAL-TIME ARENA SCORING SOFTWARE",
     "imageSubtitle": "Live match control, referee point validation, and synchronized arena display",
     "features": [
       {
@@ -440,10 +440,9 @@
     "name": "KYORIX SPORT TECHNOLOGY PRIVATE LIMITED",
     "brand": "KYORIX",
     "tagline": "COMPETE. CONNECT. ELEVATE.",
-    "email": "contact@kyorixsport.in",
-    "supportEmail": "support@kyorixsport.in",
+    "email": "kyorixofficial@gmail.com",
+    "supportEmail": "supportkyorix@gmail.com",
     "inquiryRecipientEmail": "kyorixofficial@gmail.com",
-    "inquiryCcEmail": "supportkyorix@gmail.com",
     "urgentContactNumber": "+91 90712 72555",
     "urgentContactEmail": "kyorixofficial@gmail.com",
     "phone": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: +91 00000 00000]",
@@ -457,5 +456,5 @@
     "smtpUser": "kyorixofficial@gmail.com",
     "smtpPass": ""
   },
-  "_lastSaved": 1789807941905
+  "_lastSaved": 1789815182647
 }

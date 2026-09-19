@@ -52,11 +52,13 @@ async function getNotificationRecipients(): Promise<{ recipient: string; cc: str
   try {
     const db = await getDatabase();
     if (db) {
-      const doc = await db.collection("site_content").findOne({ _id: "current" as any });
-      if (doc?.content?.companyInfo?.inquiryRecipientEmail) {
+      const doc = (await db.collection("site_content").findOne({ key: "active_content" })) ||
+                  (await db.collection("site_content").findOne({ _id: "current" as any }));
+      const info = doc?.data?.companyInfo || doc?.content?.companyInfo;
+      if (info?.inquiryRecipientEmail) {
         return {
-          recipient: doc.content.companyInfo.inquiryRecipientEmail.trim(),
-          cc: doc.content.companyInfo.inquiryCcEmail?.trim() || "supportkyorix@gmail.com",
+          recipient: info.inquiryRecipientEmail.trim(),
+          cc: info.inquiryCcEmail?.trim() || "supportkyorix@gmail.com",
         };
       }
     }
@@ -172,8 +174,9 @@ export async function POST(request: Request) {
     try {
       const db = await getDatabase();
       if (db) {
-        const doc = await db.collection("site_content").findOne({ _id: "current" as any });
-        const info = doc?.content?.companyInfo;
+        const doc = (await db.collection("site_content").findOne({ key: "active_content" })) ||
+                    (await db.collection("site_content").findOne({ _id: "current" as any }));
+        const info = doc?.data?.companyInfo || doc?.content?.companyInfo;
         const smtpU = info?.smtpUser || info?.emailSettings?.smtpUser;
         const smtpP = info?.smtpPass || info?.emailSettings?.smtpPass;
         if (smtpU && smtpP) {

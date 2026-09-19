@@ -17,8 +17,9 @@ export async function POST(request: Request) {
       try {
         const db = await getDatabase();
         if (db) {
-          const doc = await db.collection("site_content").findOne({ _id: "current" as any });
-          const info = doc?.content?.companyInfo;
+          const doc = (await db.collection("site_content").findOne({ key: "active_content" })) ||
+                      (await db.collection("site_content").findOne({ _id: "current" as any }));
+          const info = doc?.data?.companyInfo || doc?.content?.companyInfo;
           const smtpU = info?.smtpUser || info?.emailSettings?.smtpUser;
           const smtpP = info?.smtpPass || info?.emailSettings?.smtpPass;
           if (smtpU && smtpP) {

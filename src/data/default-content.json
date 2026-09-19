@@ -12,6 +12,7 @@
     "ctaPrimaryLink": "/products",
     "ctaSecondaryText": "REQUEST A DEMO",
     "ctaSecondaryLink": "/contact?intent=demo",
+    "backgroundImageSrc": "/images/arena-competition.jpg",
     "logoImageSrc": "/brand/kyorix-logo.png",
     "logoAlt": "Kyorix Sport Technology Private Limited"
   },

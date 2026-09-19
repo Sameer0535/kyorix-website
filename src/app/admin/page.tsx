@@ -987,54 +987,82 @@ export default function AdminPortalPage() {
                 </div>
               </div>
 
-              {/* Hero Logo / Photo Manager */}
+              {/* Hero Banner Background Image Manager */}
               <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 space-y-4">
-                <h3 className="text-sm font-mono font-bold text-white uppercase flex items-center gap-2">
-                  <ImageIcon className="w-4 h-4 text-kyorix-blue" />
-                  <span>Hero Display Brand Logo / Photo</span>
-                </h3>
+                <div className="flex items-center justify-between">
+                  <h3 className="text-sm font-mono font-bold text-white uppercase flex items-center gap-2">
+                    <ImageIcon className="w-4 h-4 text-kyorix-blue" />
+                    <span>Hero Banner Background Image</span>
+                  </h3>
+                  <span className="text-[10px] font-mono text-cyan-400 bg-cyan-500/10 border border-cyan-500/30 px-2 py-0.5 rounded uppercase">
+                    Full-Width Cinematic Banner
+                  </span>
+                </div>
+                <p className="text-xs text-gray-400 font-mono">
+                  This image is displayed as the atmospheric background behind the hero headline with sports-tech gradient overlays for high text contrast.
+                </p>
 
                 <div className="flex flex-col sm:flex-row items-center gap-6">
-                  <div className="w-48 h-32 bg-white rounded-lg p-3 border border-white/20 flex items-center justify-center shrink-0 relative overflow-hidden">
-                    <Image
-                      src={content.hero.logoImageSrc}
-                      alt={content.hero.logoAlt}
-                      width={180}
-                      height={120}
-                      className="max-h-full max-w-full object-contain"
-                      unoptimized
-                    />
+                  <div className="w-64 h-36 bg-[#08090C] rounded-lg border border-[#1E2638] relative overflow-hidden shrink-0 shadow-lg">
+                    {content.hero.backgroundImageSrc ? (
+                      <>
+                        <Image
+                          src={content.hero.backgroundImageSrc}
+                          alt="Hero Background Banner"
+                          fill
+                          className="object-cover object-center opacity-70"
+                          unoptimized
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent" />
+                        <div className="absolute bottom-2 left-2 text-[10px] font-mono text-white font-bold bg-black/60 px-1.5 py-0.5 rounded">
+                          LIVE PREVIEW
+                        </div>
+                      </>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center text-gray-500 text-xs font-mono">
+                        Dark Abstract Grid Only
+                      </div>
+                    )}
                   </div>
 
                   <div className="space-y-3 flex-grow w-full">
                     <div className="space-y-1">
-                      <label className="text-[11px] font-mono text-gray-400 uppercase">
-                        Current Image Path / URL:
+                      <label className="text-[11px] font-mono text-gray-400 uppercase font-bold">
+                        Background Image Path or External URL:
                       </label>
                       <input
                         type="text"
-                        value={content.hero.logoImageSrc}
-                        onChange={(e) => updateSection("hero", { logoImageSrc: e.target.value })}
-                        className="w-full bg-[#08090C] border border-[#1E2638] rounded p-2 text-xs font-mono text-white"
+                        value={content.hero.backgroundImageSrc || ""}
+                        onChange={(e) => updateSection("hero", { backgroundImageSrc: e.target.value })}
+                        placeholder="/images/arena-competition.jpg or https://..."
+                        className="w-full bg-[#08090C] border border-[#1E2638] focus:border-kyorix-blue rounded p-2.5 text-xs font-mono text-white focus:outline-none"
                       />
                     </div>
 
-                    <div className="flex flex-wrap gap-3">
+                    <div className="flex flex-wrap gap-2 pt-1">
                       <button
                         type="button"
-                        onClick={() => triggerImageUpload("hero", "logoImageSrc")}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-kyorix-blue/10 hover:bg-kyorix-blue/20 text-kyorix-blue border border-kyorix-blue/30 rounded text-xs font-mono font-bold uppercase transition-colors"
+                        onClick={() => triggerImageUpload("hero", "backgroundImageSrc")}
+                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded text-xs font-mono font-bold uppercase transition-colors"
                       >
                         <Upload className="w-3.5 h-3.5" />
-                        <span>Upload New Logo File</span>
+                        <span>Upload New Banner Photo</span>
                       </button>
 
                       <button
                         type="button"
-                        onClick={() => updateSection("hero", { logoImageSrc: "/brand/kyorix-logo.png" })}
-                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#08090C] hover:bg-[#151C2A] text-gray-400 hover:text-white border border-[#1E2638] rounded text-xs font-mono transition-colors"
+                        onClick={() => updateSection("hero", { backgroundImageSrc: "/images/arena-competition.jpg" })}
+                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#111622] hover:bg-[#161D2C] text-gray-300 hover:text-white border border-[#1E2638] rounded text-xs font-mono transition-colors"
                       >
-                        <span>Restore Official Logo</span>
+                        <span>Preset: Arena Stadium</span>
+                      </button>
+
+                      <button
+                        type="button"
+                        onClick={() => updateSection("hero", { backgroundImageSrc: "/images/referee-court.jpg" })}
+                        className="inline-flex items-center gap-1.5 px-3 py-2 bg-[#111622] hover:bg-[#161D2C] text-gray-300 hover:text-white border border-[#1E2638] rounded text-xs font-mono transition-colors"
+                      >
+                        <span>Preset: Referee Court</span>
                       </button>
                     </div>
                   </div>

@@ -1,32 +1,40 @@
 import { MongoClient, Db } from "mongodb";
 
-const uri = process.env.MONGODB_URI || "";
-const options = {};
+const options = {
+  maxPoolSize: 10,
+  serverSelectionTimeoutMS: 5000,
+};
 
-let client: MongoClient;
 let clientPromise: Promise<MongoClient> | null = null;
 
-if (uri) {
+function getClientPromise(): Promise<MongoClient> | null {
+  const uri = process.env.MONGODB_URI;
+  if (!uri) return null;
+
   if (process.env.NODE_ENV === "development") {
     const globalWithMongo = global as typeof globalThis & {
       _mongoClientPromise?: Promise<MongoClient>;
     };
 
     if (!globalWithMongo._mongoClientPromise) {
-      client = new MongoClient(uri, options);
+      const client = new MongoClient(uri, options);
       globalWithMongo._mongoClientPromise = client.connect();
     }
-    clientPromise = globalWithMongo._mongoClientPromise;
+    return globalWithMongo._mongoClientPromise;
   } else {
-    client = new MongoClient(uri, options);
-    clientPromise = client.connect();
+    if (!clientPromise) {
+      const client = new MongoClient(uri, options);
+      clientPromise = client.connect();
+    }
+    return clientPromise;
   }
 }
 
 export async function getDatabase(dbName: string = "kyorix"): Promise<Db | null> {
-  if (!clientPromise) return null;
+  const promise = getClientPromise();
+  if (!promise) return null;
   try {
-    const connectedClient = await clientPromise;
+    const connectedClient = await promise;
     return connectedClient.db(dbName);
   } catch (error) {
     console.error("MongoDB connection error:", error);
@@ -34,4 +42,4 @@ export async function getDatabase(dbName: string = "kyorix"): Promise<Db | null>
   }
 }
 
-export default clientPromise;
+export default getClientPromise;

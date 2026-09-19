@@ -7,6 +7,22 @@ import { getDatabase } from "@/lib/mongodb";
 const CONTENT_FILE_PATH = path.join(process.cwd(), "src", "data", "site-content.json");
 const TMP_CONTENT_PATH = path.join("/tmp", "site-content.json");
 
+function getFallbackContent() {
+  if (fs.existsSync(TMP_CONTENT_PATH)) {
+    try {
+      const raw = fs.readFileSync(TMP_CONTENT_PATH, "utf-8");
+      return JSON.parse(raw);
+    } catch (_) {}
+  }
+  if (fs.existsSync(CONTENT_FILE_PATH)) {
+    try {
+      const raw = fs.readFileSync(CONTENT_FILE_PATH, "utf-8");
+      return JSON.parse(raw);
+    } catch (_) {}
+  }
+  return defaultContent;
+}
+
 export async function GET() {
   try {
     // 1. Try MongoDB if configured
@@ -17,12 +33,24 @@ export async function GET() {
         if (doc && doc.data) {
           return NextResponse.json({ success: true, data: doc.data, source: "mongodb" });
         }
+
+        // AUTO-SEED: If MongoDB is connected but empty, initialize it with current content!
+        if (!doc) {
+          const initialData = getFallbackContent();
+          await db.collection("site_content").updateOne(
+            { key: "active_content" },
+            { $set: { key: "active_content", data: initialData, updatedAt: new Date() } },
+            { upsert: true }
+          );
+          console.log("Auto-seeded MongoDB with active site content.");
+          return NextResponse.json({ success: true, data: initialData, source: "mongodb_autoseeded" });
+        }
       } catch (dbErr) {
         console.warn("MongoDB read failed, falling back to file:", dbErr);
       }
     }
 
-    // 2. Check /tmp if running in serverless / Vercel
+    // 2. Fallback to /tmp if running in serverless without MongoDB
     if (fs.existsSync(TMP_CONTENT_PATH)) {
       try {
         const raw = fs.readFileSync(TMP_CONTENT_PATH, "utf-8");
@@ -31,12 +59,15 @@ export async function GET() {
       } catch (_) {}
     }
 
-    // 3. Check source tree file
+    // 3. Fallback to source tree file
     if (fs.existsSync(CONTENT_FILE_PATH)) {
-      const raw = fs.readFileSync(CONTENT_FILE_PATH, "utf-8");
-      const data = JSON.parse(raw);
-      return NextResponse.json({ success: true, data, source: "persisted" });
+      try {
+        const raw = fs.readFileSync(CONTENT_FILE_PATH, "utf-8");
+        const data = JSON.parse(raw);
+        return NextResponse.json({ success: true, data, source: "persisted" });
+      } catch (_) {}
     }
+
     return NextResponse.json({ success: true, data: defaultContent, source: "default" });
   } catch (error) {
     console.error("Error reading content file:", error);

@@ -401,25 +401,32 @@ export async function DELETE(request: Request) {
       return NextResponse.json({ success: false, error: "Missing id parameter" }, { status: 400 });
     }
 
-    let currentList = getEnquiries();
-    const initialLen = currentList.length;
-    currentList = currentList.filter((item) => item.id !== id);
-
-    if (currentList.length === initialLen) {
-      return NextResponse.json({ success: false, error: "Enquiry not found" }, { status: 404 });
-    }
-
-    saveEnquiries(currentList);
-
+    // 1. Delete from MongoDB
     const db = await getDatabase();
     if (db) {
       try {
-        await db.collection("enquiries").deleteOne({ id });
+        if (id === "all") {
+          await db.collection("enquiries").deleteMany({});
+        } else {
+          await db.collection("enquiries").deleteOne({ id });
+        }
       } catch (dbErr) {
         console.error("Failed to delete enquiry from MongoDB:", dbErr);
       }
     }
-    return NextResponse.json({ success: true, message: "Enquiry deleted successfully" });
+
+    // 2. Delete from local file/tmp
+    try {
+      let currentList = getEnquiries();
+      if (id === "all") {
+        saveEnquiries([]);
+      } else {
+        currentList = currentList.filter((item) => item.id !== id);
+        saveEnquiries(currentList);
+      }
+    } catch (_) {}
+
+    return NextResponse.json({ success: true, message: id === "all" ? "All enquiries deleted successfully" : "Enquiry deleted successfully" });
   } catch (error: any) {
     return NextResponse.json(
       { success: false, error: error?.message || "Failed to delete enquiry" },

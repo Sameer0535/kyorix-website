@@ -186,9 +186,27 @@ export default function AdminPortalPage() {
       if (json.success) {
         setEnquiries((prev) => prev.filter((item) => item.id !== id));
         showToast("Inquiry deleted successfully.");
+      } else {
+        alert("Failed to delete: " + (json.error || "Unknown error"));
       }
-    } catch (err) {
-      console.error("Error deleting enquiry:", err);
+    } catch (err: any) {
+      alert("Error deleting enquiry: " + err.message);
+    }
+  };
+
+  const handleDeleteAllEnquiries = async () => {
+    if (!confirm("Are you sure you want to permanently wipe all stored inquiries from the database?")) return;
+    try {
+      const res = await fetch(`/api/enquiry?id=all`, { method: "DELETE" });
+      const json = await res.json();
+      if (json.success) {
+        setEnquiries([]);
+        showToast("All stored inquiries have been permanently wiped from the database!");
+      } else {
+        alert("Failed to wipe database: " + (json.error || "Unknown error"));
+      }
+    } catch (err: any) {
+      alert("Error wiping enquiries: " + err.message);
     }
   };
 
@@ -484,7 +502,7 @@ export default function AdminPortalPage() {
   // VIEW 2: AUTHENTICATED ADMIN EDITING PORTAL
   // ==========================================
   const navTabs: { id: AdminTab; label: string; icon: any; sectionNumber: string }[] = [
-    { id: "enquiries", sectionNumber: "★", label: "CUSTOMER ENQUIRIES", icon: Mail },
+    { id: "enquiries", sectionNumber: "★", label: "EMAIL & INQUIRY ROUTING", icon: Mail },
     { id: "hero", sectionNumber: "01", label: "HERO SECTION", icon: Sparkles },
     { id: "companyMission", sectionNumber: "02", label: "COMPANY MISSION", icon: FileText },
     { id: "productEcosystem", sectionNumber: "03", label: "PRODUCT ARCHITECTURE", icon: Layers },
@@ -520,26 +538,31 @@ export default function AdminPortalPage() {
                 LIVE EDITING
               </span>
             </div>
-            <div className="text-[11px] font-mono text-gray-500">
-              {lastSaved ? `Last synchronized: ${lastSaved.toLocaleTimeString()}` : "Ready for edits"}
-            </div>
+            <p className="text-[11px] font-mono text-gray-400 hidden sm:block">
+              Connected to live production website
+            </p>
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
+        {/* Action Controls */}
+        <div className="flex items-center gap-2 sm:gap-3">
           <Link
             href="/"
             target="_blank"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#111622] hover:bg-[#1E2638] text-gray-300 hover:text-white border border-[#1E2638] rounded text-xs font-mono font-bold uppercase transition-colors"
+            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-[#111622] hover:bg-[#161F30] border border-[#1E2638] text-gray-300 hover:text-white rounded text-xs font-mono font-bold uppercase transition-colors"
           >
-            <span>VIEW LIVE SITE</span>
             <ExternalLink className="w-3.5 h-3.5" />
+            <span className="hidden sm:inline">VIEW LIVE SITE</span>
           </Link>
 
           <button
-            onClick={handleSaveAll}
+            onClick={() => saveContent()}
             disabled={isSaving}
-            className="inline-flex items-center gap-1.5 px-4 py-1.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded text-xs font-mono font-bold uppercase tracking-wider transition-colors shadow-lg shadow-kyorix-blue/20 disabled:opacity-50"
+            className={`inline-flex items-center gap-1.5 px-4 py-1.5 rounded text-xs font-mono font-bold uppercase tracking-wider transition-all shadow-lg ${
+              isSaving
+                ? "bg-gray-700 text-gray-400 cursor-not-allowed"
+                : "bg-kyorix-blue hover:bg-kyorix-blue-hover text-white shadow-kyorix-blue/20"
+            }`}
           >
             {isSaving ? (
               <>
@@ -576,8 +599,6 @@ export default function AdminPortalPage() {
           {navTabs.map((item) => {
             const Icon = item.icon;
             const active = activeTab === item.id;
-            const isEnquiries = item.id === "enquiries";
-            const unreadCount = enquiries.filter((e) => e.status === "NEW").length;
             return (
               <button
                 key={item.id}
@@ -585,8 +606,6 @@ export default function AdminPortalPage() {
                 className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono font-bold uppercase transition-colors text-left ${
                   active
                     ? "bg-kyorix-blue text-white shadow-md shadow-kyorix-blue/20"
-                    : isEnquiries && unreadCount > 0
-                    ? "text-cyan-300 bg-cyan-950/30 border border-cyan-500/30 hover:bg-cyan-900/40"
                     : "text-gray-400 hover:text-white hover:bg-[#151C2A]"
                 }`}
               >
@@ -595,11 +614,6 @@ export default function AdminPortalPage() {
                   <span className="truncate">{item.label}</span>
                 </div>
                 <div className="flex items-center gap-1.5 ml-2 shrink-0">
-                  {isEnquiries && unreadCount > 0 && (
-                    <span className="px-1.5 py-0.5 text-[9px] font-mono font-bold bg-cyan-400 text-black rounded-full">
-                      {unreadCount} NEW
-                    </span>
-                  )}
                   <span className={`text-[10px] font-mono ${active ? "text-white/80" : "text-gray-600"}`}>
                     {item.sectionNumber}
                   </span>
@@ -857,162 +871,78 @@ export default function AdminPortalPage() {
                 </div>
               </div>
 
-              {/* Filter Tabs */}
-              <div className="flex items-center gap-2 border-b border-[#1E2638] pb-3">
-                {(["ALL", "NEW", "READ", "RESPONDED"] as const).map((filter) => {
-                  const count =
-                    filter === "ALL"
-                      ? enquiries.length
-                      : enquiries.filter((e) => e.status === filter).length;
-                  return (
-                    <button
-                      key={filter}
-                      onClick={() => setEnquiryFilter(filter)}
-                      className={`px-3 py-1.5 rounded text-xs font-mono font-bold uppercase transition-colors flex items-center gap-1.5 ${
-                        enquiryFilter === filter
-                          ? "bg-kyorix-blue text-white"
-                          : "text-gray-400 hover:text-white bg-[#0D1117] border border-[#1E2638]"
-                      }`}
-                    >
-                      <span>{filter}</span>
-                      <span className="text-[10px] px-1.5 py-0.2 bg-black/40 rounded">
-                        {count}
-                      </span>
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* Inquiry List */}
-              {enquiries.length === 0 ? (
-                <div className="p-12 text-center bg-[#0D1117] border border-[#1E2638] rounded-xl space-y-4">
-                  <div className="w-12 h-12 rounded-full bg-kyorix-blue/10 border border-kyorix-blue/30 flex items-center justify-center mx-auto text-kyorix-blue">
-                    <Mail className="w-6 h-6" />
+              {/* Zero-Database Privacy & Delivery Architecture */}
+              <div className="p-6 bg-[#0D1117] border border-[#1E2638] rounded-xl space-y-4">
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-lg bg-emerald-500/10 border border-emerald-500/30 flex items-center justify-center text-emerald-400 shrink-0">
+                    <CheckCircle2 className="w-5 h-5" />
                   </div>
-                  <div className="space-y-1">
-                    <h3 className="text-base font-mono font-bold text-white uppercase">
-                      No Inquiries Logged Yet
+                  <div>
+                    <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
+                      Direct Email Dispatch Only (Zero-Database Storage)
                     </h3>
-                    <p className="text-xs text-gray-400 max-w-md mx-auto">
-                      Inquiries submitted through the website&apos;s contact form will instantly appear here with full contact details, WhatsApp routing, and messaging.
+                    <p className="text-xs text-gray-400 mt-0.5 font-mono">
+                      Form submissions are forwarded directly to your email inbox and are not stored in any database.
                     </p>
                   </div>
                 </div>
-              ) : filteredEnquiries.length === 0 ? (
-                <div className="p-8 text-center bg-[#0D1117] border border-[#1E2638] rounded-xl text-gray-400 text-xs font-mono">
-                  No inquiries match the filter &quot;{enquiryFilter}&quot;.
+
+                <div className="p-4 bg-[#111622] border border-[#1E2638] rounded-lg text-xs font-mono space-y-2 text-gray-300">
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-gray-400">Primary Delivery Destination:</span>
+                    <span className="text-cyan-400 font-bold">{content.companyInfo.inquiryRecipientEmail || "kyorixofficial@gmail.com"}</span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-gray-400">Urgent Escalation Phone / WhatsApp:</span>
+                    <span className="text-amber-400 font-bold">{content.companyInfo.urgentContactNumber || "+91 90712 72555"}</span>
+                  </div>
+                  <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1">
+                    <span className="text-gray-400">Database Storage Status:</span>
+                    <span className="text-emerald-400 font-bold">DISABLED (Privacy Mode - Direct Email Only)</span>
+                  </div>
                 </div>
-              ) : (
-                <div className="space-y-4">
-                  {filteredEnquiries.map((enq) => (
-                    <div
-                      key={enq.id}
-                      className={`p-5 bg-[#0D1117] border rounded-xl space-y-4 transition-all ${
-                        enq.status === "NEW"
-                          ? "border-kyorix-blue/50 shadow-lg shadow-kyorix-blue/5"
-                          : "border-[#1E2638]"
-                      }`}
-                    >
-                      <div className="flex flex-wrap items-start justify-between gap-2">
-                        <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-base font-mono font-bold text-white">
-                              {enq.fullName}
-                            </span>
-                            <span className="text-xs font-mono text-gray-400">
-                              • {enq.organization} {enq.designation && enq.designation !== "N/A" ? `(${enq.designation})` : ""}
-                            </span>
+
+                {/* Legacy Database Records Cleanup & Management */}
+                {enquiries.length > 0 ? (
+                  <div className="pt-4 border-t border-[#1E2638] space-y-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                      <div className="text-xs font-mono text-gray-300">
+                        Found <span className="text-amber-400 font-bold">{enquiries.length}</span> legacy test records in the database.
+                      </div>
+                      <button
+                        onClick={handleDeleteAllEnquiries}
+                        className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 rounded text-xs font-mono font-bold uppercase transition-colors shrink-0"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>WIPE ALL STORED RECORDS FROM DATABASE</span>
+                      </button>
+                    </div>
+
+                    <div className="border border-[#1E2638] rounded-lg overflow-hidden divide-y divide-[#1E2638] text-xs font-mono">
+                      {enquiries.map((item) => (
+                        <div key={item.id} className="p-3 bg-[#111622] flex items-center justify-between gap-3">
+                          <div className="min-w-0">
+                            <span className="text-white font-bold">{item.id}</span>
+                            <span className="text-gray-400 ml-2">({new Date(item.createdAt).toLocaleDateString()})</span>
                           </div>
-                          <div className="text-[11px] font-mono text-gray-500 mt-0.5">
-                            Ticket: <span className="text-gray-400 font-bold">{enq.id}</span> • Received:{" "}
-                            {new Date(enq.createdAt).toLocaleString()}
-                          </div>
-                        </div>
-
-                        <div className="flex items-center gap-2">
-                          <span
-                            className={`px-2.5 py-1 text-[10px] font-mono font-bold rounded uppercase ${
-                              enq.status === "NEW"
-                                ? "bg-cyan-500/10 text-cyan-400 border border-cyan-500/30"
-                                : enq.status === "RESPONDED"
-                                ? "bg-emerald-500/10 text-emerald-400 border border-emerald-500/30"
-                                : "bg-gray-500/10 text-gray-400 border border-gray-500/30"
-                            }`}
-                          >
-                            {enq.status}
-                          </span>
-
-                          <select
-                            value={enq.status}
-                            onChange={(e) => handleUpdateEnquiryStatus(enq.id, e.target.value as any)}
-                            className="bg-[#111622] border border-[#1E2638] text-[11px] font-mono text-gray-300 rounded px-2 py-1 focus:outline-none"
-                          >
-                            <option value="NEW">Status: NEW</option>
-                            <option value="READ">Status: READ</option>
-                            <option value="RESPONDED">Status: RESPONDED</option>
-                          </select>
-
                           <button
-                            onClick={() => handleDeleteEnquiry(enq.id)}
-                            className="p-1.5 text-gray-500 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
-                            title="Delete Inquiry"
+                            onClick={() => handleDeleteEnquiry(item.id)}
+                            className="p-1 text-gray-400 hover:text-red-400 hover:bg-red-500/10 rounded transition-colors"
+                            title="Delete this record"
                           >
                             <Trash2 className="w-3.5 h-3.5" />
                           </button>
                         </div>
-                      </div>
-
-                      {/* Details Pills */}
-                      <div className="flex flex-wrap gap-2 text-xs font-mono">
-                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-kyorix-blue">
-                          Product: <strong>{enq.interest}</strong>
-                        </span>
-                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-gray-300">
-                          Discipline: <strong>{enq.sport}</strong>
-                        </span>
-                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-gray-300">
-                          Country: <strong>{enq.country}</strong>
-                        </span>
-                        <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] rounded text-gray-400">
-                          Desk: {enq.category}
-                        </span>
-                      </div>
-
-                      {/* Message Box */}
-                      <div className="p-3.5 bg-[#111622] border border-[#1E2638] rounded-lg text-xs font-mono text-gray-200 leading-relaxed whitespace-pre-wrap">
-                        {enq.message}
-                      </div>
-
-                      {/* Quick Action Buttons */}
-                      <div className="flex flex-wrap items-center gap-3 pt-1 border-t border-[#1E2638]/50">
-                        <a
-                          href={`mailto:${enq.email}?subject=Kyorix%20Sport%20Inquiry%20Response%20[${enq.id}]&body=Dear%20${encodeURIComponent(enq.fullName)},%0D%0A%0D%0AThank%20you%20for%20contacting%20Kyorix%20Sport%20regarding%20${encodeURIComponent(enq.interest)}.%0D%0A%0D%0A`}
-                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded text-xs font-mono font-bold uppercase transition-colors"
-                        >
-                          <Mail className="w-3.5 h-3.5" />
-                          <span>Reply via Email ({enq.email})</span>
-                        </a>
-
-                        {enq.phone && enq.phone !== "N/A" && (
-                          <a
-                            href={`https://wa.me/${enq.phone.replace(/[^0-9]/g, "")}`}
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded text-xs font-mono font-bold uppercase transition-colors"
-                          >
-                            <MessageSquare className="w-3.5 h-3.5" />
-                            <span>WhatsApp ({enq.phone})</span>
-                          </a>
-                        )}
-
-                        <span className="text-[11px] font-mono text-gray-500 ml-auto">
-                          Direct Contact: <span className="text-gray-300">{enq.email}</span> {enq.phone !== "N/A" ? `• ${enq.phone}` : ""}
-                        </span>
-                      </div>
+                      ))}
                     </div>
-                  ))}
-                </div>
-              )}
+                  </div>
+                ) : (
+                  <div className="p-3 bg-emerald-500/5 border border-emerald-500/20 rounded-lg text-xs font-mono text-emerald-400 flex items-center gap-2">
+                    <CheckCircle2 className="w-4 h-4 shrink-0" />
+                    <span>Database clean: No inquiry records are stored in the database.</span>
+                  </div>
+                )}
+              </div>
             </div>
           )}
 

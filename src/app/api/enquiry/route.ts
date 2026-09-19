@@ -48,7 +48,20 @@ function saveEnquiries(data: any[]) {
   return saved;
 }
 
-function getNotificationRecipients(): { recipient: string; cc: string } {
+async function getNotificationRecipients(): Promise<{ recipient: string; cc: string }> {
+  try {
+    const db = await getDatabase();
+    if (db) {
+      const doc = await db.collection("site_content").findOne({ _id: "current" as any });
+      if (doc?.content?.companyInfo?.inquiryRecipientEmail) {
+        return {
+          recipient: doc.content.companyInfo.inquiryRecipientEmail.trim(),
+          cc: doc.content.companyInfo.inquiryCcEmail?.trim() || "supportkyorix@gmail.com",
+        };
+      }
+    }
+  } catch (_) {}
+
   try {
     const tmpContent = path.join("/tmp", "site-content.json");
     if (fs.existsSync(tmpContent)) {
@@ -226,38 +239,45 @@ Inquiry ID: ${newEnquiry.id}
       }
     }
 
-    // Direct zero-config email dispatch via FormSubmit to admin email
-    const { recipient: targetEmail, cc: ccEmail } = getNotificationRecipients();
-    try {
-      await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(targetEmail)}`, {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Accept: "application/json",
-          Referer: "https://kyorixsport.in/contact",
-          Origin: "https://kyorixsport.in",
-          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
-        },
-        body: JSON.stringify({
-          _subject: `⚡ [New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`,
-          _replyto: newEnquiry.email,
-          _cc: ccEmail,
-          Inquiry_ID: newEnquiry.id,
-          Full_Name: newEnquiry.fullName,
-          Organization: newEnquiry.organization,
-          Designation: newEnquiry.designation,
-          Email: newEnquiry.email,
-          Phone: newEnquiry.phone,
-          Country: newEnquiry.country,
-          Sport: newEnquiry.sport,
-          Product_Interest: newEnquiry.interest,
-          Communication_Desk: newEnquiry.category,
-          Message: newEnquiry.message,
-          Received_At: newEnquiry.createdAt,
-        }),
-      });
-    } catch (fsErr) {
-      console.error("Failed to dispatch via FormSubmit:", fsErr);
+    // Direct zero-config email dispatch via FormSubmit to admin email & backup CC
+    const { recipient: targetEmail, cc: ccEmail } = await getNotificationRecipients();
+    const emailsToDispatch = Array.from(new Set([targetEmail, ccEmail].filter(Boolean)));
+
+    for (const email of emailsToDispatch) {
+      try {
+        const fsRes = await fetch(`https://formsubmit.co/ajax/${encodeURIComponent(email)}`, {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+            Referer: "https://kyorixsport.in/",
+            Origin: "https://kyorixsport.in",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36",
+          },
+          body: JSON.stringify({
+            _subject: `⚡ [New Inquiry] ${newEnquiry.interest} - ${newEnquiry.fullName} (${newEnquiry.organization})`,
+            _replyto: newEnquiry.email,
+            _captcha: "false",
+            _template: "table",
+            Inquiry_ID: newEnquiry.id,
+            Full_Name: newEnquiry.fullName,
+            Organization: newEnquiry.organization,
+            Designation: newEnquiry.designation,
+            Email: newEnquiry.email,
+            Phone: newEnquiry.phone,
+            Country: newEnquiry.country,
+            Sport: newEnquiry.sport,
+            Product_Interest: newEnquiry.interest,
+            Communication_Desk: newEnquiry.category,
+            Message: newEnquiry.message,
+            Received_At: newEnquiry.createdAt,
+          }),
+        });
+        const fsJson = await fsRes.json().catch(() => null);
+        console.log(`FormSubmit dispatch to ${email} status:`, fsJson);
+      } catch (fsErr) {
+        console.error(`Failed to dispatch via FormSubmit to ${email}:`, fsErr);
+      }
     }
 
     // Optional Web3Forms instant email dispatch

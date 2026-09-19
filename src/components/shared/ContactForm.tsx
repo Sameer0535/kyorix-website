@@ -1,14 +1,27 @@
 "use client";
 
 import React, { useState } from "react";
-import { CheckCircle2, Send, AlertCircle, Mail, Phone, MapPin, Building2 } from "lucide-react";
+import { CheckCircle2, Send, AlertCircle, Mail, Phone, MapPin, Building2, RotateCcw, ArrowRight, MessageSquare, ShieldCheck, Clock, ExternalLink, Sparkles } from "lucide-react";
 import { COMPANY_INFO } from "@/lib/constants";
+import { useSiteContent } from "@/context/ContentContext";
 
 interface ContactFormProps {
   defaultIntent?: string;
 }
 
 export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
+  let urgentPhone = "+91 90712 72555";
+  let urgentEmail = "kyorixofficial@gmail.com";
+  try {
+    const siteCtx = useSiteContent();
+    if (siteCtx?.content?.companyInfo?.urgentContactNumber) {
+      urgentPhone = siteCtx.content.companyInfo.urgentContactNumber;
+    }
+    if (siteCtx?.content?.companyInfo?.urgentContactEmail) {
+      urgentEmail = siteCtx.content.companyInfo.urgentContactEmail;
+    }
+  } catch (_) {}
+
   const [formData, setFormData] = useState({
     fullName: "",
     organization: "",
@@ -130,28 +143,260 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
       <div className="lg:col-span-7">
         <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 sm:p-8 shadow-2xl">
           {status === "success" ? (
-            <div className="text-center py-12 px-4 space-y-6 max-w-lg mx-auto font-sans">
-              <div className="w-16 h-16 rounded-full bg-kyorix-blue/15 border border-kyorix-blue/30 flex items-center justify-center mx-auto text-kyorix-blue shadow-lg shadow-kyorix-blue/10">
-                <CheckCircle2 className="w-8 h-8" />
-              </div>
+            <div className="space-y-6 text-left font-sans animate-in fade-in-50 duration-500">
+              {/* Executive Header Banner */}
+              <div className="relative overflow-hidden p-6 rounded-2xl bg-gradient-to-br from-[#101726] via-[#0C121E] to-[#070A10] border border-[#1E293B] shadow-2xl">
+                <div className="absolute -top-12 -right-12 w-48 h-48 bg-kyorix-blue/10 rounded-full blur-3xl pointer-events-none" />
+                <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-[#1E283D]">
+                  <div className="flex items-center gap-3.5">
+                    <div className="relative w-12 h-12 rounded-xl bg-gradient-to-br from-kyorix-blue/20 to-kyorix-blue/5 border border-kyorix-blue/40 flex items-center justify-center text-kyorix-blue shadow-lg shadow-kyorix-blue/10 shrink-0">
+                      <ShieldCheck className="w-6 h-6 text-cyan-400" />
+                      <span className="absolute -bottom-1 -right-1 w-3.5 h-3.5 rounded-full bg-emerald-500 border-2 border-[#0C121E]" />
+                    </div>
+                    <div>
+                      <div className="flex items-center gap-2">
+                        <span className="text-[10px] font-mono font-bold text-cyan-400 uppercase tracking-widest">
+                          KYORIX SPORT TECHNOLOGY
+                        </span>
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 font-bold uppercase">
+                          Official
+                        </span>
+                      </div>
+                      <h3 className="text-xl sm:text-2xl font-bold text-white tracking-tight mt-0.5">
+                        Thank You for Reaching Out
+                      </h3>
+                    </div>
+                  </div>
 
-              <div className="space-y-3">
-                <h3 className="text-2xl sm:text-3xl font-bold text-white tracking-tight">
-                  Thank You for Reaching Out
-                </h3>
-                <div className="inline-flex items-center gap-1.5 px-3.5 py-1 bg-kyorix-blue/10 border border-kyorix-blue/25 rounded-full text-xs font-semibold text-kyorix-blue uppercase tracking-wider">
-                  <span>Our team will get back to you soon</span>
+                  <div className="inline-flex items-center gap-2 px-3 py-1.5 bg-blue-500/10 border border-blue-500/30 rounded-full text-xs font-semibold text-blue-300 uppercase tracking-wider self-start sm:self-center shadow-inner">
+                    <span className="w-2 h-2 rounded-full bg-blue-400 animate-ping" />
+                    <span>Our Team Will Get Back to You Soon</span>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-300 leading-relaxed pt-2 max-w-md mx-auto">
-                  We have received your demo request for{" "}
-                  <span className="text-white font-semibold">{formData.interest || "KYORIX ESS"}</span>.
-                  A representative from{" "}
-                  <span className="text-white font-semibold">Kyorix Sport Technology</span>{" "}
-                  will review your competition requirements and reach out to you via email or phone promptly.
-                </p>
+
+                {/* Reassurance Message */}
+                <div className="pt-4 space-y-1.5">
+                  <p className="text-sm sm:text-base text-gray-200 leading-relaxed font-medium">
+                    We have received your demonstration request for{" "}
+                    <span className="text-cyan-400 font-bold">{formData.interest || "KYORIX ESS"}</span>{" "}
+                    on behalf of{" "}
+                    <span className="text-white font-semibold">{formData.organization || "your federation"}</span>.
+                  </p>
+                  <p className="text-xs text-gray-400 leading-relaxed">
+                    An authorized technical representative from Kyorix Sport Technology is reviewing your tournament specifications and will contact you promptly to coordinate your demonstration and deployment schedule.
+                  </p>
+                </div>
               </div>
 
-              <div className="pt-4">
+              {/* 3-Stage Progress Timeline */}
+              <div className="p-4 bg-[#0A0E17] border border-[#1B2333] rounded-xl">
+                <div className="text-[10px] font-mono font-bold text-gray-400 uppercase tracking-wider mb-3">
+                  Inquiry Processing Pipeline
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  <div className="flex items-center gap-2.5 p-2.5 bg-[#121826] border border-emerald-500/30 rounded-lg">
+                    <div className="w-6 h-6 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-xs font-bold shrink-0">
+                      ✓
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-white">1. Request Docketed</div>
+                      <div className="text-[10px] text-emerald-400 font-mono">Logged & Queued</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2.5 p-2.5 bg-[#121826] border border-cyan-500/30 rounded-lg">
+                    <div className="w-6 h-6 rounded-full bg-cyan-500/20 text-cyan-400 flex items-center justify-center text-xs font-bold shrink-0 animate-pulse">
+                      ⚡
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-white">2. Technical Review</div>
+                      <div className="text-[10px] text-cyan-400 font-mono">Operations Queue</div>
+                    </div>
+                  </div>
+
+                  <div className="flex items-center gap-2.5 p-2.5 bg-[#121826] border border-[#222C3E] rounded-lg opacity-70">
+                    <div className="w-6 h-6 rounded-full bg-gray-800 text-gray-400 flex items-center justify-center text-xs font-bold shrink-0">
+                      3
+                    </div>
+                    <div>
+                      <div className="text-xs font-bold text-gray-300">3. Demo & Dispatch</div>
+                      <div className="text-[10px] text-gray-500 font-mono">Assigned Engineer</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* Submission Summary Docket */}
+              <div className="border border-[#1E2638] rounded-xl overflow-hidden bg-[#0A0E17]">
+                <div className="bg-[#141A28] px-4 py-2.5 border-b border-[#1E2638] flex items-center justify-between">
+                  <span className="text-xs font-bold text-gray-200 uppercase tracking-wider flex items-center gap-2">
+                    <Clock className="w-3.5 h-3.5 text-cyan-400" />
+                    <span>Inquiry Submission Summary</span>
+                  </span>
+                  <span className="text-[11px] text-emerald-400 font-mono">
+                    ✓ Verified Record
+                  </span>
+                </div>
+                <div className="divide-y divide-[#172032] text-xs">
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Authorized Contact</span>
+                    <span className="sm:col-span-2 text-white font-medium">
+                      {formData.fullName} {formData.designation ? `(${formData.designation})` : ""}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Organization / Federation</span>
+                    <span className="sm:col-span-2 text-white font-medium">
+                      {formData.organization}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Corporate Email</span>
+                    <span className="sm:col-span-2 text-gray-200 font-mono">
+                      {formData.email}
+                    </span>
+                  </div>
+                  {formData.phone && (
+                    <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                      <span className="text-gray-400">Contact Number</span>
+                      <span className="sm:col-span-2 text-gray-200 font-mono">
+                        {formData.phone}
+                      </span>
+                    </div>
+                  )}
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Platform Requested</span>
+                    <span className="sm:col-span-2 text-blue-400 font-semibold">
+                      {formData.interest}
+                    </span>
+                  </div>
+                  <div className="grid grid-cols-1 sm:grid-cols-3 px-4 py-2.5">
+                    <span className="text-gray-400">Discipline / Sport</span>
+                    <span className="sm:col-span-2 text-gray-200">
+                      {formData.sport}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* THE URGENT FEDERATION ESCALATION BOX (Editable via Admin Portal!) */}
+              {(() => {
+                const cleanDigits = urgentPhone.replace(/[^0-9]/g, "");
+                const waNumber = cleanDigits.length === 10 ? `91${cleanDigits}` : cleanDigits;
+                const telDial = cleanDigits.length === 10 ? `+91${cleanDigits}` : (cleanDigits.startsWith("91") ? `+${cleanDigits}` : `+${cleanDigits}`);
+                const waHref = `https://wa.me/${waNumber}?text=${encodeURIComponent(
+                  `Hello Kyorix Operations Desk, I am contacting you regarding an urgent tournament requirement for ${formData.interest || "KYORIX ESS"} (${formData.organization || "Tournament"}).`
+                )}`;
+
+                return (
+                  <div className="relative overflow-hidden p-5 sm:p-6 bg-gradient-to-br from-[#1C1820] via-[#141824] to-[#0A0D18] border-2 border-amber-500/50 rounded-2xl space-y-4 shadow-[0_0_35px_rgba(245,158,11,0.12)]">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-3 border-b border-amber-500/20">
+                      <div className="flex items-center gap-2.5">
+                        <div className="w-8 h-8 rounded-lg bg-amber-500/20 border border-amber-500/40 flex items-center justify-center text-amber-400 shrink-0">
+                          <Building2 className="w-4 h-4" />
+                        </div>
+                        <div>
+                          <span className="text-[10px] font-mono font-bold tracking-widest text-amber-400 uppercase">
+                            PRIORITY ESCALATION CHANNEL
+                          </span>
+                          <h4 className="text-sm sm:text-base font-bold text-white tracking-wide">
+                            Urgent Federation Escalation Box
+                          </h4>
+                        </div>
+                      </div>
+                      <div className="inline-flex items-center gap-1.5 px-3 py-1 bg-amber-500/15 border border-amber-500/30 rounded-full text-[10px] font-mono font-bold text-amber-300 uppercase tracking-wider self-start sm:self-center">
+                        <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
+                        <span>Immediate Deadlines</span>
+                      </div>
+                    </div>
+
+                    <p className="text-xs text-gray-300 leading-relaxed">
+                      Coordinating an imminent tournament, state/national championship, or facing strict federation sanctioning deadlines? Connect directly with our rapid technical operations desk:
+                    </p>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-1">
+                      {/* Direct Phone */}
+                      <a
+                        href={`tel:${telDial}`}
+                        className="flex flex-col justify-between p-3.5 bg-[#151C2C] hover:bg-[#1C263A] border border-[#222E44] hover:border-amber-500/50 rounded-xl transition-all group"
+                      >
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <div className="w-7 h-7 rounded-lg bg-amber-500/15 border border-amber-500/30 flex items-center justify-center text-amber-400 group-hover:scale-105 transition-transform shrink-0">
+                            <Phone className="w-3.5 h-3.5" />
+                          </div>
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-mono">
+                            Direct Call
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-xs font-bold text-white font-mono tracking-tight group-hover:text-amber-300 transition-colors">
+                            {urgentPhone}
+                          </div>
+                          <div className="text-[10px] text-amber-400/80 font-mono mt-0.5">
+                            Tap to call desk →
+                          </div>
+                        </div>
+                      </a>
+
+                      {/* Direct WhatsApp */}
+                      <a
+                        href={waHref}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex flex-col justify-between p-3.5 bg-[#151C2C] hover:bg-[#1C263A] border border-[#222E44] hover:border-emerald-500/50 rounded-xl transition-all group"
+                      >
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <div className="w-7 h-7 rounded-lg bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-center text-emerald-400 group-hover:scale-105 transition-transform shrink-0">
+                            <MessageSquare className="w-3.5 h-3.5" />
+                          </div>
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-mono">
+                            WhatsApp Desk
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-xs font-bold text-white font-mono tracking-tight group-hover:text-emerald-300 transition-colors">
+                            Chat on WhatsApp
+                          </div>
+                          <div className="text-[10px] text-emerald-400/80 font-mono mt-0.5">
+                            Instant operations chat →
+                          </div>
+                        </div>
+                      </a>
+
+                      {/* Direct Priority Email */}
+                      <a
+                        href={`mailto:${urgentEmail}?subject=Urgent%20Competition%20Escalation%20-%20${encodeURIComponent(formData.organization || "")}`}
+                        className="flex flex-col justify-between p-3.5 bg-[#151C2C] hover:bg-[#1C263A] border border-[#222E44] hover:border-cyan-500/50 rounded-xl transition-all group"
+                      >
+                        <div className="flex items-center gap-2.5 mb-2">
+                          <div className="w-7 h-7 rounded-lg bg-cyan-500/15 border border-cyan-500/30 flex items-center justify-center text-cyan-400 group-hover:scale-105 transition-transform shrink-0">
+                            <Mail className="w-3.5 h-3.5" />
+                          </div>
+                          <span className="text-[10px] font-bold text-gray-400 uppercase tracking-wider font-mono">
+                            Priority Email
+                          </span>
+                        </div>
+                        <div>
+                          <div className="text-xs font-bold text-white font-mono truncate group-hover:text-cyan-300 transition-colors">
+                            {urgentEmail}
+                          </div>
+                          <div className="text-[10px] text-cyan-400/80 font-mono mt-0.5">
+                            Direct dispatch mailbox →
+                          </div>
+                        </div>
+                      </a>
+                    </div>
+
+                    <div className="pt-2 border-t border-[#1C2436] flex items-center justify-between text-[11px] text-gray-400 font-mono">
+                      <span>⚡ Priority turnaround within 1 business hour</span>
+                      <span className="text-amber-400/80">Editable from Admin Portal</span>
+                    </div>
+                  </div>
+                );
+              })()}
+
+              {/* Action Buttons */}
+              <div className="flex flex-col sm:flex-row items-center justify-between gap-3 pt-2">
                 <button
                   type="button"
                   onClick={() => {
@@ -169,10 +414,18 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                       message: "",
                     });
                   }}
-                  className="inline-flex items-center justify-center px-7 py-3 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-bold uppercase tracking-wider rounded-lg transition-colors shadow-lg shadow-kyorix-blue/20"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-[#141A28] hover:bg-[#1C2538] text-gray-200 hover:text-white border border-[#222E46] text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors"
                 >
-                  Submit Another Request
+                  <RotateCcw className="w-3.5 h-3.5 text-gray-400" />
+                  <span>Submit Another Request</span>
                 </button>
+                <a
+                  href="/#ecosystem"
+                  className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-semibold uppercase tracking-wider rounded-lg transition-colors text-center shadow-lg shadow-kyorix-blue/20"
+                >
+                  <span>Explore Product Ecosystem</span>
+                  <ArrowRight className="w-3.5 h-3.5" />
+                </a>
               </div>
             </div>
           ) : (

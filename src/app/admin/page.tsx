@@ -686,16 +686,48 @@ export default function AdminPortalPage() {
                     />
                   </div>
                 </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 border-t border-[#1E2638]/60">
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-amber-400 uppercase font-bold">
+                      Urgent Federation Escalation Phone / WhatsApp
+                    </label>
+                    <input
+                      type="text"
+                      value={content.companyInfo.urgentContactNumber || "+91 90712 72555"}
+                      onChange={(e) => updateSection("companyInfo", { urgentContactNumber: e.target.value })}
+                      placeholder="+91 90712 72555"
+                      className="w-full bg-[#08090C] border border-[#1E2638] focus:border-amber-400 rounded px-3 py-2 text-xs font-mono text-amber-300 focus:outline-none"
+                    />
+                    <p className="text-[9px] font-mono text-gray-500">
+                      Displayed in the Urgent Federation Escalation box on the post-submission confirmation screen.
+                    </p>
+                  </div>
+                  <div className="space-y-1">
+                    <label className="text-[10px] font-mono text-amber-400 uppercase font-bold">
+                      Urgent Federation Direct Email
+                    </label>
+                    <input
+                      type="email"
+                      value={content.companyInfo.urgentContactEmail || "kyorixofficial@gmail.com"}
+                      onChange={(e) => updateSection("companyInfo", { urgentContactEmail: e.target.value })}
+                      placeholder="kyorixofficial@gmail.com"
+                      className="w-full bg-[#08090C] border border-[#1E2638] focus:border-amber-400 rounded px-3 py-2 text-xs font-mono text-amber-300 focus:outline-none"
+                    />
+                    <p className="text-[9px] font-mono text-gray-500">
+                      Direct escalation mailbox displayed for tournament organizers with urgent deadlines.
+                    </p>
+                  </div>
+                </div>
                 <div className="flex justify-end pt-1">
                   <button
                     onClick={async () => {
                       const ok = await saveContent(content);
-                      if (ok) showToast("Inquiry notification emails updated successfully!");
+                      if (ok) showToast("Inquiry routing and urgent contacts updated successfully!");
                     }}
                     className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded text-xs font-mono font-bold uppercase transition-colors"
                   >
                     <Save className="w-3.5 h-3.5" />
-                    <span>SAVE EMAIL ROUTING</span>
+                    <span>SAVE ROUTING & CONTACTS</span>
                   </button>
                 </div>
               </div>
@@ -2982,6 +3014,39 @@ export default function AdminPortalPage() {
                   />
                   <p className="text-[10px] text-gray-500 font-mono">
                     Secondary mailbox CC'd on every inquiry alert.
+                  </p>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-4 bg-[#08090C] border border-[#1E2638] rounded-lg">
+                <div className="space-y-2">
+                  <label className="text-xs font-mono font-bold text-amber-400 uppercase">
+                    Urgent Federation Escalation Phone / WhatsApp
+                  </label>
+                  <input
+                    type="text"
+                    value={content.companyInfo.urgentContactNumber || "+91 90712 72555"}
+                    onChange={(e) => updateSection("companyInfo", { urgentContactNumber: e.target.value })}
+                    placeholder="+91 90712 72555"
+                    className="w-full bg-[#0D1117] border border-[#1E2638] focus:border-amber-400 rounded p-3 text-xs font-mono text-amber-300 focus:outline-none"
+                  />
+                  <p className="text-[10px] text-gray-500 font-mono">
+                    Displayed in the Urgent Federation Escalation box on the post-submission confirmation screen.
+                  </p>
+                </div>
+                <div className="space-y-2">
+                  <label className="text-xs font-mono font-bold text-amber-400 uppercase">
+                    Urgent Federation Direct Email
+                  </label>
+                  <input
+                    type="email"
+                    value={content.companyInfo.urgentContactEmail || "kyorixofficial@gmail.com"}
+                    onChange={(e) => updateSection("companyInfo", { urgentContactEmail: e.target.value })}
+                    placeholder="kyorixofficial@gmail.com"
+                    className="w-full bg-[#0D1117] border border-[#1E2638] focus:border-amber-400 rounded p-3 text-xs font-mono text-amber-300 focus:outline-none"
+                  />
+                  <p className="text-[10px] text-gray-500 font-mono">
+                    Direct escalation mailbox displayed to tournament organizers with pressing deadlines.
                   </p>
                 </div>
               </div>

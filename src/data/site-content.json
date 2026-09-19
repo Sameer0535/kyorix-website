@@ -443,18 +443,14 @@
     "email": "kyorixofficial@gmail.com",
     "supportEmail": "supportkyorix@gmail.com",
     "inquiryRecipientEmail": "kyorixofficial@gmail.com",
-    "urgentContactNumber": "+91 90712 72555",
-    "urgentContactEmail": "kyorixofficial@gmail.com",
+    "inquiryCcEmail": "supportkyorix@gmail.com",
     "phone": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: +91 00000 00000]",
     "address": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: Registered Office Address, India]",
     "cin": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: CIN-U72900XX2026PTC000000]",
     "gstin": "[PLACEHOLDER - CONFIGURE BEFORE LAUNCH: GSTIN-00AAAAA0000A1Z5]",
     "status": "Private Limited Company",
     "discipline": "Competitive Sports Technology",
-    "smtpHost": "smtp.gmail.com",
-    "smtpPort": 465,
-    "smtpUser": "kyorixofficial@gmail.com",
-    "smtpPass": ""
+    "smtpPass": "dirh kvjr smev ebkq"
   },
-  "_lastSaved": 1789815182647
+  "_lastSaved": 1789818920544
 }

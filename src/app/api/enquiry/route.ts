@@ -157,18 +157,7 @@ export async function POST(request: Request) {
       createdAt: new Date().toISOString(),
     };
 
-    const currentList = getEnquiries();
-    currentList.unshift(newEnquiry); // Prepend so newest is first
-    saveEnquiries(currentList);
-
-    const db = await getDatabase();
-    if (db) {
-      try {
-        await db.collection("enquiries").insertOne({ ...newEnquiry });
-      } catch (dbErr) {
-        console.error("Failed to insert enquiry to MongoDB:", dbErr);
-      }
-    }
+    // User requested not to save form submission data to database - only dispatch directly via email
 
     // Optional email dispatch via SMTP if environment variables are provided
     const smtpHost = process.env.SMTP_HOST;

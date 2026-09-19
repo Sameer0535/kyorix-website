@@ -41,8 +41,8 @@
       {
         "id": "score",
         "number": "01",
-        "name": "KYORIX SCORE",
-        "subtitle": "Electronic Competition Scoring",
+        "name": "KYORIX ESS",
+        "subtitle": "Electronic Scoring System",
         "description": "A digital scoring platform designed for fast, reliable and connected sporting competitions.",
         "href": "/products/score",
         "features": [
@@ -120,36 +120,31 @@
       },
       {
         "step": "05",
-        "name": "SEEDING",
-        "desc": "Rankings & separation rules"
-      },
-      {
-        "step": "06",
         "name": "DRAWS",
         "desc": "Bracket generation & scheduling"
       },
       {
-        "step": "07",
+        "step": "06",
         "name": "COURTS",
         "desc": "Mat scheduling & bout calls"
       },
       {
-        "step": "08",
+        "step": "07",
         "name": "SCORING",
         "desc": "Live referee consensus"
       },
       {
-        "step": "09",
+        "step": "08",
         "name": "PROGRESSION",
         "desc": "Real-time winner advancement"
       },
       {
-        "step": "10",
+        "step": "09",
         "name": "STANDINGS",
         "desc": "Certified podium allocation"
       },
       {
-        "step": "11",
+        "step": "10",
         "name": "ARCHIVE",
         "desc": "Master records & certificates"
       }
@@ -455,5 +450,5 @@
     "status": "Private Limited Company",
     "discipline": "Competitive Sports Technology"
   },
-  "_lastSaved": 1789739623635
+  "_lastSaved": 1789807941905
 }

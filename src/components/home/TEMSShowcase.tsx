@@ -68,10 +68,10 @@ export function TEMSShowcase() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
           {/* Module Selector List */}
           <div className="lg:col-span-5 space-y-2">
-            <div className="text-[11px] font-mono font-bold text-gray-500 uppercase tracking-widest px-3 py-1">
+            <div className="text-[11px] font-mono font-bold text-gray-500 uppercase tracking-widest px-2 py-1">
               Core Operational Modules (Select to View)
             </div>
-            <div className="space-y-1.5">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 gap-1.5">
               {modules.map((mod) => {
                 const Icon = ICON_MAP[mod.id] || Layers;
                 const isSelected = mod.id === activeModuleId;
@@ -80,15 +80,15 @@ export function TEMSShowcase() {
                     key={mod.id}
                     type="button"
                     onClick={() => setActiveModuleId(mod.id)}
-                    className={`w-full flex items-center justify-between p-3.5 rounded-lg border text-left transition-all duration-150 ${
+                    className={`w-full flex items-center justify-between p-3 sm:p-3.5 rounded-lg border text-left transition-all duration-150 ${
                       isSelected
                         ? "bg-[#111622] border-kyorix-blue shadow-lg shadow-kyorix-blue/15 text-white"
                         : "bg-[#08090C] border-[#1E2638] text-gray-400 hover:text-white hover:border-gray-600"
                     }`}
                   >
-                    <div className="flex items-center gap-3">
+                    <div className="flex items-center gap-2.5 sm:gap-3 min-w-0">
                       <div
-                        className={`p-2 rounded ${
+                        className={`p-2 rounded shrink-0 ${
                           isSelected
                             ? "bg-kyorix-blue text-white"
                             : "bg-[#151C2A] text-gray-400"
@@ -96,18 +96,18 @@ export function TEMSShowcase() {
                       >
                         <Icon className="w-4 h-4" />
                       </div>
-                      <div>
-                        <div className="text-xs font-mono font-bold uppercase tracking-tight text-white">
+                      <div className="min-w-0">
+                        <div className="text-xs font-mono font-bold uppercase tracking-tight text-white truncate">
                           {mod.title}
                         </div>
-                        <div className="text-[10px] font-mono text-gray-500">
+                        <div className="text-[10px] font-mono text-gray-500 truncate">
                           {mod.tag}
                         </div>
                       </div>
                     </div>
 
                     <span
-                      className={`text-xs font-mono font-bold ${
+                      className={`text-xs font-mono font-bold shrink-0 ml-2 ${
                         isSelected ? "text-kyorix-blue" : "text-gray-600"
                       }`}
                     >
@@ -121,26 +121,26 @@ export function TEMSShowcase() {
 
           {/* Active Module Detail Console */}
           <div className="lg:col-span-7">
-            <div className="h-full bg-[#08090C] border border-[#1E2638] rounded-xl p-6 sm:p-8 flex flex-col justify-between space-y-8 shadow-2xl relative overflow-hidden">
+            <div className="h-full bg-[#08090C] border border-[#1E2638] rounded-xl p-5 sm:p-8 flex flex-col justify-between space-y-6 sm:space-y-8 shadow-2xl relative overflow-hidden">
               <div className="absolute top-0 right-0 w-64 h-64 bg-kyorix-blue/5 rounded-full blur-3xl pointer-events-none" />
 
               <div className="space-y-6 relative z-10">
-                <div className="flex items-center justify-between border-b border-[#1E2638] pb-4">
+                <div className="flex flex-wrap items-center justify-between gap-3 border-b border-[#1E2638] pb-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg text-kyorix-blue">
-                      <ActiveIcon className="w-6 h-6" />
+                    <div className="p-2.5 sm:p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg text-kyorix-blue shrink-0">
+                      <ActiveIcon className="w-5 h-5 sm:w-6 sm:h-6" />
                     </div>
                     <div>
                       <span className="text-[10px] font-mono font-bold text-kyorix-blue uppercase tracking-widest">
                         {selectedModule.tag}
                       </span>
-                      <h3 className="text-xl font-mono font-bold text-white uppercase tracking-tight">
+                      <h3 className="text-lg sm:text-xl font-mono font-bold text-white uppercase tracking-tight">
                         {selectedModule.title}
                       </h3>
                     </div>
                   </div>
 
-                  <span className="px-3 py-1 bg-[#111622] border border-[#1E2638] text-[11px] font-mono text-gray-400 rounded uppercase">
+                  <span className="px-2.5 py-1 bg-[#111622] border border-[#1E2638] text-[10px] sm:text-[11px] font-mono text-gray-400 rounded uppercase">
                     Module {selectedModule.number || "01"}
                   </span>
                 </div>

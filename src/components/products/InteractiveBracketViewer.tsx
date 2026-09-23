@@ -80,11 +80,11 @@ export function InteractiveBracketViewer() {
   };
 
   return (
-    <div className="bg-[#0A0D14] border border-[#1E2638] rounded-xl shadow-2xl p-4 sm:p-6 lg:p-8 space-y-6">
+    <div className="bg-[#0A0D14] border border-[#1E2638] rounded-xl shadow-2xl p-3.5 sm:p-6 lg:p-8 space-y-4 sm:space-y-6">
       {/* Header Bar */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-[#1E2638] pb-4">
         <div className="flex items-center gap-3">
-          <div className="p-2 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded text-kyorix-blue">
+          <div className="p-2 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded text-kyorix-blue shrink-0">
             <GitBranch className="w-5 h-5" />
           </div>
           <div>
@@ -111,8 +111,14 @@ export function InteractiveBracketViewer() {
         </div>
       </div>
 
+      {/* Mobile Swipe Hint */}
+      <div className="md:hidden flex items-center justify-between px-3 py-1.5 bg-[#111622] rounded border border-[#1E2638] text-[10px] sm:text-[11px] font-mono text-blue-400">
+        <span>← Swipe horizontally to explore full bracket tree →</span>
+        <span className="text-gray-500">QF • SF • FINAL</span>
+      </div>
+
       {/* Bracket Tree Container */}
-      <div className="overflow-x-auto pb-4">
+      <div className="overflow-x-auto pb-4 scrollbar-thin" style={{ WebkitOverflowScrolling: "touch" }}>
         <div className="min-w-[760px] grid grid-cols-3 gap-6 relative">
           {/* Column 1: Quarterfinals */}
           <div className="space-y-4">

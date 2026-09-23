@@ -591,40 +591,43 @@ export default function AdminPortalPage() {
       {/* Main Workspace Body */}
       <div className="flex-grow flex flex-col md:flex-row">
         {/* Left Sidebar Navigation */}
-        <aside className="w-full md:w-72 bg-[#0D1117] border-r border-[#1E2638] p-4 shrink-0 space-y-1">
-          <div className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest px-3 py-2">
-            WEBSITE SECTIONS
+        <aside className="w-full md:w-72 bg-[#0D1117] border-b md:border-b-0 md:border-r border-[#1E2638] p-3 md:p-4 shrink-0">
+          <div className="text-[10px] font-mono font-bold text-gray-500 uppercase tracking-widest px-1 py-1.5 md:px-3 md:py-2 flex items-center justify-between">
+            <span>WEBSITE SECTIONS</span>
+            <span className="md:hidden text-[9px] text-gray-500">Swipe →</span>
           </div>
 
-          {navTabs.map((item) => {
-            const Icon = item.icon;
-            const active = activeTab === item.id;
-            return (
-              <button
-                key={item.id}
-                onClick={() => setActiveTab(item.id)}
-                className={`w-full flex items-center justify-between px-3 py-2.5 rounded-lg text-xs font-mono font-bold uppercase transition-colors text-left ${
-                  active
-                    ? "bg-kyorix-blue text-white shadow-md shadow-kyorix-blue/20"
-                    : "text-gray-400 hover:text-white hover:bg-[#151C2A]"
-                }`}
-              >
-                <div className="flex items-center gap-2.5 min-w-0">
-                  <Icon className="w-4 h-4 shrink-0" />
-                  <span className="truncate">{item.label}</span>
-                </div>
-                <div className="flex items-center gap-1.5 ml-2 shrink-0">
-                  <span className={`text-[10px] font-mono ${active ? "text-white/80" : "text-gray-600"}`}>
-                    {item.sectionNumber}
-                  </span>
-                </div>
-              </button>
-            );
-          })}
+          <div className="flex md:flex-col overflow-x-auto pb-2 md:pb-0 gap-1.5 md:space-y-1 scrollbar-thin">
+            {navTabs.map((item) => {
+              const Icon = item.icon;
+              const active = activeTab === item.id;
+              return (
+                <button
+                  key={item.id}
+                  onClick={() => setActiveTab(item.id)}
+                  className={`shrink-0 md:w-full flex items-center justify-between px-3 py-2 md:py-2.5 rounded-lg text-xs font-mono font-bold uppercase transition-colors text-left whitespace-nowrap md:whitespace-normal ${
+                    active
+                      ? "bg-kyorix-blue text-white shadow-md shadow-kyorix-blue/20"
+                      : "text-gray-400 hover:text-white hover:bg-[#151C2A] bg-[#111622] md:bg-transparent"
+                  }`}
+                >
+                  <div className="flex items-center gap-2 min-w-0">
+                    <Icon className="w-3.5 h-3.5 shrink-0" />
+                    <span className="truncate">{item.label}</span>
+                  </div>
+                  <div className="hidden md:flex items-center gap-1.5 ml-2 shrink-0">
+                    <span className={`text-[10px] font-mono ${active ? "text-white/80" : "text-gray-600"}`}>
+                      {item.sectionNumber}
+                    </span>
+                  </div>
+                </button>
+              );
+            })}
+          </div>
         </aside>
 
         {/* Right Content Editor Area */}
-        <main className="flex-grow p-6 sm:p-8 max-w-5xl mx-auto w-full space-y-8">
+        <main className="flex-grow p-4 sm:p-6 md:p-8 max-w-5xl mx-auto w-full min-w-0 space-y-6 sm:space-y-8">
           {/* TAB: CUSTOMER ENQUIRIES */}
           {activeTab === "enquiries" && (
             <div className="space-y-6">

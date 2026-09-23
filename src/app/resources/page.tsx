@@ -32,9 +32,9 @@ export default function ResourcesPage() {
         </div>
 
         {/* 4 Core Resource Portals */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 sm:gap-8">
           {/* Documentation */}
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-8 space-y-6">
+          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-5 sm:p-8 space-y-5 sm:space-y-6">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg text-kyorix-blue">
                 <BookOpen className="w-6 h-6" />
@@ -52,23 +52,23 @@ export default function ResourcesPage() {
               </p>
             </div>
             <div className="space-y-2 border-t border-[#1E2638] pt-4 text-xs font-mono text-gray-300">
-              <div className="flex items-center justify-between p-2.5 bg-[#111622] rounded">
-                <span>Kyorix Score Operator Manual v2.4</span>
-                <span className="text-[10px] text-kyorix-blue font-bold">PDF MANUAL</span>
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 bg-[#111622] rounded">
+                <span className="truncate max-w-[220px] sm:max-w-none">Kyorix Score Operator Manual v2.4</span>
+                <span className="text-[10px] text-kyorix-blue font-bold shrink-0">PDF MANUAL</span>
               </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#111622] rounded">
-                <span>Bracket Seeding & BYE Engine Guide</span>
-                <span className="text-[10px] text-kyorix-blue font-bold">DOCS</span>
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 bg-[#111622] rounded">
+                <span className="truncate max-w-[220px] sm:max-w-none">Bracket Seeding & BYE Engine Guide</span>
+                <span className="text-[10px] text-kyorix-blue font-bold shrink-0">DOCS</span>
               </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#111622] rounded">
-                <span>TEMS Weigh-in Terminal Protocol</span>
-                <span className="text-[10px] text-kyorix-blue font-bold">SPEC</span>
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 bg-[#111622] rounded">
+                <span className="truncate max-w-[220px] sm:max-w-none">TEMS Weigh-in Terminal Protocol</span>
+                <span className="text-[10px] text-kyorix-blue font-bold shrink-0">SPEC</span>
               </div>
             </div>
           </div>
 
           {/* Downloads */}
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-8 space-y-6">
+          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-5 sm:p-8 space-y-5 sm:space-y-6">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg text-kyorix-blue">
                 <Download className="w-6 h-6" />
@@ -86,23 +86,23 @@ export default function ResourcesPage() {
               </p>
             </div>
             <div className="space-y-2 border-t border-[#1E2638] pt-4 text-xs font-mono text-gray-300">
-              <div className="flex items-center justify-between p-2.5 bg-[#111622] rounded">
-                <span>Kyorix Enterprise Platform Brochure</span>
-                <span className="text-[10px] text-emerald-400 font-bold">AVAILABLE</span>
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 bg-[#111622] rounded">
+                <span className="truncate max-w-[220px] sm:max-w-none">Kyorix Enterprise Platform Brochure</span>
+                <span className="text-[10px] text-emerald-400 font-bold shrink-0">AVAILABLE</span>
               </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#111622] rounded">
-                <span>Court Hardware Requirements Sheet</span>
-                <span className="text-[10px] text-emerald-400 font-bold">AVAILABLE</span>
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 bg-[#111622] rounded">
+                <span className="truncate max-w-[220px] sm:max-w-none">Court Hardware Requirements Sheet</span>
+                <span className="text-[10px] text-emerald-400 font-bold shrink-0">AVAILABLE</span>
               </div>
-              <div className="flex items-center justify-between p-2.5 bg-[#111622] rounded">
-                <span>Competition Engine Whitepaper</span>
-                <span className="text-[10px] text-amber-400 font-bold">COMING SOON</span>
+              <div className="flex flex-wrap items-center justify-between gap-2 p-2.5 bg-[#111622] rounded">
+                <span className="truncate max-w-[220px] sm:max-w-none">Competition Engine Whitepaper</span>
+                <span className="text-[10px] text-amber-400 font-bold shrink-0">COMING SOON</span>
               </div>
             </div>
           </div>
 
           {/* News & Announcements */}
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-8 space-y-6">
+          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-5 sm:p-8 space-y-5 sm:space-y-6">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg text-kyorix-blue">
                 <Newspaper className="w-6 h-6" />
@@ -131,7 +131,7 @@ export default function ResourcesPage() {
           </div>
 
           {/* Support */}
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-8 space-y-6">
+          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-5 sm:p-8 space-y-5 sm:space-y-6">
             <div className="flex items-center justify-between">
               <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg text-kyorix-blue">
                 <LifeBuoy className="w-6 h-6" />

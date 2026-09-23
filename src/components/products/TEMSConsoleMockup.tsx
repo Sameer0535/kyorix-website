@@ -58,10 +58,11 @@ export function TEMSConsoleMockup() {
       <div className="grid grid-cols-1 lg:grid-cols-12 min-h-[520px]">
         {/* Sidebar */}
         <aside className="lg:col-span-3 bg-[#08090C] border-b lg:border-b-0 lg:border-r border-[#1E2638] p-3 space-y-1">
-          <div className="px-3 py-1.5 text-[10px] font-mono tracking-widest text-gray-500 uppercase">
-            Platform Modules
+          <div className="px-1.5 lg:px-3 py-1 text-[10px] font-mono tracking-widest text-gray-500 uppercase flex items-center justify-between">
+            <span>Platform Modules</span>
+            <span className="lg:hidden text-[9px] text-gray-500">Swipe →</span>
           </div>
-          <nav className="space-y-0.5">
+          <nav className="flex lg:flex-col overflow-x-auto pb-2 lg:pb-0 gap-1.5 lg:space-y-0.5 scrollbar-thin">
             {SIDEBAR_ITEMS.map((item) => {
               const Icon = item.icon;
               const isActive = activeTab === item.id;
@@ -70,10 +71,10 @@ export function TEMSConsoleMockup() {
                   key={item.id}
                   type="button"
                   onClick={() => setActiveTab(item.id)}
-                  className={`w-full flex items-center gap-2.5 px-3 py-2 text-xs font-mono rounded transition-colors text-left ${
+                  className={`shrink-0 lg:w-full flex items-center gap-2 px-3 py-2 text-xs font-mono rounded transition-colors text-left whitespace-nowrap lg:whitespace-normal ${
                     isActive
                       ? "bg-kyorix-blue text-white font-semibold shadow-md shadow-kyorix-blue/20"
-                      : "text-gray-400 hover:text-white hover:bg-white/5"
+                      : "text-gray-400 hover:text-white hover:bg-white/5 bg-[#111622] lg:bg-transparent"
                   }`}
                 >
                   <Icon className="w-3.5 h-3.5 shrink-0" />
@@ -83,7 +84,7 @@ export function TEMSConsoleMockup() {
             })}
           </nav>
 
-          <div className="pt-4 mt-4 border-t border-[#1E2638] px-3">
+          <div className="hidden lg:block pt-4 mt-4 border-t border-[#1E2638] px-3">
             <div className="text-[10px] font-mono text-gray-500 uppercase">
               Current Session
             </div>

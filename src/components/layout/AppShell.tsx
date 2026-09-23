@@ -10,13 +10,13 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const isAdmin = pathname?.startsWith("/admin");
 
   if (isAdmin) {
-    return <main className="min-h-screen bg-[#08090C] text-gray-100">{children}</main>;
+    return <main className="min-h-screen bg-[#08090C] text-gray-100 w-full overflow-x-clip min-w-0">{children}</main>;
   }
 
   return (
     <>
       <Navbar />
-      <main className="flex-grow">{children}</main>
+      <main className="flex-grow w-full overflow-x-clip min-w-0">{children}</main>
       <Footer />
     </>
   );

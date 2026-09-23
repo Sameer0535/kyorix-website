@@ -4,7 +4,7 @@ import { DemoBadge } from "@/components/shared/DemoBadge";
 
 export function TechArchitectureDiagram() {
   return (
-    <div className="bg-[#0D1117] border border-[#1E2638] rounded-lg p-6 md:p-8 space-y-8 relative overflow-hidden">
+    <div className="bg-[#0D1117] border border-[#1E2638] rounded-lg p-4 sm:p-6 md:p-8 space-y-6 sm:space-y-8 relative overflow-hidden">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-[#1E2638] pb-4">
         <div>
           <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
@@ -20,15 +20,17 @@ export function TechArchitectureDiagram() {
       {/* Pipeline Diagram */}
       <div className="space-y-4 max-w-4xl mx-auto">
         {/* Layer 1: Stakeholders */}
-        <div className="border border-[#1E2638] bg-[#111622] rounded-md p-4 text-center">
+        <div className="border border-[#1E2638] bg-[#111622] rounded-md p-3.5 sm:p-4 text-center">
           <div className="text-[11px] font-mono text-gray-400 tracking-widest uppercase mb-2">
             Layer 01: Event Participants & Stakeholders
           </div>
           <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
-            {["ATHLETE", "COACH", "REFEREE", "JUDGE", "ORGANIZER"].map((role) => (
+            {["ATHLETE", "COACH", "REFEREE", "JUDGE", "ORGANIZER"].map((role, idx) => (
               <div
                 key={role}
-                className="px-3 py-2 bg-[#08090C] border border-[#1E2638] rounded text-xs font-mono font-semibold text-gray-300"
+                className={`px-3 py-2 bg-[#08090C] border border-[#1E2638] rounded text-xs font-mono font-semibold text-gray-300 ${
+                  idx === 4 ? "col-span-2 sm:col-span-1" : ""
+                }`}
               >
                 {role}
               </div>

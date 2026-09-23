@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import { Inter, JetBrains_Mono } from "next/font/google";
 import "@/styles/globals.css";
 import { SiteContentProvider } from "@/context/ContentContext";
@@ -6,6 +6,13 @@ import { AppShell } from "@/components/layout/AppShell";
 import fs from "fs";
 import path from "path";
 import defaultContent from "@/data/default-content.json";
+
+export const viewport: Viewport = {
+  width: "device-width",
+  initialScale: 1,
+  maximumScale: 5,
+  themeColor: "#08090C",
+};
 
 const inter = Inter({
   subsets: ["latin"],

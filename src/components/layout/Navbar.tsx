@@ -28,6 +28,18 @@ export function Navbar() {
     setProductsDropdownOpen(false);
   }, [pathname]);
 
+  // Prevent background scrolling when mobile menu is active
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
+
   if (pathname?.startsWith("/admin")) {
     return null;
   }
@@ -50,13 +62,13 @@ export function Navbar() {
             aria-label="Kyorix Home"
           >
             {/* Pristine white backing badge to preserve the exact official logo artwork without recoloring */}
-            <div className="relative bg-white px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-lg border border-white/40 shadow-md transition-transform duration-200 group-hover:scale-[1.02]">
+            <div className="relative bg-white px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg border border-white/40 shadow-md transition-transform duration-200 group-hover:scale-[1.02]">
               <Image
                 src="/brand/kyorix-logo.png"
                 alt="KYORIX - Sport Technology Private Limited"
                 width={240}
                 height={65}
-                className="h-9 sm:h-11 md:h-12 w-auto object-contain"
+                className="h-8 sm:h-11 md:h-12 w-auto object-contain"
                 priority
                 unoptimized
               />
@@ -186,12 +198,13 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[65px] bottom-0 bg-[#08090C] border-t border-[#1E2638] overflow-y-auto px-5 py-6 space-y-6">
+        <div className="lg:hidden fixed inset-x-0 top-[62px] sm:top-[74px] bottom-0 bg-[#08090C] border-t border-[#1E2638] overflow-y-auto px-5 py-6 space-y-6 z-50 animate-in fade-in-50 duration-200">
           <nav className="space-y-2">
             {NAV_LINKS.map((link) => (
               <div key={link.name} className="border-b border-[#1E2638]/50 pb-2">
                 <Link
                   href={link.href}
+                  onClick={() => setMobileMenuOpen(false)}
                   className={cn(
                     "block py-2 text-sm font-mono uppercase tracking-wider",
                     pathname === link.href ? "text-kyorix-blue font-bold" : "text-gray-200 font-medium"
@@ -205,6 +218,7 @@ export function Navbar() {
                       <Link
                         key={child.name}
                         href={child.href}
+                        onClick={() => setMobileMenuOpen(false)}
                         className={cn(
                           "block py-1.5 text-xs font-mono",
                           pathname === child.href ? "text-kyorix-blue font-semibold" : "text-gray-400"
@@ -222,6 +236,7 @@ export function Navbar() {
           <div className="space-y-3 pt-2">
             <Link
               href="/contact?intent=demo"
+              onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 py-3 text-xs font-mono font-bold uppercase tracking-wider bg-kyorix-blue text-white rounded-md text-center shadow-lg"
             >
               REQUEST A DEMO

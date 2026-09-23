@@ -71,7 +71,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
       {/* Contact Channels & Corporate Placeholders */}
       <div className="lg:col-span-5 space-y-6">
-        <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 space-y-6">
+        <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-4 sm:p-6 space-y-6">
           <div className="space-y-2">
             <h3 className="text-base font-mono font-bold text-white uppercase tracking-wider">
               Communication Categories
@@ -141,11 +141,11 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
 
       {/* Main Form */}
       <div className="lg:col-span-7">
-        <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 sm:p-8 shadow-2xl">
+        <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-4 sm:p-6 lg:p-8 shadow-2xl">
           {status === "success" ? (
             <div className="space-y-6 text-left font-sans animate-in fade-in-50 duration-500">
               {/* Executive Header */}
-              <div className="p-6 rounded-xl bg-[#0D1117] border border-[#1E2638]">
+              <div className="p-4 sm:p-6 rounded-xl bg-[#0D1117] border border-[#1E2638]">
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-[#1E283D]">
                   <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-lg bg-blue-500/10 border border-blue-500/30 flex items-center justify-center text-blue-400 shrink-0">

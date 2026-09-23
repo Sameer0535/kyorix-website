@@ -26,19 +26,19 @@ export function ProductImageFrame({
   return (
     <div className="bg-[#0A0D14] border border-[#1E2638] rounded-xl shadow-2xl overflow-hidden group">
       {/* Top Application Window Bar */}
-      <div className="bg-[#05070A] border-b border-[#1E2638] px-4 py-3 flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
-        <div className="flex items-center gap-3">
-          <div className="flex items-center gap-1.5">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1E2638] group-hover:bg-red-500/80 transition-colors" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1E2638] group-hover:bg-amber-500/80 transition-colors" />
-            <span className="w-2.5 h-2.5 rounded-full bg-[#1E2638] group-hover:bg-emerald-500/80 transition-colors" />
+      <div className="bg-[#05070A] border-b border-[#1E2638] px-3 sm:px-4 py-2.5 sm:py-3 flex items-center justify-between gap-2 text-[10px] sm:text-[11px] font-mono">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0">
+          <div className="flex items-center gap-1.5 shrink-0">
+            <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#1E2638] group-hover:bg-red-500/80 transition-colors" />
+            <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#1E2638] group-hover:bg-amber-500/80 transition-colors" />
+            <span className="w-2 sm:w-2.5 h-2 sm:h-2.5 rounded-full bg-[#1E2638] group-hover:bg-emerald-500/80 transition-colors" />
           </div>
-          <span className="text-gray-600">|</span>
-          <span className="text-white font-bold tracking-wider uppercase">{title}</span>
+          <span className="text-gray-600 shrink-0">|</span>
+          <span className="text-white font-bold tracking-wider uppercase truncate max-w-[180px] xs:max-w-[240px] sm:max-w-none">{title}</span>
         </div>
 
-        <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 text-[10px] font-mono font-semibold text-kyorix-blue bg-kyorix-blue/10 border border-kyorix-blue/30 rounded uppercase tracking-wider">
+        <div className="flex items-center gap-2 shrink-0">
+          <span className="px-2 py-0.5 text-[9px] sm:text-[10px] font-mono font-semibold text-kyorix-blue bg-kyorix-blue/10 border border-kyorix-blue/30 rounded uppercase tracking-wider">
             {badge}
           </span>
         </div>

@@ -46,21 +46,16 @@ export function CompanyIntro() {
         />
 
         {/* Dynamic Editorial Foundation Blocks */}
-        <div
-          className="grid gap-6 lg:gap-8 mt-12"
-          style={{
-            gridTemplateColumns: `repeat(${Math.min(blocks.length, 3) || 1}, minmax(0, 1fr))`,
-          }}
-        >
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8 mt-12">
           {blocks.map((block: any, idx: number) => (
             <div
               key={idx}
-              className="bg-[#0D1117] border border-[#1E2638] p-8 rounded-lg space-y-4 hover:border-kyorix-blue/40 transition-colors"
+              className="bg-[#0D1117] border border-[#1E2638] p-6 sm:p-8 rounded-lg space-y-4 hover:border-kyorix-blue/40 transition-colors"
             >
-              <div className="text-4xl font-mono font-black text-kyorix-blue">
+              <div className="text-3xl sm:text-4xl font-mono font-black text-kyorix-blue">
                 {block.number || `0${idx + 1}`}
               </div>
-              <h3 className="text-xl font-mono font-bold text-white uppercase tracking-wider">
+              <h3 className="text-lg sm:text-xl font-mono font-bold text-white uppercase tracking-wider">
                 {block.title}
               </h3>
               <p className="text-sm text-gray-400 leading-relaxed">
@@ -81,7 +76,7 @@ export function CompanyIntro() {
               unoptimized
             />
             <div className="absolute inset-0 bg-gradient-to-t from-[#08090C] via-transparent to-transparent" />
-            <div className="absolute bottom-6 left-6 right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-4">
+            <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
               <div className="max-w-lg space-y-1">
                 <span className="text-[10px] font-mono font-bold tracking-widest text-kyorix-blue uppercase bg-[#08090C]/80 px-2.5 py-1 rounded border border-kyorix-blue/30 inline-block">
                   {mission.bannerTag || "COMPETITIVE INTEGRITY"}
@@ -91,7 +86,7 @@ export function CompanyIntro() {
                     "Built to deliver absolute fairness, speed, and precision in sanctioned tournament environments."}
                 </p>
               </div>
-              <div className="text-[11px] font-mono text-gray-400 bg-[#08090C]/80 px-3 py-1.5 rounded border border-[#1E2638] shrink-0">
+              <div className="text-[11px] font-mono text-gray-400 bg-[#08090C]/80 px-3 py-1.5 rounded border border-[#1E2638] shrink-0 self-start sm:self-auto">
                 {mission.bannerSubtext || "Official Arena Deployment Context"}
               </div>
             </div>

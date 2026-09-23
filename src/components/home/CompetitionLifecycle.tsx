@@ -55,11 +55,11 @@ export function CompetitionLifecycle() {
 
         {/* Mobile / Tablet Vertical Timeline */}
         <div className="lg:hidden mt-10 space-y-4">
-          <div className="relative pl-6 border-l-2 border-kyorix-blue/40 space-y-6">
+          <div className="relative pl-7 sm:pl-8 border-l-2 border-kyorix-blue/40 space-y-6 ml-3 sm:ml-4">
             {stages.map((stage) => (
               <div key={stage.step} className="relative group">
-                {/* Bullet */}
-                <div className="absolute -left-[31px] top-0.5 w-6 h-6 rounded-full bg-[#111622] border-2 border-kyorix-blue flex items-center justify-center text-[10px] font-mono font-bold text-white">
+                {/* Bullet centered on timeline line */}
+                <div className="absolute -left-[41px] sm:-left-[45px] top-1 w-6 h-6 rounded-full bg-[#111622] border-2 border-kyorix-blue flex items-center justify-center text-[10px] font-mono font-bold text-white shadow-md">
                   {stage.step}
                 </div>
 

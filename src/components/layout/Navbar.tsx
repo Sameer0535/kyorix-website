@@ -62,12 +62,12 @@ export function Navbar() {
             aria-label="Kyorix Home"
           >
             {/* Pristine white backing badge to preserve the exact official logo artwork without recoloring */}
-            <div className="relative bg-white px-2.5 py-1 sm:px-4 sm:py-2 rounded-lg border border-white/40 shadow-md transition-transform duration-200 group-hover:scale-[1.02]">
+            <div className="relative bg-white px-2.5 py-1 sm:px-3.5 sm:py-1.5 rounded-lg border border-white/40 shadow-md transition-transform duration-200 group-hover:scale-[1.02]">
               <Image
                 src="/brand/kyorix-logo.png"
                 alt="KYORIX - Sport Technology Private Limited"
-                width={240}
-                height={65}
+                width={200}
+                height={143}
                 className="h-8 sm:h-11 md:h-12 w-auto object-contain"
                 priority
                 unoptimized

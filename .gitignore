@@ -17,6 +17,7 @@
 # misc
 .DS_Store
 *.pem
+public/brand/backup/
 
 # debug
 npm-debug.log*

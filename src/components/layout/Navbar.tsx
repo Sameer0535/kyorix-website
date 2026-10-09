@@ -58,16 +58,21 @@ export function Navbar() {
           {/* Logo (Enhanced Size & Visual Impact) */}
           <Link
             href="/"
-            className="flex items-center gap-3 group focus-visible:outline-none shrink-0"
+            className="flex items-center group focus-visible:outline-none shrink-0"
             aria-label="Kyorix Home"
           >
-            <div className="relative bg-white px-2.5 py-1 sm:px-3 sm:py-1 rounded-lg border border-slate-200/60 shadow-xs transition-transform duration-200 group-hover:scale-[1.02]">
+            <div className="relative transition-transform duration-200 group-hover:scale-105">
               <Image
-                src="/brand/kyorix-logo.png"
+                src="/brand/kyorix-logo-transparent.png"
                 alt="KYORIX - Sport Technology Private Limited"
-                width={886}
-                height={827}
-                className="h-8 sm:h-11 md:h-12 w-auto object-contain"
+                width={854}
+                height={802}
+                className={cn(
+                  "w-auto object-contain transition-all duration-300",
+                  scrolled
+                    ? "h-12 sm:h-14 md:h-16"
+                    : "h-14 sm:h-16 md:h-20 lg:h-22"
+                )}
                 priority
                 unoptimized
               />
@@ -197,7 +202,7 @@ export function Navbar() {
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="lg:hidden fixed inset-x-0 top-[62px] sm:top-[74px] bottom-0 bg-white border-t border-slate-200 overflow-y-auto px-5 py-6 space-y-6 z-50 animate-in fade-in-50 duration-200 shadow-2xl">
+        <div className="lg:hidden absolute top-full left-0 right-0 h-[calc(100dvh-100%)] bg-white border-t border-slate-200 overflow-y-auto px-5 py-6 space-y-6 z-50 animate-in fade-in-50 duration-200 shadow-2xl">
           <nav className="space-y-2">
             {NAV_LINKS.map((link) => (
               <div key={link.name} className="border-b border-slate-100 pb-2">

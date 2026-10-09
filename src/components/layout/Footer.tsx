@@ -31,13 +31,13 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-200">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="inline-block bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-xs">
+            <div className="inline-block transition-transform duration-200 hover:scale-105">
               <Image
-                src="/brand/kyorix-logo.png"
+                src="/brand/kyorix-logo-transparent.png"
                 alt="KYORIX"
-                width={886}
-                height={827}
-                className="h-10 sm:h-12 w-auto object-contain"
+                width={854}
+                height={802}
+                className="h-16 sm:h-20 md:h-24 w-auto object-contain"
                 unoptimized
               />
             </div>

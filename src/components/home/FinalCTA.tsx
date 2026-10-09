@@ -33,7 +33,7 @@ export function FinalCTA() {
             href={cta.primaryButtonLink || "/contact?intent=demo"}
             className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase tracking-wider rounded shadow-xl shadow-kyorix-blue/25 transition-all duration-150"
           >
-            <span>{cta.primaryButtonText || "REQUEST A DEMO"}</span>
+            <span>{cta.primaryButtonText || "CONTACT NOW"}</span>
             <ArrowRight className="w-4 h-4" />
           </Link>
 

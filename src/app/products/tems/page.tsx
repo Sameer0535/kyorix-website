@@ -518,7 +518,7 @@ export default function KyorixTEMSPage() {
               href="/contact?intent=demo"
               className="inline-flex items-center gap-2 px-8 py-3.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase tracking-wider rounded transition-colors"
             >
-              <span>REQUEST A DEMO</span>
+              <span>CONTACT NOW</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
             <Link

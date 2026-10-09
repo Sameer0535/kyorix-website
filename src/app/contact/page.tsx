@@ -4,7 +4,7 @@ import { ContactForm } from "@/components/shared/ContactForm";
 import { SectionHeading } from "@/components/shared/SectionHeading";
 
 export const metadata: Metadata = {
-  title: "Contact & Demo Request | Kyorix Sport Technology",
+  title: "Contact Now | Kyorix Sport Technology",
   description:
     "Let's build the future of competition. Contact Kyorix Sport Technology for tournament scoring, brackets, and event management.",
 };

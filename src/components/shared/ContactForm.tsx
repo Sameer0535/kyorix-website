@@ -170,7 +170,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                 {/* Reassurance Message */}
                 <div className="pt-4 space-y-1">
                   <p className="text-sm text-gray-200 leading-relaxed">
-                    We have received your demo request for{" "}
+                    We have received your inquiry for{" "}
                     <span className="text-blue-400 font-semibold">{formData.interest || "KYORIX ESS"}</span>{" "}
                     on behalf of{" "}
                     <span className="text-white font-semibold">{formData.organization || "your organization"}</span>.
@@ -345,7 +345,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
             <form onSubmit={handleSubmit} className="space-y-4 text-xs font-mono">
               <div className="border-b border-[#1E2638] pb-3 mb-4">
                 <h3 className="text-sm font-bold text-white uppercase tracking-wider">
-                  Request a Demo & Technical Inquiry
+                  Contact Now & Technical Inquiry
                 </h3>
                 <p className="text-gray-400 text-[11px] mt-0.5">
                   Fields marked with asterisk (*) are required for routing.
@@ -530,7 +530,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                   className="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-8 py-3 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold tracking-widest uppercase rounded shadow-lg shadow-kyorix-blue/20 transition-all duration-150 disabled:opacity-50"
                 >
                   <Send className="w-4 h-4" />
-                  <span>{status === "submitting" ? "Processing..." : "Request a Demo"}</span>
+                  <span>{status === "submitting" ? "Processing..." : "Contact Now"}</span>
                 </button>
               </div>
             </form>

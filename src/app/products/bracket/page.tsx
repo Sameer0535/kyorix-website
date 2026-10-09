@@ -34,7 +34,7 @@ export default function KyorixBracketPage() {
               href="/contact?intent=demo"
               className="inline-flex items-center gap-2 px-6 py-3 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase tracking-wider rounded transition-colors"
             >
-              <span>REQUEST BRACKET DEMO</span>
+              <span>CONTACT NOW</span>
               <ArrowRight className="w-4 h-4" />
             </Link>
           </div>

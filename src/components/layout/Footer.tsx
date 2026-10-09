@@ -35,9 +35,9 @@ export function Footer() {
               <Image
                 src="/brand/kyorix-logo.png"
                 alt="KYORIX"
-                width={200}
-                height={143}
-                className="h-9 sm:h-10 w-auto object-contain"
+                width={886}
+                height={827}
+                className="h-10 sm:h-12 w-auto object-contain"
                 unoptimized
               />
             </div>
@@ -176,7 +176,7 @@ export function Footer() {
                 href="/contact?intent=demo"
                 className="inline-flex items-center px-3 py-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-kyorix-blue bg-kyorix-blue/10 border border-kyorix-blue/30 rounded hover:bg-kyorix-blue/20 transition-colors"
               >
-                Request a Demo
+                Contact Now
               </Link>
             </div>
           </div>

@@ -66,8 +66,8 @@ export function Navbar() {
               <Image
                 src="/brand/kyorix-logo.png"
                 alt="KYORIX - Sport Technology Private Limited"
-                width={200}
-                height={143}
+                width={886}
+                height={827}
                 className="h-8 sm:h-11 md:h-12 w-auto object-contain"
                 priority
                 unoptimized
@@ -171,7 +171,7 @@ export function Navbar() {
               href="/contact?intent=demo"
               className="inline-flex items-center justify-center gap-2 px-5 py-2.5 text-[13px] font-mono font-bold tracking-wider uppercase bg-kyorix-blue hover:bg-kyorix-blue-hover text-white rounded-md transition-all duration-150 shadow-md shadow-kyorix-blue/25"
             >
-              REQUEST A DEMO
+              CONTACT NOW
             </Link>
           </div>
 
@@ -181,7 +181,7 @@ export function Navbar() {
               href="/contact?intent=demo"
               className="inline-flex items-center px-3 py-2 text-xs font-mono font-bold uppercase bg-kyorix-blue text-white rounded-md"
             >
-              Demo
+              Contact Now
             </Link>
             <button
               type="button"
@@ -239,7 +239,7 @@ export function Navbar() {
               onClick={() => setMobileMenuOpen(false)}
               className="w-full flex items-center justify-center gap-2 py-3 text-xs font-mono font-bold uppercase tracking-wider bg-kyorix-blue text-white rounded-md text-center shadow-lg"
             >
-              REQUEST A DEMO
+              CONTACT NOW
             </Link>
             <div className="text-[11px] font-mono text-gray-500 text-center">
               {COMPANY_INFO.tagline}

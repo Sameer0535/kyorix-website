@@ -13,26 +13,26 @@ export const metadata: Metadata = {
 
 export default function KyorixBracketPage() {
   return (
-    <div className="pt-32 pb-24 bg-[#08090C] min-h-screen">
+    <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
         {/* Hero */}
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
             <span className="w-2 h-2 rounded-full bg-kyorix-blue" />
             <span className="text-xs font-mono font-bold tracking-widest text-kyorix-blue uppercase">
               COMPETITION DRAW & BRACKET MANAGEMENT
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-white uppercase leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-slate-900 uppercase leading-tight">
             KYORIX BRACKET
           </h1>
-          <p className="text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
             Generate, manage and operate tournament brackets with an integrated competition workflow. Mathematically balanced draw generation, automated BYE placement, and real-time match advancement directly driven by court scoring.
           </p>
           <div className="pt-2 flex flex-wrap gap-4">
             <Link
               href="/contact?intent=demo"
-              className="inline-flex items-center gap-2 px-6 py-3 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase tracking-wider rounded transition-colors"
+              className="inline-flex items-center gap-2 px-6 py-3 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase tracking-wider rounded shadow-md shadow-kyorix-blue/20 transition-colors"
             >
               <span>CONTACT NOW</span>
               <ArrowRight className="w-4 h-4" />
@@ -43,10 +43,10 @@ export default function KyorixBracketPage() {
         {/* Official Software Screenshot Frame */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <h2 className="text-xl font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-xl font-mono font-bold text-slate-900 uppercase tracking-wider">
               Official Bracket Software Interface
             </h2>
-            <span className="text-xs font-mono text-gray-400">
+            <span className="text-xs font-mono text-slate-500">
               Automated draw & progression tree
             </span>
           </div>
@@ -61,61 +61,61 @@ export default function KyorixBracketPage() {
 
         {/* Four Operational Pillars */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 space-y-3">
-            <div className="p-2.5 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded w-fit text-kyorix-blue">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-3 shadow-sm hover:border-kyorix-blue/40 transition-colors">
+            <div className="p-2.5 bg-blue-50 border border-blue-200 rounded w-fit text-kyorix-blue">
               <Shuffle className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-mono font-bold text-white uppercase">
+            <h3 className="text-base font-mono font-bold text-slate-900 uppercase">
               Draw Generation & BYEs
             </h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Automated power-of-two bracket scaling. Deterministic distribution of BYEs to top-seeded competitors to avoid unfair match clustering.
             </p>
           </div>
 
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 space-y-3">
-            <div className="p-2.5 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded w-fit text-kyorix-blue">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-3 shadow-sm hover:border-kyorix-blue/40 transition-colors">
+            <div className="p-2.5 bg-blue-50 border border-blue-200 rounded w-fit text-kyorix-blue">
               <UserCheck className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-mono font-bold text-white uppercase">
+            <h3 className="text-base font-mono font-bold text-slate-900 uppercase">
               Seeding Rules & Separation
             </h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Country, club, and state separation constraints ensure athletes from the same team do not face each other in preliminary rounds.
             </p>
           </div>
 
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 space-y-3">
-            <div className="p-2.5 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded w-fit text-kyorix-blue">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-3 shadow-sm hover:border-kyorix-blue/40 transition-colors">
+            <div className="p-2.5 bg-blue-50 border border-blue-200 rounded w-fit text-kyorix-blue">
               <Lock className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-mono font-bold text-white uppercase">
+            <h3 className="text-base font-mono font-bold text-slate-900 uppercase">
               Cryptographic Draw Locking
             </h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Once official weigh-in concludes and the draw ceremony is finalized, brackets can be locked to prevent unauthorized tampering.
             </p>
           </div>
 
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 space-y-3">
-            <div className="p-2.5 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded w-fit text-kyorix-blue">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-3 shadow-sm hover:border-kyorix-blue/40 transition-colors">
+            <div className="p-2.5 bg-blue-50 border border-blue-200 rounded w-fit text-kyorix-blue">
               <Calendar className="w-5 h-5" />
             </div>
-            <h3 className="text-base font-mono font-bold text-white uppercase">
+            <h3 className="text-base font-mono font-bold text-slate-900 uppercase">
               Court Mat Assignment
             </h3>
-            <p className="text-xs text-gray-400 leading-relaxed">
+            <p className="text-xs text-slate-600 leading-relaxed">
               Matches are dynamically routed to available competition courts, optimizing mat utilization and minimizing athlete wait times.
             </p>
           </div>
         </div>
 
         {/* Feature List */}
-        <div className="bg-[#111622] border border-[#1E2638] rounded-xl p-8 space-y-6">
-          <h3 className="text-lg font-mono font-bold text-white uppercase tracking-wider">
+        <div className="bg-white border border-slate-200 rounded-xl p-8 space-y-6 shadow-sm">
+          <h3 className="text-lg font-mono font-bold text-slate-900 uppercase tracking-wider">
             Tournament Management Specifications
           </h3>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-mono text-gray-300">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-xs font-mono text-slate-700">
             <div className="flex items-center gap-2">
               <CheckCircle2 className="w-4 h-4 text-kyorix-blue" />
               <span>Single & double elimination brackets</span>

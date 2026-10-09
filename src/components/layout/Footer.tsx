@@ -26,12 +26,12 @@ export function Footer() {
     return null;
   }
   return (
-    <footer className="bg-[#05070A] border-t border-[#1E2638] pt-16 pb-12 text-gray-400">
+    <footer className="bg-slate-50 border-t border-slate-200 pt-16 pb-12 text-slate-600">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#1E2638]/70">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-slate-200">
           {/* Brand Column */}
           <div className="lg:col-span-2 space-y-4">
-            <div className="inline-block bg-white px-3 py-1.5 rounded-lg border border-white/30 shadow-sm">
+            <div className="inline-block bg-white px-3 py-1.5 rounded-lg border border-slate-200 shadow-xs">
               <Image
                 src="/brand/kyorix-logo.png"
                 alt="KYORIX"
@@ -42,17 +42,17 @@ export function Footer() {
               />
             </div>
             <div className="space-y-1 pt-1">
-              <div className="text-xs font-mono font-bold text-white tracking-wider uppercase">
+              <div className="text-xs font-mono font-bold text-slate-900 tracking-wider uppercase">
                 {content.companyInfo.name}
               </div>
               <div className="text-xs font-mono text-kyorix-blue tracking-widest uppercase font-semibold">
                 {content.companyInfo.tagline}
               </div>
             </div>
-            <p className="text-xs text-gray-400 leading-relaxed max-w-sm">
+            <p className="text-xs text-slate-600 leading-relaxed max-w-sm">
               Developing software, live competition systems and technology infrastructure for competitive sports. Engineered for precision, speed and fair competition.
             </p>
-            <div className="pt-2 text-[11px] font-mono text-gray-500 space-y-1">
+            <div className="pt-2 text-[11px] font-mono text-slate-500 space-y-1">
               <div>Corporate Status: Private Limited Company</div>
               <div>Primary Discipline: Competitive Sports Technology</div>
             </div>
@@ -60,14 +60,14 @@ export function Footer() {
 
           {/* Column: Products */}
           <div className="space-y-3">
-            <h3 className="text-xs font-mono font-bold tracking-widest text-white uppercase">
+            <h3 className="text-xs font-mono font-bold tracking-widest text-slate-900 uppercase">
               Products
             </h3>
             <ul className="space-y-2 text-xs font-mono">
               <li>
                 <Link
                   href="/products/score"
-                  className="text-gray-400 hover:text-white hover:text-kyorix-blue transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Kyorix Score
                 </Link>
@@ -75,7 +75,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/products/bracket"
-                  className="text-gray-400 hover:text-white hover:text-kyorix-blue transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Kyorix Bracket
                 </Link>
@@ -83,15 +83,15 @@ export function Footer() {
               <li>
                 <Link
                   href="/products/tems"
-                  className="text-gray-400 hover:text-white hover:text-kyorix-blue transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Kyorix TEMS
                 </Link>
               </li>
-              <li className="pt-2 border-t border-[#1E2638]/50">
+              <li className="pt-2 border-t border-slate-200">
                 <Link
                   href="/products"
-                  className="text-kyorix-blue hover:underline"
+                  className="text-kyorix-blue font-bold hover:underline"
                 >
                   All Platforms →
                 </Link>
@@ -101,14 +101,14 @@ export function Footer() {
 
           {/* Column: Company & Resources */}
           <div className="space-y-3">
-            <h3 className="text-xs font-mono font-bold tracking-widest text-white uppercase">
+            <h3 className="text-xs font-mono font-bold tracking-widest text-slate-900 uppercase">
               Company
             </h3>
             <ul className="space-y-2 text-xs font-mono">
               <li>
                 <Link
                   href="/about"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   About Kyorix
                 </Link>
@@ -116,7 +116,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/technology"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Technology
                 </Link>
@@ -124,7 +124,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/resources"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Resources & Docs
                 </Link>
@@ -132,7 +132,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/contact"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Contact
                 </Link>
@@ -142,14 +142,14 @@ export function Footer() {
 
           {/* Column: Legal & Security */}
           <div className="space-y-3">
-            <h3 className="text-xs font-mono font-bold tracking-widest text-white uppercase">
+            <h3 className="text-xs font-mono font-bold tracking-widest text-slate-900 uppercase">
               Legal & Trust
             </h3>
             <ul className="space-y-2 text-xs font-mono">
               <li>
                 <Link
                   href="/security"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Security Architecture
                 </Link>
@@ -157,7 +157,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/privacy"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Privacy Policy
                 </Link>
@@ -165,7 +165,7 @@ export function Footer() {
               <li>
                 <Link
                   href="/terms"
-                  className="text-gray-400 hover:text-white transition-colors"
+                  className="text-slate-600 hover:text-kyorix-blue transition-colors"
                 >
                   Terms of Service
                 </Link>
@@ -174,7 +174,7 @@ export function Footer() {
             <div className="pt-4">
               <Link
                 href="/contact?intent=demo"
-                className="inline-flex items-center px-3 py-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-kyorix-blue bg-kyorix-blue/10 border border-kyorix-blue/30 rounded hover:bg-kyorix-blue/20 transition-colors"
+                className="inline-flex items-center px-3 py-1.5 text-xs font-mono font-semibold uppercase tracking-wider text-kyorix-blue bg-blue-50 border border-blue-200 rounded hover:bg-blue-100 transition-colors"
               >
                 Contact Now
               </Link>
@@ -183,10 +183,10 @@ export function Footer() {
         </div>
 
         {/* Corporate Notice & Placeholders */}
-        <div className="py-6 border-b border-[#1E2638]/40 text-[11px] font-mono text-gray-500 space-y-1">
+        <div className="py-6 border-b border-slate-200 text-[11px] font-mono text-slate-500 space-y-1">
           <div className="flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-amber-500/80" />
-            <span className="text-gray-400">CORPORATE INFORMATION STATUS:</span>
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-500" />
+            <span className="text-slate-700 font-semibold">CORPORATE INFORMATION STATUS:</span>
           </div>
           <div>{content.companyInfo.cin}</div>
           <div>{content.companyInfo.address}</div>
@@ -194,15 +194,15 @@ export function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-gray-500">
+        <div className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-slate-500">
           <div
             onClick={handleSecretTrigger}
-            className="cursor-default select-none hover:text-gray-400 transition-colors"
+            className="cursor-default select-none hover:text-slate-700 transition-colors"
             title="Kyorix Platform"
           >
             © {new Date().getFullYear()} {content.companyInfo.name}. All Rights Reserved.
           </div>
-          <div className="text-[11px] text-gray-500 tracking-wider uppercase">
+          <div className="text-[11px] text-slate-500 tracking-wider uppercase">
             {content.companyInfo.tagline}
           </div>
         </div>

@@ -11,36 +11,36 @@ export const metadata: Metadata = {
 
 export default function TermsOfServicePage() {
   return (
-    <div className="pt-32 pb-24 bg-[#08090C] min-h-screen">
+    <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 space-y-12">
         {/* Header */}
-        <div className="space-y-4 border-b border-[#1E2638] pb-8">
+        <div className="space-y-4 border-b border-slate-200 pb-8">
           <div className="text-xs font-mono font-bold tracking-widest text-kyorix-blue uppercase">
             LEGAL AGREEMENT
           </div>
-          <h1 className="text-3xl sm:text-4xl font-black font-mono text-white uppercase">
+          <h1 className="text-3xl sm:text-4xl font-black font-mono text-slate-900 uppercase">
             TERMS OF SERVICE
           </h1>
-          <p className="text-xs font-mono text-gray-400">
+          <p className="text-xs font-mono text-slate-500">
             Effective Date: January 1, 2026 • Version 1.0 (Enterprise Software)
           </p>
         </div>
 
         {/* Placeholders Notice */}
-        <div className="p-4 bg-amber-500/10 border border-amber-500/30 rounded-lg text-xs font-mono text-amber-300 space-y-1">
+        <div className="p-4 bg-amber-50 border border-amber-200 rounded-lg text-xs font-mono text-amber-800 space-y-1">
           <div className="flex items-center gap-2 font-bold uppercase">
-            <AlertCircle className="w-4 h-4 shrink-0" />
+            <AlertCircle className="w-4 h-4 shrink-0 text-amber-600" />
             <span>Corporate Licensing Disclosure</span>
           </div>
-          <p className="text-amber-200/80">
+          <p className="text-amber-700">
             Terms apply to licensed deployment of Kyorix software platforms at sanctioned tournaments, regional competitions, and multi-court sporting arenas.
           </p>
         </div>
 
         {/* Body Content */}
-        <div className="space-y-8 text-sm text-gray-300 leading-relaxed font-sans">
+        <div className="space-y-8 text-sm text-slate-600 leading-relaxed font-sans">
           <section className="space-y-3">
-            <h2 className="text-base font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-base font-mono font-bold text-slate-900 uppercase tracking-wider">
               1. Platform License & Scope of Use
             </h2>
             <p>
@@ -49,7 +49,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-base font-mono font-bold text-slate-900 uppercase tracking-wider">
               2. Competition Integrity & Official Rulings
             </h2>
             <p>
@@ -58,7 +58,7 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-base font-mono font-bold text-slate-900 uppercase tracking-wider">
               3. Hardware Requirements & On-Site Deployment
             </h2>
             <p>
@@ -67,19 +67,19 @@ export default function TermsOfServicePage() {
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-base font-mono font-bold text-slate-900 uppercase tracking-wider">
               4. Corporate Entity & Placeholders
             </h2>
-            <div className="bg-[#0D1117] border border-[#1E2638] rounded p-4 font-mono text-xs space-y-1 text-gray-400">
-              <div>Licensor: <span className="text-white">{COMPANY_INFO.name}</span></div>
-              <div>Corporate ID: <span className="text-amber-400">{COMPANY_INFO.placeholders.cin}</span></div>
-              <div>Registered Office: <span className="text-amber-400">{COMPANY_INFO.placeholders.address}</span></div>
-              <div>Commercial Legal Inquiries: <span className="text-amber-400">{COMPANY_INFO.placeholders.email}</span></div>
+            <div className="bg-slate-50 border border-slate-200 rounded p-4 font-mono text-xs space-y-1 text-slate-600 shadow-sm">
+              <div>Licensor: <span className="text-slate-900 font-semibold">{COMPANY_INFO.name}</span></div>
+              <div>Corporate ID: <span className="text-amber-600 font-semibold">{COMPANY_INFO.placeholders.cin}</span></div>
+              <div>Registered Office: <span className="text-amber-600 font-semibold">{COMPANY_INFO.placeholders.address}</span></div>
+              <div>Commercial Legal Inquiries: <span className="text-amber-600 font-semibold">{COMPANY_INFO.placeholders.email}</span></div>
             </div>
           </section>
 
           <section className="space-y-3">
-            <h2 className="text-base font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-base font-mono font-bold text-slate-900 uppercase tracking-wider">
               5. Governing Law & Jurisdiction
             </h2>
             <p>

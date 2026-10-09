@@ -54,21 +54,21 @@ const SECURITY_PILLARS = [
 
 export default function SecurityPage() {
   return (
-    <div className="pt-32 pb-24 bg-[#08090C] min-h-screen">
+    <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-16">
         {/* Hero */}
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
             <span className="w-2 h-2 rounded-full bg-kyorix-blue" />
             <span className="text-xs font-mono font-bold tracking-widest text-kyorix-blue uppercase">
               DATA INTEGRITY & PROTECTION
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-white uppercase leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-slate-900 uppercase leading-tight">
             SECURITY <br />
             <span className="text-kyorix-blue">BY DESIGN.</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
             In competitive sport, technical integrity is synonymous with competitive fairness. Kyorix platforms are architected to ensure that every point awarded, match advanced, and tournament record archived is authentic, auditable, and resilient.
           </p>
         </div>
@@ -80,15 +80,15 @@ export default function SecurityPage() {
             return (
               <div
                 key={pillar.title}
-                className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 space-y-3 hover:border-kyorix-blue/40 transition-colors"
+                className="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-3 hover:border-kyorix-blue/40 shadow-sm transition-colors"
               >
-                <div className="p-2.5 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded w-fit text-kyorix-blue">
+                <div className="p-2.5 bg-blue-50 border border-blue-200 rounded w-fit text-kyorix-blue">
                   <Icon className="w-5 h-5" />
                 </div>
-                <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
+                <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider">
                   {pillar.title}
                 </h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {pillar.desc}
                 </p>
               </div>
@@ -97,9 +97,9 @@ export default function SecurityPage() {
         </div>
 
         {/* Responsible Certification Notice */}
-        <div className="bg-[#111622] border border-[#1E2638] rounded-xl p-6 sm:p-8 space-y-3 text-xs font-mono text-gray-400">
-          <div className="flex items-center gap-2 text-white font-bold uppercase tracking-wider">
-            <AlertCircle className="w-4 h-4 text-amber-400" />
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 sm:p-8 space-y-3 text-xs font-mono text-slate-600 shadow-sm">
+          <div className="flex items-center gap-2 text-slate-900 font-bold uppercase tracking-wider">
+            <AlertCircle className="w-4 h-4 text-amber-500" />
             <span>Security Engineering Disclosure</span>
           </div>
           <p className="leading-relaxed">

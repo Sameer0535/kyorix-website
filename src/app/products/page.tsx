@@ -15,37 +15,37 @@ export default function ProductsPage() {
   const icons = [Cpu, GitBranch, Layers];
 
   return (
-    <div className="pt-32 pb-24 bg-[#08090C] min-h-screen">
+    <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
         {/* Page Hero */}
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
             <span className="w-2 h-2 rounded-full bg-kyorix-blue" />
             <span className="text-xs font-mono font-bold tracking-widest text-kyorix-blue uppercase">
               OUR PRODUCTS
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-white uppercase leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-slate-900 uppercase leading-tight">
             TECHNOLOGY BUILT <br />
             <span className="text-kyorix-blue">FOR COMPETITION.</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
             Kyorix develops three specialized software platforms engineered to address distinct operational demands across the tournament lifecycle. Designed to run as independent solutions or integrate into an all-inclusive competition ecosystem.
           </p>
         </div>
 
         {/* Ecosystem Synthesis Formula */}
-        <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 sm:p-8">
-          <div className="text-xs font-mono font-bold text-gray-400 uppercase tracking-widest text-center mb-6">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 sm:p-8">
+          <div className="text-xs font-mono font-bold text-slate-500 uppercase tracking-widest text-center mb-6">
             The Integrated Platform Formula
           </div>
 
           <div className="flex flex-col lg:flex-row items-center justify-center gap-4 text-center">
-            <div className="bg-[#111622] border border-[#1E2638] px-5 py-4 rounded-lg flex-1 w-full">
-              <div className="text-xs font-mono font-bold text-white uppercase">
+            <div className="bg-white border border-slate-200 px-5 py-4 rounded-lg flex-1 w-full shadow-sm">
+              <div className="text-xs font-mono font-bold text-slate-900 uppercase">
                 KYORIX SCORE
               </div>
-              <div className="text-[11px] font-mono text-gray-400 mt-1">
+              <div className="text-[11px] font-mono text-slate-500 mt-1">
                 Court Scoring & Controller
               </div>
             </div>
@@ -54,11 +54,11 @@ export default function ProductsPage() {
               +
             </div>
 
-            <div className="bg-[#111622] border border-[#1E2638] px-5 py-4 rounded-lg flex-1 w-full">
-              <div className="text-xs font-mono font-bold text-white uppercase">
+            <div className="bg-white border border-slate-200 px-5 py-4 rounded-lg flex-1 w-full shadow-sm">
+              <div className="text-xs font-mono font-bold text-slate-900 uppercase">
                 KYORIX BRACKET
               </div>
-              <div className="text-[11px] font-mono text-gray-400 mt-1">
+              <div className="text-[11px] font-mono text-slate-500 mt-1">
                 Draw, Seeding & Progression
               </div>
             </div>
@@ -67,11 +67,11 @@ export default function ProductsPage() {
               +
             </div>
 
-            <div className="bg-[#111622] border border-[#1E2638] px-5 py-4 rounded-lg flex-1 w-full">
-              <div className="text-xs font-mono font-bold text-white uppercase">
+            <div className="bg-white border border-slate-200 px-5 py-4 rounded-lg flex-1 w-full shadow-sm">
+              <div className="text-xs font-mono font-bold text-slate-900 uppercase">
                 KYORIX TEMS
               </div>
-              <div className="text-[11px] font-mono text-gray-400 mt-1">
+              <div className="text-[11px] font-mono text-slate-500 mt-1">
                 Event Management Console
               </div>
             </div>
@@ -80,11 +80,11 @@ export default function ProductsPage() {
               =
             </div>
 
-            <div className="bg-gradient-to-r from-kyorix-blue/20 to-blue-900/20 border-2 border-kyorix-blue px-6 py-4 rounded-lg flex-1 w-full">
-              <div className="text-xs font-mono font-bold text-white uppercase">
+            <div className="bg-blue-50/70 border-2 border-kyorix-blue px-6 py-4 rounded-lg flex-1 w-full shadow-sm">
+              <div className="text-xs font-mono font-bold text-kyorix-blue uppercase">
                 KYORIX ECOSYSTEM
               </div>
-              <div className="text-[11px] font-mono text-blue-300 mt-1">
+              <div className="text-[11px] font-mono text-slate-700 mt-1 font-semibold">
                 Unified Competition Backbone
               </div>
             </div>
@@ -98,36 +98,36 @@ export default function ProductsPage() {
             return (
               <div
                 key={prod.id}
-                className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center"
+                className="bg-white border border-slate-200 rounded-xl p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-12 gap-8 items-center shadow-sm"
               >
                 <div className="lg:col-span-7 space-y-4">
                   <div className="flex items-center gap-3">
-                    <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded text-kyorix-blue">
+                    <div className="p-3 bg-blue-50 border border-blue-200 rounded text-kyorix-blue">
                       <Icon className="w-6 h-6" />
                     </div>
                     <div>
-                      <span className="text-[10px] font-mono tracking-widest text-kyorix-blue uppercase font-semibold">
+                      <span className="text-[10px] font-mono tracking-widest text-kyorix-blue uppercase font-bold">
                         PLATFORM 0{idx + 1}
                       </span>
-                      <h2 className="text-2xl sm:text-3xl font-mono font-black text-white uppercase">
+                      <h2 className="text-2xl sm:text-3xl font-mono font-black text-slate-900 uppercase">
                         {prod.name}
                       </h2>
                     </div>
                   </div>
 
-                  <div className="text-xs font-mono text-gray-300 font-semibold uppercase tracking-wider">
+                  <div className="text-xs font-mono text-slate-700 font-bold uppercase tracking-wider">
                     {prod.subtitle}
                   </div>
 
-                  <p className="text-sm text-gray-400 leading-relaxed">
+                  <p className="text-sm text-slate-600 leading-relaxed">
                     {prod.description}
                   </p>
 
                   <div className="pt-2">
-                    <div className="text-[11px] font-mono text-gray-500 uppercase tracking-widest mb-2">
+                    <div className="text-[11px] font-mono text-slate-400 uppercase tracking-widest mb-2 font-bold">
                       Core Functional Capabilities
                     </div>
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-gray-300">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-xs font-mono text-slate-700">
                       {prod.features.map((feat) => (
                         <div key={feat} className="flex items-center gap-2">
                           <CheckCircle2 className="w-3.5 h-3.5 text-kyorix-blue shrink-0" />
@@ -140,7 +140,7 @@ export default function ProductsPage() {
                   <div className="pt-4">
                     <Link
                       href={prod.href}
-                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase tracking-wider rounded transition-colors"
+                      className="inline-flex items-center gap-2 px-5 py-2.5 bg-kyorix-blue hover:bg-kyorix-blue-hover text-white text-xs font-mono font-bold uppercase tracking-wider rounded shadow-md shadow-kyorix-blue/20 transition-colors"
                     >
                       <span>Explore {prod.name} Specifications</span>
                       <ArrowRight className="w-4 h-4" />
@@ -148,14 +148,14 @@ export default function ProductsPage() {
                   </div>
                 </div>
 
-                <div className="lg:col-span-5 bg-[#111622] border border-[#1E2638] rounded-lg p-6 space-y-4 text-xs font-mono">
-                  <div className="text-[10px] font-mono text-gray-500 uppercase tracking-widest border-b border-[#1E2638] pb-2">
+                <div className="lg:col-span-5 bg-slate-50 border border-slate-200 rounded-lg p-6 space-y-4 text-xs font-mono">
+                  <div className="text-[10px] font-mono text-slate-400 uppercase tracking-widest border-b border-slate-200 pb-2 font-bold">
                     Operational Scope & Purpose
                   </div>
-                  <div className="space-y-2 text-gray-300">
+                  <div className="space-y-3 text-slate-700">
                     <div>
-                      <span className="text-gray-500 block">Primary User:</span>
-                      <span className="text-white font-semibold">
+                      <span className="text-slate-400 block text-[11px]">Primary User:</span>
+                      <span className="text-slate-900 font-semibold">
                         {prod.id === "score"
                           ? "Court Referees, Corner Judges & Match Controllers"
                           : prod.id === "bracket"
@@ -164,8 +164,8 @@ export default function ProductsPage() {
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-500 block">Deployment Context:</span>
-                      <span className="text-white font-semibold">
+                      <span className="text-slate-400 block text-[11px]">Deployment Context:</span>
+                      <span className="text-slate-900 font-semibold">
                         {prod.id === "score"
                           ? "Arena Mat-side Controllers & Scoreboards"
                           : prod.id === "bracket"
@@ -174,8 +174,8 @@ export default function ProductsPage() {
                       </span>
                     </div>
                     <div>
-                      <span className="text-gray-500 block">Data Synchronization:</span>
-                      <span className="text-emerald-400 font-semibold">
+                      <span className="text-slate-400 block text-[11px]">Data Synchronization:</span>
+                      <span className="text-emerald-600 font-semibold">
                         Real-time Socket Protocol with Local Fallback
                       </span>
                     </div>
@@ -187,7 +187,7 @@ export default function ProductsPage() {
         </div>
 
         {/* Product Roadmap Section */}
-        <div className="border-t border-[#1E2638] pt-16 space-y-8">
+        <div className="border-t border-slate-200 pt-16 space-y-8">
           <SectionHeading
             label="DEVELOPMENT PROGRESSION"
             title="PRODUCT ROADMAP"
@@ -198,18 +198,18 @@ export default function ProductsPage() {
             {ROADMAP_STAGES.map((stage) => (
               <div
                 key={stage.status}
-                className="bg-[#0D1117] border border-[#1E2638] rounded-lg p-5 space-y-3"
+                className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-3 shadow-sm hover:border-kyorix-blue/40 transition-colors"
               >
                 <div className="flex items-center justify-between text-xs font-mono">
-                  <span className="px-2 py-0.5 bg-white/5 border border-white/10 rounded font-bold text-gray-300">
+                  <span className="px-2 py-0.5 bg-white border border-slate-200 rounded font-bold text-slate-700">
                     {stage.status}
                   </span>
-                  <span className="text-kyorix-blue font-semibold">{stage.badge}</span>
+                  <span className="text-kyorix-blue font-bold">{stage.badge}</span>
                 </div>
-                <h3 className="text-sm font-mono font-bold text-white uppercase">
+                <h3 className="text-sm font-mono font-bold text-slate-900 uppercase">
                   {stage.title}
                 </h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {stage.desc}
                 </p>
               </div>

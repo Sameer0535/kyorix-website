@@ -71,69 +71,69 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
     <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
       {/* Contact Channels & Corporate Placeholders */}
       <div className="lg:col-span-5 space-y-6">
-        <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-4 sm:p-6 space-y-6">
+        <div className="bg-slate-50 border border-slate-200 rounded-2xl p-4 sm:p-6 space-y-6 shadow-xs">
           <div className="space-y-2">
-            <h3 className="text-base font-mono font-bold text-white uppercase tracking-wider">
+            <h3 className="text-base font-mono font-bold text-slate-900 uppercase tracking-wider">
               Communication Categories
             </h3>
-            <p className="text-xs text-gray-400">
+            <p className="text-xs text-slate-500">
               Direct your requirement to the appropriate competition engineering desk.
             </p>
           </div>
 
           <div className="space-y-4">
-            <div className="p-4 bg-[#111622] border border-[#1E2638] rounded-lg space-y-1">
+            <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs">
               <div className="text-xs font-mono font-bold text-kyorix-blue uppercase">
                 01 • BUSINESS & TOURNAMENT LICENSING
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Tournament systems, court software deployment, federation licensing and event technology packages.
               </p>
-              <div className="pt-2 text-[11px] font-mono text-gray-500">
+              <div className="pt-2 text-[11px] font-mono text-slate-400">
                 Inquiries routed to Commercial Solutions Desk
               </div>
             </div>
 
-            <div className="p-4 bg-[#111622] border border-[#1E2638] rounded-lg space-y-1">
+            <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs">
               <div className="text-xs font-mono font-bold text-kyorix-blue uppercase">
                 02 • TECHNOLOGY & PARTNERSHIPS
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Electronic scoring hardware manufacturers, timer developers, and platform integration partners.
               </p>
-              <div className="pt-2 text-[11px] font-mono text-gray-500">
+              <div className="pt-2 text-[11px] font-mono text-slate-400">
                 Inquiries routed to Engineering Architecture Desk
               </div>
             </div>
 
-            <div className="p-4 bg-[#111622] border border-[#1E2638] rounded-lg space-y-1">
+            <div className="p-4 bg-white border border-slate-200 rounded-xl space-y-1 shadow-xs">
               <div className="text-xs font-mono font-bold text-kyorix-blue uppercase">
                 03 • TECHNICAL SUPPORT & ON-SITE OPS
               </div>
-              <p className="text-xs text-gray-300 leading-relaxed">
+              <p className="text-xs text-slate-600 leading-relaxed">
                 Active competition technical support, scoring unit connectivity, and court management assistance.
               </p>
-              <div className="pt-2 text-[11px] font-mono text-gray-500">
+              <div className="pt-2 text-[11px] font-mono text-slate-400">
                 Inquiries routed to Event Operations Support Desk
               </div>
             </div>
           </div>
 
           {/* Explicit Corporate Placeholders Box */}
-          <div className="p-4 bg-amber-500/5 border border-amber-500/30 rounded-lg space-y-2 text-[11px] font-mono">
-            <div className="flex items-center gap-1.5 text-amber-400 font-bold uppercase tracking-wider">
+          <div className="p-4 bg-amber-50/70 border border-amber-200 rounded-xl space-y-2 text-[11px] font-mono">
+            <div className="flex items-center gap-1.5 text-amber-700 font-bold uppercase tracking-wider">
               <AlertCircle className="w-3.5 h-3.5" />
               <span>Official Registered Corporate Placeholders</span>
             </div>
-            <p className="text-gray-400 text-[10px] leading-normal">
+            <p className="text-slate-600 text-[10px] leading-normal">
               Direct company contact numbers, registration identifiers, and physical premises are currently configured as pre-launch placeholders:
             </p>
-            <div className="space-y-1 text-gray-300 pt-1">
-              <div>Email: <span className="text-gray-400">{COMPANY_INFO.placeholders.email}</span></div>
-              <div>Support: <span className="text-gray-400">{COMPANY_INFO.placeholders.supportEmail}</span></div>
-              <div>Phone: <span className="text-gray-400">{COMPANY_INFO.placeholders.phone}</span></div>
-              <div>Address: <span className="text-gray-400">{COMPANY_INFO.placeholders.address}</span></div>
-              <div>CIN: <span className="text-gray-400">{COMPANY_INFO.placeholders.cin}</span></div>
+            <div className="space-y-1 text-slate-700 pt-1">
+              <div>Email: <span className="text-slate-500">{COMPANY_INFO.placeholders.email}</span></div>
+              <div>Support: <span className="text-slate-500">{COMPANY_INFO.placeholders.supportEmail}</span></div>
+              <div>Phone: <span className="text-slate-500">{COMPANY_INFO.placeholders.phone}</span></div>
+              <div>Address: <span className="text-slate-500">{COMPANY_INFO.placeholders.address}</span></div>
+              <div>CIN: <span className="text-slate-500">{COMPANY_INFO.placeholders.cin}</span></div>
             </div>
           </div>
         </div>
@@ -141,7 +141,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
 
       {/* Main Form */}
       <div className="lg:col-span-7">
-        <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-4 sm:p-6 lg:p-8 shadow-2xl">
+        <div className="bg-white border border-slate-200 rounded-2xl p-4 sm:p-6 lg:p-8 shadow-xl">
           {status === "success" ? (
             <div className="space-y-6 text-left font-sans animate-in fade-in-50 duration-500">
               {/* Executive Header */}
@@ -361,7 +361,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label htmlFor="fullName" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="fullName" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Full Name *
                   </label>
                   <input
@@ -371,12 +371,12 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                     value={formData.fullName}
                     onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                     placeholder="e.g. David Kim"
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white placeholder-gray-600 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="organization" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="organization" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Organization / Federation *
                   </label>
                   <input
@@ -386,14 +386,14 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                     value={formData.organization}
                     onChange={(e) => setFormData({ ...formData, organization: e.target.value })}
                     placeholder="e.g. State Taekwondo Association"
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white placeholder-gray-600 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div className="space-y-1">
-                  <label htmlFor="designation" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="designation" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Designation / Role
                   </label>
                   <input
@@ -402,12 +402,12 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                     value={formData.designation}
                     onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
                     placeholder="e.g. Technical Director / Tournament Org"
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white placeholder-gray-600 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="email" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="email" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Corporate Email *
                   </label>
                   <input
@@ -417,14 +417,14 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     placeholder="name@organization.com"
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white placeholder-gray-600 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                 <div className="space-y-1">
-                  <label htmlFor="phone" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="phone" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Phone / WhatsApp
                   </label>
                   <input
@@ -433,12 +433,12 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                     placeholder="+91..."
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white placeholder-gray-600 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="country" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="country" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Country
                   </label>
                   <input
@@ -447,19 +447,19 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                     value={formData.country}
                     onChange={(e) => setFormData({ ...formData, country: e.target.value })}
                     placeholder="e.g. India"
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white placeholder-gray-600 focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   />
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="sport" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="sport" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Discipline / Sport
                   </label>
                   <select
                     id="sport"
                     value={formData.sport}
                     onChange={(e) => setFormData({ ...formData, sport: e.target.value })}
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   >
                     <option value="Taekwondo">Taekwondo</option>
                     <option value="Karate">Karate</option>
@@ -473,14 +473,14 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
 
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-1">
                 <div className="space-y-1">
-                  <label htmlFor="category" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="category" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Inquiry Desk
                   </label>
                   <select
                     id="category"
                     value={formData.category}
                     onChange={(e) => setFormData({ ...formData, category: e.target.value })}
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   >
                     <option>BUSINESS ENQUIRIES</option>
                     <option>PARTNERSHIPS</option>
@@ -489,14 +489,14 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                 </div>
 
                 <div className="space-y-1">
-                  <label htmlFor="interest" className="text-gray-300 uppercase tracking-wider block">
+                  <label htmlFor="interest" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                     Interested In *
                   </label>
                   <select
                     id="interest"
                     value={formData.interest}
                     onChange={(e) => setFormData({ ...formData, interest: e.target.value })}
-                    className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white focus:outline-none"
+                    className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30"
                   >
                     <option value="KYORIX ESS">KYORIX ESS (Electronic Scoring System)</option>
                     <option value="KYORIX BRACKET">KYORIX BRACKET (Draw & Progression)</option>
@@ -509,7 +509,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
               </div>
 
               <div className="space-y-1 pt-1">
-                <label htmlFor="message" className="text-gray-300 uppercase tracking-wider block">
+                <label htmlFor="message" className="text-slate-700 font-semibold uppercase tracking-wider block text-xs">
                   Competition Requirements / Message *
                 </label>
                 <textarea
@@ -519,7 +519,7 @@ export function ContactForm({ defaultIntent = "all" }: ContactFormProps) {
                   value={formData.message}
                   onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                   placeholder="Detail your tournament dates, anticipated athlete count, number of competition courts, and specific technology requirements..."
-                  className="w-full bg-[#111622] border border-[#1E2638] focus:border-kyorix-blue rounded px-3 py-2 text-white placeholder-gray-600 focus:outline-none resize-none"
+                  className="w-full bg-slate-50 border border-slate-300 focus:border-kyorix-blue focus:bg-white rounded px-3 py-2 text-slate-900 placeholder-slate-400 focus:outline-none focus:ring-1 focus:ring-kyorix-blue/30 resize-none"
                 />
               </div>
 

@@ -34,7 +34,7 @@ export function CompanyIntro() {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-[#08090C] border-t border-[#1E2638] relative">
+    <section className="py-20 md:py-28 bg-slate-50 border-t border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           label={mission.label || "COMPANY MISSION"}
@@ -50,15 +50,15 @@ export function CompanyIntro() {
           {blocks.map((block: any, idx: number) => (
             <div
               key={idx}
-              className="bg-[#0D1117] border border-[#1E2638] p-6 sm:p-8 rounded-lg space-y-4 hover:border-kyorix-blue/40 transition-colors"
+              className="bg-white border border-slate-200 p-6 sm:p-8 rounded-xl space-y-4 hover:border-kyorix-blue/50 hover:shadow-md transition-all shadow-xs"
             >
               <div className="text-3xl sm:text-4xl font-mono font-black text-kyorix-blue">
                 {block.number || `0${idx + 1}`}
               </div>
-              <h3 className="text-lg sm:text-xl font-mono font-bold text-white uppercase tracking-wider">
+              <h3 className="text-lg sm:text-xl font-mono font-bold text-slate-900 uppercase tracking-wider">
                 {block.title}
               </h3>
-              <p className="text-sm text-gray-400 leading-relaxed">
+              <p className="text-sm text-slate-600 leading-relaxed">
                 {block.desc}
               </p>
             </div>
@@ -66,27 +66,27 @@ export function CompanyIntro() {
         </div>
 
         {/* Restrained Sports Photography Banner */}
-        <div className="mt-12 rounded-xl overflow-hidden border border-[#1E2638] relative group">
+        <div className="mt-12 rounded-xl overflow-hidden border border-slate-200 shadow-sm relative group">
           <div className="relative h-64 sm:h-80 md:h-96 w-full">
             <Image
               src={mission.bannerImageSrc || "/images/arena-competition.jpg"}
               alt="International competitive sport arena featuring electronic scoring technology"
               fill
-              className="object-cover brightness-75 contrast-110 group-hover:scale-[1.01] transition-transform duration-500"
+              className="object-cover group-hover:scale-[1.01] transition-transform duration-500"
               unoptimized
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-[#08090C] via-transparent to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-slate-950/90 via-slate-950/30 to-transparent" />
             <div className="absolute bottom-4 sm:bottom-6 left-4 sm:left-6 right-4 sm:right-6 flex flex-col sm:flex-row sm:items-end justify-between gap-3 sm:gap-4">
               <div className="max-w-lg space-y-1">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-kyorix-blue uppercase bg-[#08090C]/80 px-2.5 py-1 rounded border border-kyorix-blue/30 inline-block">
+                <span className="text-[10px] font-mono font-bold tracking-widest text-cyan-300 uppercase bg-slate-900/90 px-2.5 py-1 rounded border border-cyan-500/30 inline-block shadow-sm">
                   {mission.bannerTag || "COMPETITIVE INTEGRITY"}
                 </span>
-                <p className="text-sm sm:text-base font-mono font-semibold text-white">
+                <p className="text-sm sm:text-base font-mono font-semibold text-white drop-shadow-sm">
                   {mission.bannerCaption ||
                     "Built to deliver absolute fairness, speed, and precision in sanctioned tournament environments."}
                 </p>
               </div>
-              <div className="text-[11px] font-mono text-gray-400 bg-[#08090C]/80 px-3 py-1.5 rounded border border-[#1E2638] shrink-0 self-start sm:self-auto">
+              <div className="text-[11px] font-mono text-slate-300 bg-slate-900/90 px-3 py-1.5 rounded border border-slate-700 shrink-0 self-start sm:self-auto shadow-sm">
                 {mission.bannerSubtext || "Official Arena Deployment Context"}
               </div>
             </div>

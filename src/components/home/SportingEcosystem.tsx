@@ -12,7 +12,7 @@ export function SportingEcosystem() {
   const icons = [Award, Users, Building2, Shield, Calendar, Trophy, Eye];
 
   return (
-    <section className="py-20 md:py-28 bg-[#08090C] border-t border-[#1E2638] relative">
+    <section className="py-20 md:py-28 bg-slate-50 border-t border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           label={ecosystem.label || ecosystem.tag || "STAKEHOLDER CONNECTIVITY"}
@@ -25,14 +25,14 @@ export function SportingEcosystem() {
         />
 
         {/* Central Platform Hub Visual */}
-        <div className="mb-12 p-6 bg-[#0D1117] border-2 border-kyorix-blue/40 rounded-xl text-center max-w-2xl mx-auto relative shadow-xl">
+        <div className="mb-12 p-6 bg-white border-2 border-kyorix-blue/40 rounded-2xl text-center max-w-2xl mx-auto relative shadow-sm">
           <div className="text-[10px] font-mono tracking-widest text-kyorix-blue uppercase font-semibold">
             {ecosystem.hubTag || "Central Infrastructure"}
           </div>
-          <div className="text-xl sm:text-2xl font-mono font-black text-white mt-1 uppercase tracking-wider">
+          <div className="text-xl sm:text-2xl font-mono font-black text-slate-900 mt-1 uppercase tracking-wider">
             {ecosystem.hubTitle || "KYORIX PLATFORM CORE"}
           </div>
-          <div className="text-xs text-gray-400 mt-1 max-w-md mx-auto">
+          <div className="text-xs text-slate-600 mt-1 max-w-md mx-auto">
             {ecosystem.hubDescription ||
               "Sub-millisecond data fabric linking all competitive stakeholders during tournament execution."}
           </div>
@@ -45,22 +45,22 @@ export function SportingEcosystem() {
             return (
               <div
                 key={stakeholder.role || idx}
-                className="bg-[#111622] border border-[#1E2638] rounded-lg p-5 space-y-3 hover:border-kyorix-blue/50 transition-colors group"
+                className="bg-white border border-slate-200 rounded-xl p-5 space-y-3 hover:border-kyorix-blue/60 hover:shadow-md transition-all shadow-xs group"
               >
                 <div className="flex items-center justify-between">
-                  <div className="p-2.5 bg-white/5 border border-white/10 rounded-md text-kyorix-blue group-hover:bg-kyorix-blue group-hover:text-white transition-colors">
+                  <div className="p-2.5 bg-blue-50 border border-blue-200 rounded-lg text-kyorix-blue group-hover:bg-kyorix-blue group-hover:text-white transition-colors">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono text-gray-500">
+                  <span className="text-[10px] font-mono text-slate-400 font-semibold">
                     ROLE 0{idx + 1}
                   </span>
                 </div>
 
-                <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider group-hover:text-kyorix-blue transition-colors">
+                <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider group-hover:text-kyorix-blue transition-colors">
                   {stakeholder.role}
                 </h3>
 
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {stakeholder.description}
                 </p>
               </div>

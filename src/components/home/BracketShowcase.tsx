@@ -12,7 +12,7 @@ export function BracketShowcase() {
   const bracket = content.bracketProduct;
 
   return (
-    <section className="py-20 md:py-28 bg-[#08090C] border-t border-[#1E2638] relative">
+    <section className="py-20 md:py-28 bg-white border-t border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-10">
           <SectionHeading
@@ -23,7 +23,7 @@ export function BracketShowcase() {
           />
           <Link
             href={bracket.ctaLink || "/products/bracket"}
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-kyorix-blue hover:text-white transition-colors shrink-0"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-kyorix-blue hover:text-blue-700 transition-colors shrink-0"
           >
             <span>{bracket.ctaText || "VIEW KYORIX BRACKET"}</span>
             <ArrowRight className="w-4 h-4" />

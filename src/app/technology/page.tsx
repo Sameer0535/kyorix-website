@@ -123,21 +123,21 @@ const TECH_SECTIONS = [
 
 export default function TechnologyPage() {
   return (
-    <div className="pt-32 pb-24 bg-[#08090C] min-h-screen">
+    <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
         {/* Hero */}
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
             <span className="w-2 h-2 rounded-full bg-kyorix-blue" />
             <span className="text-xs font-mono font-bold tracking-widest text-kyorix-blue uppercase">
               TECHNICAL SPECIFICATIONS
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-white uppercase leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-slate-900 uppercase leading-tight">
             ENGINEERED FOR <br />
             <span className="text-kyorix-blue">COMPETITION.</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
             Sanctioned competitive sporting events leave zero room for communication latency, corrupted draw trees, or scoring disputes. Kyorix software architecture is built on deterministic engineering, strict data lineage, and resilient offline court caching.
           </p>
         </div>
@@ -147,11 +147,11 @@ export default function TechnologyPage() {
 
         {/* The 8 Core Technical Areas */}
         <div className="space-y-6">
-          <div className="border-b border-[#1E2638] pb-4">
-            <h2 className="text-2xl font-mono font-bold text-white uppercase tracking-wider">
+          <div className="border-b border-slate-200 pb-4">
+            <h2 className="text-2xl font-mono font-bold text-slate-900 uppercase tracking-wider">
               Architecture Modules & Protocols
             </h2>
-            <p className="text-xs font-mono text-gray-400 mt-1">
+            <p className="text-xs font-mono text-slate-500 mt-1">
               Technical overview of systems driving the Kyorix platform suite
             </p>
           </div>
@@ -162,24 +162,24 @@ export default function TechnologyPage() {
               return (
                 <div
                   key={sec.id}
-                  className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-6 sm:p-7 space-y-4 hover:border-kyorix-blue/50 transition-colors"
+                  className="bg-slate-50 border border-slate-200 rounded-xl p-6 sm:p-7 space-y-4 hover:border-kyorix-blue/50 shadow-sm transition-colors"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="p-2.5 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded text-kyorix-blue">
+                    <div className="p-2.5 bg-blue-50 border border-blue-200 rounded text-kyorix-blue">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <h3 className="text-base font-mono font-bold text-white uppercase tracking-wider">
+                    <h3 className="text-base font-mono font-bold text-slate-900 uppercase tracking-wider">
                       {sec.title}
                     </h3>
                   </div>
 
-                  <p className="text-xs text-gray-400 leading-relaxed">
+                  <p className="text-xs text-slate-600 leading-relaxed">
                     {sec.description}
                   </p>
 
-                  <div className="pt-2 border-t border-[#1E2638] space-y-1.5">
+                  <div className="pt-2 border-t border-slate-200 space-y-1.5">
                     {sec.highlights.map((h) => (
-                      <div key={h} className="flex items-center gap-2 text-xs font-mono text-gray-300">
+                      <div key={h} className="flex items-center gap-2 text-xs font-mono text-slate-700">
                         <span className="w-1.5 h-1.5 rounded-full bg-kyorix-blue shrink-0" />
                         <span>{h}</span>
                       </div>
@@ -192,8 +192,8 @@ export default function TechnologyPage() {
         </div>
 
         {/* Architecture Note on Integrity */}
-        <div className="bg-[#111622] border border-[#1E2638] rounded-xl p-6 text-xs font-mono text-gray-400 space-y-2">
-          <div className="text-white font-bold uppercase tracking-wider flex items-center gap-2">
+        <div className="bg-slate-50 border border-slate-200 rounded-xl p-6 text-xs font-mono text-slate-600 space-y-2 shadow-sm">
+          <div className="text-slate-900 font-bold uppercase tracking-wider flex items-center gap-2">
             <ShieldCheck className="w-4 h-4 text-kyorix-blue" />
             Engineering Integrity Statement
           </div>

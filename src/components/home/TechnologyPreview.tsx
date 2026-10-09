@@ -14,7 +14,7 @@ export function TechnologyPreview() {
   const icons = [Network, Cpu, ShieldCheck, Database];
 
   return (
-    <section className="py-20 md:py-28 bg-[#08090C] border-t border-[#1E2638] relative">
+    <section className="py-20 md:py-28 bg-white border-t border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <SectionHeading
@@ -28,7 +28,7 @@ export function TechnologyPreview() {
           />
           <Link
             href={tech.ctaLink || "/technology"}
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-kyorix-blue hover:text-white transition-colors shrink-0"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-kyorix-blue hover:text-blue-700 transition-colors shrink-0"
           >
             <span>{tech.ctaText || "FULL TECHNICAL ARCHITECTURE"}</span>
             <ArrowRight className="w-4 h-4" />
@@ -42,20 +42,20 @@ export function TechnologyPreview() {
             return (
               <div
                 key={pillar.title || idx}
-                className="bg-[#0D1117] border border-[#1E2638] rounded-lg p-6 space-y-3 hover:border-kyorix-blue/40 transition-colors"
+                className="bg-slate-50 border border-slate-200 rounded-xl p-6 space-y-3 hover:border-kyorix-blue/50 hover:bg-white hover:shadow-md transition-all shadow-xs"
               >
                 <div className="flex items-center justify-between">
-                  <div className="p-2.5 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded text-kyorix-blue">
+                  <div className="p-2.5 bg-blue-50 border border-blue-200 rounded-lg text-kyorix-blue">
                     <Icon className="w-5 h-5" />
                   </div>
-                  <span className="text-[10px] font-mono text-kyorix-blue uppercase">
+                  <span className="text-[10px] font-mono text-kyorix-blue font-bold uppercase">
                     {pillar.tag}
                   </span>
                 </div>
-                <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
+                <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider">
                   {pillar.title}
                 </h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {pillar.desc}
                 </p>
               </div>

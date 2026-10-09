@@ -10,7 +10,7 @@ export function CompetitionLifecycle() {
   const stages = lifecycle.stages || [];
 
   return (
-    <section className="py-20 md:py-28 bg-[#08090C] border-t border-[#1E2638] relative overflow-hidden">
+    <section className="py-20 md:py-28 bg-slate-50 border-t border-slate-200 relative overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <SectionHeading
           label={lifecycle.label || "END-TO-END COMPETITION WORKFLOW"}
@@ -25,7 +25,7 @@ export function CompetitionLifecycle() {
         <div className="hidden lg:block mt-12 overflow-x-auto pb-6">
           <div className="min-w-[1100px] relative">
             {/* Continuous Connecting Line */}
-            <div className="absolute top-6 left-6 right-6 h-0.5 bg-gradient-to-r from-kyorix-blue via-[#1E2638] to-kyorix-blue" />
+            <div className="absolute top-6 left-6 right-6 h-0.5 bg-gradient-to-r from-kyorix-blue via-slate-300 to-kyorix-blue" />
 
             <div
               className="grid gap-2 relative z-10"
@@ -34,16 +34,16 @@ export function CompetitionLifecycle() {
               {stages.map((stage) => (
                 <div key={stage.step} className="flex flex-col items-center text-center group">
                   {/* Step Node */}
-                  <div className="w-12 h-12 rounded-full bg-[#111622] border-2 border-[#1E2638] group-hover:border-kyorix-blue flex items-center justify-center font-mono font-bold text-xs text-white shadow-md transition-all duration-200 group-hover:scale-110">
+                  <div className="w-12 h-12 rounded-full bg-white border-2 border-slate-300 group-hover:border-kyorix-blue flex items-center justify-center font-mono font-bold text-xs text-slate-800 group-hover:text-kyorix-blue shadow-sm transition-all duration-200 group-hover:scale-110">
                     {stage.step}
                   </div>
 
                   {/* Title & Desc */}
                   <div className="mt-4 space-y-1">
-                    <div className="text-[11px] font-mono font-bold text-white tracking-wider uppercase group-hover:text-kyorix-blue transition-colors">
+                    <div className="text-[11px] font-mono font-bold text-slate-900 tracking-wider uppercase group-hover:text-kyorix-blue transition-colors">
                       {stage.name}
                     </div>
-                    <div className="text-[10px] text-gray-500 font-mono leading-tight px-1">
+                    <div className="text-[10px] text-slate-500 font-mono leading-tight px-1">
                       {stage.desc}
                     </div>
                   </div>
@@ -59,15 +59,15 @@ export function CompetitionLifecycle() {
             {stages.map((stage) => (
               <div key={stage.step} className="relative group">
                 {/* Bullet centered on timeline line */}
-                <div className="absolute -left-[41px] sm:-left-[45px] top-1 w-6 h-6 rounded-full bg-[#111622] border-2 border-kyorix-blue flex items-center justify-center text-[10px] font-mono font-bold text-white shadow-md">
+                <div className="absolute -left-[41px] sm:-left-[45px] top-1 w-6 h-6 rounded-full bg-white border-2 border-kyorix-blue flex items-center justify-center text-[10px] font-mono font-bold text-kyorix-blue shadow-sm">
                   {stage.step}
                 </div>
 
-                <div className="bg-[#111622] border border-[#1E2638] rounded-lg p-3.5 space-y-1">
-                  <div className="text-xs font-mono font-bold text-white uppercase tracking-wider">
+                <div className="bg-white border border-slate-200 rounded-xl p-3.5 space-y-1 shadow-xs">
+                  <div className="text-xs font-mono font-bold text-slate-900 uppercase tracking-wider">
                     {stage.name}
                   </div>
-                  <div className="text-xs text-gray-400 font-mono">
+                  <div className="text-xs text-slate-600 font-mono">
                     {stage.desc}
                   </div>
                 </div>

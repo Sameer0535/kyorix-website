@@ -11,7 +11,7 @@ export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
   maximumScale: 5,
-  themeColor: "#08090C",
+  themeColor: "#FFFFFF",
 };
 
 const inter = Inter({
@@ -100,7 +100,7 @@ export default function RootLayout({
   const initialContent = getInitialContent();
   return (
     <html lang="en" className={`${inter.variable} ${jetbrainsMono.variable}`}>
-      <body className="bg-[#08090C] text-gray-100 min-h-screen flex flex-col font-sans selection:bg-kyorix-blue selection:text-white">
+      <body className="bg-white text-slate-800 min-h-screen flex flex-col font-sans selection:bg-kyorix-blue selection:text-white">
         <SiteContentProvider initialData={initialContent}>
           <AppShell>{children}</AppShell>
         </SiteContentProvider>

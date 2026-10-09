@@ -424,21 +424,21 @@ export default function AdminPortalPage() {
   // ==========================================
   if (!isAuthenticated) {
     return (
-      <div className="min-h-screen bg-[#08090C] text-white flex items-center justify-center p-4">
+      <div className="min-h-screen bg-slate-50 text-slate-900 flex items-center justify-center p-4">
         {toastNotification}
-        <div className="w-full max-w-md bg-[#0D1117] border border-[#1E2638] rounded-2xl p-8 shadow-2xl space-y-6">
+        <div className="w-full max-w-md bg-white border border-slate-200 rounded-2xl p-8 shadow-xl space-y-6">
           <div className="text-center space-y-3">
-            <div className="w-14 h-14 rounded-2xl bg-kyorix-blue/10 border border-kyorix-blue/30 flex items-center justify-center mx-auto text-kyorix-blue">
+            <div className="w-14 h-14 rounded-2xl bg-blue-50 border border-blue-200 flex items-center justify-center mx-auto text-kyorix-blue">
               <Lock className="w-7 h-7" />
             </div>
             <div>
               <div className="text-[11px] font-mono font-bold tracking-widest text-kyorix-blue uppercase">
                 RESTRICTED ACCESS
               </div>
-              <h1 className="text-xl font-mono font-bold text-white uppercase mt-1">
+              <h1 className="text-xl font-mono font-bold text-slate-900 uppercase mt-1">
                 KYORIX ADMIN CONSOLE
               </h1>
-              <p className="text-xs text-gray-400 mt-1">
+              <p className="text-xs text-slate-500 mt-1">
                 Enter your administrative PIN to manage website text, photos, and configurations.
               </p>
             </div>
@@ -446,7 +446,7 @@ export default function AdminPortalPage() {
 
           <form onSubmit={handleLoginSubmit} className="space-y-4">
             <div className="space-y-1.5">
-              <label className="text-[11px] font-mono font-bold text-gray-400 uppercase">
+              <label className="text-[11px] font-mono font-bold text-slate-600 uppercase">
                 SECURITY PIN
               </label>
               <div className="relative">
@@ -456,14 +456,14 @@ export default function AdminPortalPage() {
                   onChange={(e) => setPinInput(e.target.value)}
                   placeholder="Enter passcode"
                   autoFocus
-                  className={`w-full bg-[#08090C] border ${
-                    pinError ? "border-red-500 ring-1 ring-red-500" : "border-[#1E2638] focus:border-kyorix-blue"
-                  } rounded-lg px-4 py-3 text-sm font-mono text-white placeholder-gray-600 focus:outline-none transition-colors pr-10`}
+                  className={`w-full bg-slate-50 border ${
+                    pinError ? "border-red-500 ring-1 ring-red-500" : "border-slate-300 focus:border-kyorix-blue focus:bg-white"
+                  } rounded-lg px-4 py-3 text-sm font-mono text-slate-900 placeholder-slate-400 focus:outline-none transition-colors pr-10`}
                 />
                 <button
                   type="button"
                   onClick={() => setShowPin(!showPin)}
-                  className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-300"
+                  className="absolute right-3 top-1/2 -translate-y-1/2 text-slate-400 hover:text-slate-600"
                 >
                   {showPin ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
                 </button>

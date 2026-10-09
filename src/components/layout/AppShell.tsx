@@ -10,7 +10,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
   const isAdmin = pathname?.startsWith("/admin");
 
   if (isAdmin) {
-    return <main className="min-h-screen bg-[#08090C] text-gray-100 w-full overflow-x-clip min-w-0">{children}</main>;
+    return <main className="min-h-screen bg-slate-50 text-slate-900 w-full overflow-x-clip min-w-0">{children}</main>;
   }
 
   return (

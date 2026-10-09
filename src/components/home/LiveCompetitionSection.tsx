@@ -50,7 +50,7 @@ export function LiveCompetitionSection() {
   ];
 
   return (
-    <section className="py-20 md:py-28 bg-[#0D1117] border-t border-[#1E2638] relative">
+    <section className="py-20 md:py-28 bg-slate-50 border-t border-slate-200 relative">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
           <SectionHeading
@@ -61,7 +61,7 @@ export function LiveCompetitionSection() {
           />
           <Link
             href="/events"
-            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-kyorix-blue hover:text-white transition-colors shrink-0"
+            className="inline-flex items-center gap-2 text-xs font-mono font-bold tracking-wider uppercase text-kyorix-blue hover:text-kyorix-blue-hover transition-colors shrink-0"
           >
             <span>LIVE ARENA HUB & EVENTS</span>
             <ArrowRight className="w-4 h-4" />
@@ -73,17 +73,17 @@ export function LiveCompetitionSection() {
           {courts.map((c) => (
             <div
               key={c.court}
-              className="bg-[#111622] border border-[#1E2638] rounded-lg p-5 space-y-3 hover:border-kyorix-blue/50 transition-colors shadow-lg"
+              className="bg-white border border-slate-200 rounded-lg p-5 space-y-3 hover:border-kyorix-blue/50 transition-colors shadow-sm"
             >
               <div className="flex items-center justify-between text-xs font-mono">
-                <span className="font-bold text-white">{c.court}</span>
+                <span className="font-bold text-slate-900">{c.court}</span>
                 <span
                   className={`px-2 py-0.5 rounded text-[10px] font-bold ${
                     c.status === "LIVE"
-                      ? "bg-emerald-500/15 text-emerald-400 border border-emerald-500/30 animate-pulse"
+                      ? "bg-emerald-500/15 text-emerald-600 border border-emerald-500/30 animate-pulse"
                       : c.status === "NEXT MATCH"
-                      ? "bg-amber-500/15 text-amber-400 border border-amber-500/30"
-                      : "bg-white/5 text-gray-400 border border-white/10"
+                      ? "bg-amber-500/15 text-amber-600 border border-amber-500/30"
+                      : "bg-slate-100 text-slate-600 border border-slate-200"
                   }`}
                 >
                   ● {c.status}
@@ -91,16 +91,16 @@ export function LiveCompetitionSection() {
               </div>
 
               <div className="space-y-1">
-                <div className="text-[11px] font-mono text-gray-400">
+                <div className="text-[11px] font-mono text-slate-500">
                   {c.category}
                 </div>
-                <div className="text-base font-mono font-bold text-white">
+                <div className="text-base font-mono font-bold text-slate-900">
                   {c.match}
                 </div>
               </div>
 
-              <div className="pt-2 border-t border-[#1E2638] flex items-center justify-between text-xs font-mono">
-                <span className="text-gray-400">{c.round}</span>
+              <div className="pt-2 border-t border-slate-100 flex items-center justify-between text-xs font-mono">
+                <span className="text-slate-500">{c.round}</span>
                 <span className="font-bold text-kyorix-blue">{c.score}</span>
               </div>
             </div>
@@ -108,7 +108,7 @@ export function LiveCompetitionSection() {
         </div>
 
         {/* Action Photography Context Box */}
-        <div className="bg-[#08090C] border border-[#1E2638] rounded-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-center">
+        <div className="bg-white border border-slate-200 rounded-xl overflow-hidden grid grid-cols-1 lg:grid-cols-12 items-center shadow-sm">
           <div className="lg:col-span-7 p-6 sm:p-8 space-y-4">
             <div className="inline-flex items-center gap-2">
               <span className="w-2 h-2 rounded-full bg-kyorix-blue" />
@@ -116,23 +116,23 @@ export function LiveCompetitionSection() {
                 OFFICIAL SANCTIONED RIGOR
               </span>
             </div>
-            <h3 className="text-xl sm:text-2xl font-mono font-bold text-white uppercase tracking-tight">
+            <h3 className="text-xl sm:text-2xl font-mono font-bold text-slate-900 uppercase tracking-tight">
               Built for Officials, Referees & Technical Delegates.
             </h3>
-            <p className="text-xs sm:text-sm text-gray-400 leading-relaxed">
+            <p className="text-xs sm:text-sm text-slate-600 leading-relaxed">
               In international competitive martial arts, instant decision fidelity is critical. Kyorix platforms are architected around official sport regulations, protest procedures, electronic video replay integration, and strict score verifications.
             </p>
-            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-gray-400">
+            <div className="pt-2 flex flex-wrap items-center gap-4 text-xs font-mono text-slate-600">
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>Synchronized Judge Buttons</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>Auditable Gam-jeom Log</span>
               </div>
               <div className="flex items-center gap-1.5">
-                <CheckCircle2 className="w-4 h-4 text-emerald-400" />
+                <CheckCircle2 className="w-4 h-4 text-emerald-600" />
                 <span>Video Replay Timecodes</span>
               </div>
             </div>
@@ -143,9 +143,9 @@ export function LiveCompetitionSection() {
               src="/images/referee-court.jpg"
               alt="Official referee signaling point on competition mat with live scoreboards"
               fill
-              className="object-cover brightness-90 contrast-105"
+              className="object-cover"
             />
-            <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l from-transparent to-[#08090C]/60" />
+            <div className="absolute inset-0 bg-gradient-to-t lg:bg-gradient-to-l from-transparent to-white/40" />
           </div>
         </div>
       </div>

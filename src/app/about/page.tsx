@@ -58,47 +58,47 @@ const VERIFIED_MILESTONES = [
 
 export default function AboutPage() {
   return (
-    <div className="pt-32 pb-24 bg-[#08090C] min-h-screen">
+    <div className="pt-32 pb-24 bg-white min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 space-y-20">
         {/* Hero */}
         <div className="max-w-3xl space-y-4">
-          <div className="inline-flex items-center gap-2 px-3 py-1 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-full">
+          <div className="inline-flex items-center gap-2 px-3 py-1 bg-blue-50 border border-blue-200 rounded-full">
             <span className="w-2 h-2 rounded-full bg-kyorix-blue" />
             <span className="text-xs font-mono font-bold tracking-widest text-kyorix-blue uppercase">
               ABOUT KYORIX
             </span>
           </div>
-          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-white uppercase leading-tight">
+          <h1 className="text-4xl sm:text-5xl md:text-6xl font-black font-mono tracking-tight text-slate-900 uppercase leading-tight">
             WE BUILD TECHNOLOGY <br />
             <span className="text-kyorix-blue">FOR SPORT.</span>
           </h1>
-          <p className="text-base sm:text-lg text-gray-300 font-normal leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
             {COMPANY_INFO.name} is a sports technology company focused on building digital infrastructure for competitive sporting events. We develop intelligent software and technology systems that ensure every match is scored accurately, managed smoothly, and decided fairly.
           </p>
         </div>
 
         {/* Mission & Vision */}
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-8 space-y-4 relative overflow-hidden">
-            <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg w-fit text-kyorix-blue">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 space-y-4 relative overflow-hidden shadow-sm">
+            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg w-fit text-kyorix-blue">
               <Target className="w-6 h-6" />
             </div>
-            <h2 className="text-xl font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-xl font-mono font-bold text-slate-900 uppercase tracking-wider">
               OUR MISSION
             </h2>
-            <p className="text-sm text-gray-300 leading-relaxed font-normal">
+            <p className="text-sm text-slate-600 leading-relaxed font-normal">
               To build reliable technology that makes competitive sport more connected, efficient and technologically advanced.
             </p>
           </div>
 
-          <div className="bg-[#0D1117] border border-[#1E2638] rounded-xl p-8 space-y-4 relative overflow-hidden">
-            <div className="p-3 bg-kyorix-blue/10 border border-kyorix-blue/30 rounded-lg w-fit text-kyorix-blue">
+          <div className="bg-slate-50 border border-slate-200 rounded-xl p-8 space-y-4 relative overflow-hidden shadow-sm">
+            <div className="p-3 bg-blue-50 border border-blue-200 rounded-lg w-fit text-kyorix-blue">
               <Eye className="w-6 h-6" />
             </div>
-            <h2 className="text-xl font-mono font-bold text-white uppercase tracking-wider">
+            <h2 className="text-xl font-mono font-bold text-slate-900 uppercase tracking-wider">
               OUR VISION
             </h2>
-            <p className="text-sm text-gray-300 leading-relaxed font-normal">
+            <p className="text-sm text-slate-600 leading-relaxed font-normal">
               To create a sports technology ecosystem connecting athletes, officials, organizers and sporting institutions.
             </p>
           </div>
@@ -116,15 +116,15 @@ export default function AboutPage() {
             {CORE_VALUES.map((val, idx) => (
               <div
                 key={val.title}
-                className="bg-[#111622] border border-[#1E2638] rounded-lg p-5 space-y-3 hover:border-kyorix-blue/40 transition-colors"
+                className="bg-slate-50 border border-slate-200 rounded-lg p-5 space-y-3 hover:border-kyorix-blue/40 shadow-sm transition-colors"
               >
                 <div className="text-xs font-mono font-bold text-kyorix-blue">
                   0{idx + 1}
                 </div>
-                <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
+                <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider">
                   {val.title}
                 </h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {val.desc}
                 </p>
               </div>
@@ -133,7 +133,7 @@ export default function AboutPage() {
         </div>
 
         {/* Verified Company Milestone Timeline */}
-        <div className="space-y-8 border-t border-[#1E2638] pt-16">
+        <div className="space-y-8 border-t border-slate-200 pt-16">
           <SectionHeading
             label="COMPANY PROGRESSION"
             title="ORGANIZATIONAL ROADMAP"
@@ -144,15 +144,15 @@ export default function AboutPage() {
             {VERIFIED_MILESTONES.map((m) => (
               <div
                 key={m.year}
-                className="bg-[#0D1117] border border-[#1E2638] rounded-lg p-6 space-y-3"
+                className="bg-slate-50 border border-slate-200 rounded-lg p-6 space-y-3 shadow-sm hover:border-kyorix-blue/40 transition-colors"
               >
                 <div className="text-xs font-mono font-bold text-kyorix-blue uppercase">
                   {m.year}
                 </div>
-                <h3 className="text-sm font-mono font-bold text-white uppercase tracking-wider">
+                <h3 className="text-sm font-mono font-bold text-slate-900 uppercase tracking-wider">
                   {m.title}
                 </h3>
-                <p className="text-xs text-gray-400 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {m.desc}
                 </p>
               </div>
@@ -161,8 +161,8 @@ export default function AboutPage() {
         </div>
 
         {/* Corporate Legal Placeholders */}
-        <div className="p-6 bg-[#0D1117] border border-[#1E2638] rounded-xl text-xs font-mono text-gray-400 space-y-2">
-          <div className="text-white font-bold uppercase tracking-wider">
+        <div className="p-6 bg-slate-50 border border-slate-200 rounded-xl text-xs font-mono text-slate-600 space-y-2 shadow-sm">
+          <div className="text-slate-900 font-bold uppercase tracking-wider">
             Corporate Registry Notes
           </div>
           <p className="leading-relaxed">
